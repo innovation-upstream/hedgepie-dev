@@ -1,15 +1,15 @@
-import React, { useState, useEffect, ReactNode } from "react"
-import { ethers } from "ethers"
-import Web3Modal from "web3modal"
-import WalletConnectProvider from "@walletconnect/web3-provider"
+import React, { useState, useEffect, ReactNode } from 'react'
+import { ethers } from 'ethers'
+import Web3Modal from 'web3modal'
+import WalletConnectProvider from '@walletconnect/web3-provider'
 
 const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: "28bcee6173ee4dfdb2ad077b026627c5" // required
-    }
-  }
+      infuraId: '28bcee6173ee4dfdb2ad077b026627c5', // required
+    },
+  },
 }
 
 type Props = { children?: ReactNode }
@@ -26,18 +26,17 @@ export const ConnectWallet = (props: Props) => {
   }
 
   useEffect(() => {
-    console.log("web3Modal:" + JSON.stringify(web3Modal))
+    // console.log("web3Modal:" + JSON.stringify(web3Modal))
     if (web3Modal) getInstance()
   }, [web3Modal])
 
   const connectWallet = () => {
-    console.log("SD")
     setWeb3Modal(
       new Web3Modal({
-        network: "mainnet", // optional
+        network: 'mainnet', // optional
         cacheProvider: true, // optional
-        providerOptions // required
-      })
+        providerOptions, // required
+      }),
     )
   }
 
@@ -68,22 +67,22 @@ export const ConnectWallet = (props: Props) => {
     if (provider) {
       console.log(provider)
       // Subscribe to accounts change
-      provider.on("accountsChanged", (accounts: string[]) => {
+      provider.on('accountsChanged', (accounts: string[]) => {
         console.log(accounts)
       })
 
       // Subscribe to chainId change
-      provider.on("chainChanged", (chainId: number) => {
+      provider.on('chainChanged', (chainId: number) => {
         console.log(chainId)
       })
 
       // Subscribe to provider connection
-      provider.on("connect", (info: { chainId: number }) => {
+      provider.on('connect', (info: { chainId: number }) => {
         console.log(info)
       })
 
       // Subscribe to provider disconnection
-      provider.on("disconnect", (error: { code: number; message: string }) => {
+      provider.on('disconnect', (error: { code: number; message: string }) => {
         console.log(error)
       })
     }

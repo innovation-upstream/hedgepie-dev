@@ -1,23 +1,16 @@
 /* eslint-disable no-use-before-define */
-import React from "react"
-import type { NextPage } from "next"
-import Head from "next/head"
+import React from 'react'
+import type { NextPage } from 'next'
 
-// Components
-// import { Home } from "components/Home"
+import { Mint } from 'components/Mint'
+import { HedgePieFinance } from 'components/HedgePieFinance'
 
-const Mint: NextPage = () => {
+const VaultPage: NextPage = () => {
   return (
-    <div>
-      <Head>
-        <title>Hedge Pie</title>
-        <meta name="description" content="Hedge Pie Finance" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main>MINT</main>
-    </div>
+    <HedgePieFinance title="Mint">
+      <Mint />
+    </HedgePieFinance>
   )
 }
 
-export default Mint
+export default VaultPage
