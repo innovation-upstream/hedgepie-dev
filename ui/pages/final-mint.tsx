@@ -2,13 +2,13 @@
 import React from 'react'
 import type { NextPage } from 'next'
 
-import { Mint } from 'components/Mint'
+import { FinalMint } from 'components/FinalMint'
 import { HedgePieFinance } from 'components/HedgePieFinance'
 
 const VaultPage: NextPage = () => {
   return (
     <HedgePieFinance title="Mint">
-      <Mint />
+      <FinalMint />
     </HedgePieFinance>
   )
 }

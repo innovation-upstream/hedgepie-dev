@@ -1,19 +1,19 @@
-import React from "react"
-import { HPConnectWalletButton } from "widgets/HPConnectWalletButton"
-import { Flex, NavLink } from "theme-ui"
-import { useRouter } from "next/router"
+import React from 'react'
+import { HPConnectWalletButton } from 'widgets/HPConnectWalletButton'
+import { Flex, NavLink } from 'theme-ui'
+import { useRouter } from 'next/router'
 
-import themeStyles from "./themeStyles"
+import themeStyles from './themeStyles'
 
 type Props = {}
 
 const NavBar = (props: Props) => {
   const router = useRouter()
   return (
-    <Flex as="nav" sx={themeStyles.nav_wrapper} css={{ alignItems: "center" }}>
+    <Flex as="nav" sx={themeStyles.nav_wrapper} css={{ alignItems: 'center' }}>
       <NavLink
         onClick={() => {
-          router.push("/vault")
+          router.push('/vault')
         }}
         sx={themeStyles.nav}
       >
@@ -21,7 +21,7 @@ const NavBar = (props: Props) => {
       </NavLink>
       <NavLink
         onClick={() => {
-          router.push("/finished-lotteries")
+          router.push('/finished-lotteries')
         }}
         sx={themeStyles.nav}
       >
@@ -29,7 +29,7 @@ const NavBar = (props: Props) => {
       </NavLink>
       <NavLink
         onClick={() => {
-          router.push("/details")
+          router.push('/details')
         }}
         sx={themeStyles.nav}
       >
@@ -37,7 +37,7 @@ const NavBar = (props: Props) => {
       </NavLink>
       <NavLink
         onClick={() => {
-          router.push("/details")
+          router.push('/mint')
         }}
         sx={themeStyles.nav}
       >
