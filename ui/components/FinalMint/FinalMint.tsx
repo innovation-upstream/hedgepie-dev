@@ -16,6 +16,9 @@ import {
 
 import { theme } from 'themes/theme'
 
+import { FiUnlock, FiLock } from 'react-icons/fi'
+import { RiDeleteBinLine } from 'react-icons/ri'
+
 type Props = {}
 
 type Position = {
@@ -27,11 +30,16 @@ type Position = {
 const FinalMint = (props: Props) => {
   const [step, setStep] = useState(1)
   const [positions, setPositions] = useState([] as Position[])
+  const [locked, setLocked] = useState([] as boolean[])
   const [allocated, setAllocated] = useState(0)
   const [performanceFee, setPerformanceFee] = useState(0)
   const [YBNFTName, setYBNFTName] = useState('')
   const [chosenFileName, setChosenFileName] = useState('')
   const [chosenFile, setChosenFile] = useState<any | undefined>()
+
+  useEffect(() => {
+    console.log(JSON.stringify(locked))
+  }, [locked])
 
   const onWeightChange = (event: any) => {
     var newPositions = [...positions]
@@ -88,7 +96,7 @@ const FinalMint = (props: Props) => {
           <Flex
             css={{
               width: 'max-content',
-              //   border: '2px solid black',
+              // border: '2px solid black',
               boxShadow: '0px 25px 55px rgba(209, 208, 219, 0.4)',
               flexDirection: 'column',
             }}
@@ -96,7 +104,7 @@ const FinalMint = (props: Props) => {
             {/* Banner */}
             <Flex
               css={{
-                height: '4rem',
+                height: '5rem',
                 alignItems: 'center',
                 paddingLeft: '2rem',
                 backgroundColor: '#1799DE',
@@ -112,7 +120,7 @@ const FinalMint = (props: Props) => {
             <Flex
               css={{
                 flexDirection: 'row',
-                gap: '4rem',
+                // gap: '4rem',
                 margin: '2rem',
                 justifyContent: 'center',
                 alignItems: 'center',
@@ -126,56 +134,130 @@ const FinalMint = (props: Props) => {
                   gap: '1rem',
                 }}
               >
-                <Text css={{ fontFamily: 'Noto Sans' }}>
+                <Text
+                  css={{
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    color: step === 1 ? '#16103A' : '#8E8DA0',
+                  }}
+                >
                   Choose Positions and Weights
                 </Text>
                 <Button
-                  css={{ cursor: 'pointer' }}
+                  css={{
+                    cursor: 'pointer',
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '800',
+                    fontSize: '36px',
+                    color: step === 1 ? '#16103A' : '#8E8DA0',
+                    backgroundColor: '#fff',
+                    border: '2px solid #1799DE',
+                    borderRadius: '72px',
+                    width: '72px',
+                    height: '72px',
+                  }}
                   onClick={() => {
                     setStep(1)
                   }}
                 >
-                  Step 1
+                  1
                 </Button>
               </Flex>
+              <div
+                style={{
+                  width: '250px',
+                  height: '2px',
+                  backgroundColor: '#1799DE',
+                  marginTop: '38px',
+                  marginLeft: '-78px',
+                }}
+              ></div>
               <Flex
                 css={{
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: '1rem',
+                  marginLeft: '-100px',
                 }}
               >
-                <Text css={{ fontFamily: 'Noto Sans' }}>
+                <Text
+                  css={{
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    color: step === 2 ? '#16103A' : '#8E8DA0',
+                  }}
+                >
                   Set Performance Fee
                 </Text>
                 <Button
-                  css={{ cursor: 'pointer' }}
+                  css={{
+                    cursor: 'pointer',
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '800',
+                    fontSize: '36px',
+                    color: step === 2 ? '#16103A' : '#8E8DA0',
+                    backgroundColor: '#fff',
+                    border: '2px solid #1799DE',
+                    borderRadius: '72px',
+                    width: '72px',
+                    height: '72px',
+                  }}
                   onClick={() => {
                     setStep(2)
                   }}
                 >
-                  Step 2
+                  2
                 </Button>
               </Flex>
+              <div
+                style={{
+                  width: '250px',
+                  height: '2px',
+                  backgroundColor: '#1799DE',
+                  marginTop: '38px',
+                  marginLeft: '-42px',
+                }}
+              ></div>
               <Flex
                 css={{
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
                   gap: '1rem',
+                  marginLeft: '-100px',
                 }}
               >
-                <Text css={{ fontFamily: 'Noto Sans' }}>
+                <Text
+                  css={{
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '600',
+                    fontSize: '16px',
+                    color: step === 3 ? '#16103A' : '#8E8DA0',
+                  }}
+                >
                   Optional Art and Name
                 </Text>
                 <Button
-                  css={{ cursor: 'pointer' }}
+                  css={{
+                    cursor: 'pointer',
+                    fontFamily: 'Noto Sans',
+                    fontWeight: '800',
+                    fontSize: '36px',
+                    color: step === 3 ? '#16103A' : '#8E8DA0',
+                    backgroundColor: '#fff',
+                    border: '2px solid #1799DE',
+                    borderRadius: '72px',
+                    width: '72px',
+                    height: '72px',
+                  }}
                   onClick={() => {
                     setStep(3)
                   }}
                 >
-                  Step 3
+                  3
                 </Button>
               </Flex>
             </Flex>
@@ -209,40 +291,84 @@ const FinalMint = (props: Props) => {
                         gap: '13rem',
                       }}
                     >
-                      <Text
-                        css={{
-                          fontFamily: 'Noto Sans',
-                          fontWeight: '700',
-                          fontSize: '25px',
-                        }}
-                      >
-                        Composition
-                      </Text>
-                      <Text
-                        css={{
-                          fontFamily: 'Noto Sans',
-                          fontWeight: '700',
-                          fontSize: '25px',
-                        }}
-                      >
-                        Weight
-                      </Text>
+                      <Flex css={{ flexDirection: 'column', gap: '0.2rem' }}>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '700',
+                            fontSize: '25px',
+                          }}
+                        >
+                          Composition
+                        </Text>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '600',
+                            fontSize: '16px',
+                            color: '#DF4886',
+                          }}
+                        >
+                          Stake Positions
+                        </Text>
+                      </Flex>
+                      <Flex css={{ flexDirection: 'column', gap: '0.2rem' }}>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '700',
+                            fontSize: '25px',
+                          }}
+                        >
+                          Weight
+                        </Text>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '600',
+                            fontSize: '16px',
+                            color: '#DF4886',
+                          }}
+                        >
+                          Percentage Allocation
+                        </Text>
+                      </Flex>
                     </Flex>
                     {/* Values */}
                     {positions.map((position, index) => (
                       <Flex
                         css={{
                           flexDirection: 'row',
-                          margin: '1rem',
-                          gap: '2rem',
+                          margin: '0rem 1rem',
+                          gap: '1rem',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                         }}
                         key={index}
                       >
                         <Select
                           defaultValue="Type"
-                          css={{ width: '10rem' }}
                           data-index={index}
                           onChange={onTypeChange}
+                          css={{
+                            borderRadius: '10rem',
+                            outline: 'none',
+                            border: 0,
+                            height: '50px',
+                            paddingInlineEnd: '24px',
+                            // marginInline: '5px',
+                            flex: 1,
+                            width: '11rem',
+                            fontSize: '20px',
+                            fontWeight: '600',
+                            color: '#8E8DA0',
+                            marginBottom: '2px',
+                            appearance: 'none',
+                            WebkitAppearance: 'none',
+                            marginTop: '5px',
+                            paddingLeft: '10px',
+                          }}
+                          disabled={locked[index]}
                         >
                           <option>Tako</option>
                           <option>Option 2</option>
@@ -250,24 +376,106 @@ const FinalMint = (props: Props) => {
                           <option>Option 4</option>
                         </Select>
                         <Input
-                          defaultValue={'Quantity (eg. 1.9)'}
+                          defaultValue={'1.9'}
                           data-index={index}
                           onChange={onQuantityChange}
+                          css={{
+                            position: 'relative',
+                            height: '50px',
+                            borderRadius: '30px',
+                            width: '14rem',
+                            boxShadow: 'none',
+                            border: 'none',
+                            outline: 0,
+                            paddingLeft: '1rem',
+                            color: '#0A3F5C',
+                            backgroundColor: '#fff',
+                            fontSize: '24px',
+                            fontWeight: '700',
+                            opacity: locked[index] ? 0.5 : 1,
+                          }}
+                          disabled={locked[index]}
                         />
+
                         <Input
-                          defaultValue={'Weight (%)'}
+                          defaultValue={25}
                           data-index={index}
                           type={'number'}
                           onChange={onWeightChange}
+                          css={{
+                            position: 'relative',
+                            height: '50px',
+                            borderRadius: '30px',
+                            width: '14rem',
+                            boxShadow: 'none',
+                            border: 'none',
+                            outline: 0,
+                            paddingLeft: '1rem',
+                            color: '#0A3F5C',
+                            backgroundColor: '#fff',
+                            fontSize: '24px',
+                            fontWeight: '700',
+                            opacity: locked[index] ? 0.5 : 1,
+                          }}
+                          disabled={locked[index]}
+                        />
+
+                        {locked[index] ? (
+                          <FiLock
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => {
+                              var toSet = [...locked]
+                              toSet[index] = false
+                              setLocked(toSet)
+                            }}
+                          />
+                        ) : (
+                          <FiUnlock
+                            style={{
+                              width: '30px',
+                              height: '30px',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => {
+                              var toSet = [...locked]
+                              toSet[index] = true
+                              setLocked(toSet)
+                            }}
+                          />
+                        )}
+                        <RiDeleteBinLine
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                            cursor: 'pointer',
+                          }}
+                          onClick={() => {
+                            var toSet = [...positions]
+                            toSet.splice(index, 1)
+                            setPositions(toSet)
+                          }}
                         />
                       </Flex>
                     ))}
                     <Button
                       css={{
-                        marginLeft: '2rem',
-                        width: '10rem',
+                        margin: '0px 20px',
+                        width: '14rem',
+                        height: '3rem',
                         cursor: 'pointer',
+                        marginTop: '1rem',
                         marginBottom: '1rem',
+                        backgroundColor: '#E5F6FF',
+                        color: '#1799DE',
+                        border: '2px solid #1799DE',
+                        borderRadius: '30px',
+                        fontFamily: 'Noto Sans',
+                        fontWeight: '600',
+                        fontSize: '16px',
                       }}
                       onClick={() => {
                         setPositions((prevState) => [
@@ -278,6 +486,7 @@ const FinalMint = (props: Props) => {
                             posType: 'Tako',
                           } as Position,
                         ])
+                        setLocked((prevState) => [...prevState, false])
                       }}
                     >
                       Add Position
@@ -291,24 +500,36 @@ const FinalMint = (props: Props) => {
                       backgroundColor: '#E5F6FF',
                       paddingBottom: '2rem',
                       borderRadius: '6px',
+                      gap: '1rem',
                     }}
                   >
-                    <Text
-                      css={{
-                        fontFamily: 'Noto Sans',
-                        fontWeight: '700',
-                        fontSize: '20px',
-                        margin: '1rem',
-                      }}
-                    >
-                      Performance Fee
-                    </Text>
+                    <Flex css={{ flexDirection: 'column', padding: '1rem' }}>
+                      <Text
+                        css={{
+                          fontFamily: 'Noto Sans',
+                          fontWeight: '700',
+                          fontSize: '25px',
+                        }}
+                      >
+                        Performance Fee
+                      </Text>
+                      <Text
+                        css={{
+                          fontFamily: 'Noto Sans',
+                          fontWeight: '600',
+                          fontSize: '16px',
+                          color: '#DF4886',
+                        }}
+                      >
+                        Creator Earnings
+                      </Text>
+                    </Flex>
                     <Text
                       css={{
                         fontFamily: 'Noto Sans',
                         fontWeight: '400',
                         fontSize: '16px',
-                        margin: '1rem',
+                        margin: '0rem 1rem',
                         color: '#8E8DA0',
                       }}
                     >
@@ -320,11 +541,26 @@ const FinalMint = (props: Props) => {
                       look like readable English.{' '}
                     </Text>
                     <Input
-                      css={{ marginLeft: '1rem', width: '20rem' }}
-                      defaultValue={'35%'}
                       onChange={(event) => {
                         setPerformanceFee(Number(event.target.value))
                       }}
+                      css={{
+                        margin: '0rem 1rem',
+                        position: 'relative',
+                        height: '56px',
+                        borderRadius: '30px',
+                        width: '20rem',
+                        boxShadow: 'none',
+                        border: 'none',
+                        outline: 0,
+                        paddingLeft: '1rem',
+                        color: '#0A3F5C',
+                        backgroundColor: '#fff',
+                        fontSize: '30px',
+                        fontWeight: '700',
+                      }}
+                      maxLength={6}
+                      placeholder={'15%'}
                     />
                   </Flex>
                 )}
@@ -334,26 +570,37 @@ const FinalMint = (props: Props) => {
                       css={{
                         flexDirection: 'column',
                         backgroundColor: '#E5F6FF',
-                        paddingBottom: '1rem',
+                        padding: '1rem',
                         borderRadius: '6px',
+                        gap: '0.5rem',
                       }}
                     >
-                      <Text
-                        css={{
-                          fontFamily: 'Noto Sans',
-                          fontWeight: '700',
-                          fontSize: '20px',
-                          margin: '1rem',
-                        }}
-                      >
-                        Upload Artwork
-                      </Text>
+                      <Flex css={{ flexDirection: 'column' }}>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '700',
+                            fontSize: '25px',
+                          }}
+                        >
+                          Upload Artwork
+                        </Text>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '600',
+                            fontSize: '16px',
+                            color: '#DF4886',
+                          }}
+                        >
+                          Associate an Illustration or File
+                        </Text>
+                      </Flex>
                       <Text
                         css={{
                           fontFamily: 'Noto Sans',
                           fontWeight: '400',
                           fontSize: '16px',
-                          margin: '1rem',
                           color: '#8E8DA0',
                         }}
                       >
@@ -366,9 +613,7 @@ const FinalMint = (props: Props) => {
                       </Text>
                       <Input
                         css={{
-                          marginLeft: '1rem',
                           width: '20rem',
-                          marginBottom: '1rem',
                         }}
                         type="file"
                         onChange={(e) => {
@@ -380,9 +625,15 @@ const FinalMint = (props: Props) => {
                       />
                       <Button
                         css={{
-                          marginLeft: '1rem',
-                          width: '20rem',
                           cursor: 'pointer',
+                          backgroundColor: '#16103A',
+                          color: '#fff',
+                          fontSize: '16px',
+                          fontWeight: '600',
+                          height: '3rem',
+                          borderRadius: '30px',
+                          width: '15rem',
+                          letterSpacing: '0.2rem',
                         }}
                         onClick={uploadFile}
                       >
@@ -393,44 +644,87 @@ const FinalMint = (props: Props) => {
                       css={{
                         flexDirection: 'column',
                         backgroundColor: '#E5F6FF',
-                        paddingBottom: '1rem',
+                        padding: '1rem',
                         borderRadius: '6px',
                       }}
                     >
-                      <Text
-                        css={{
-                          fontFamily: 'Noto Sans',
-                          fontWeight: '700',
-                          fontSize: '20px',
-                          margin: '1rem',
-                        }}
-                      >
-                        NFT Name
-                      </Text>
+                      <Flex css={{ flexDirection: 'column' }}>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '700',
+                            fontSize: '25px',
+                          }}
+                        >
+                          NFT Name
+                        </Text>
+                        <Text
+                          css={{
+                            fontFamily: 'Noto Sans',
+                            fontWeight: '600',
+                            fontSize: '16px',
+                            color: '#DF4886',
+                          }}
+                        >
+                          Provide a name you want to give your NFT
+                        </Text>
+                      </Flex>
 
                       <Input
-                        css={{ marginLeft: '1rem', width: '20rem' }}
-                        defaultValue={'Provide a preferred NFT Title..'}
                         onChange={(event) => {
                           setYBNFTName(event.target.value)
                         }}
+                        css={{
+                          marginTop: '1rem',
+                          position: 'relative',
+                          height: '45px',
+                          borderRadius: '30px',
+                          width: '30rem',
+                          boxShadow: 'none',
+                          border: 'none',
+                          outline: 0,
+                          paddingLeft: '1rem',
+                          color: '#0A3F5C',
+                          backgroundColor: '#fff',
+                          fontSize: '30px',
+                          fontWeight: '700',
+                        }}
+                        placeholder={'NFT Title..'}
                       />
                     </Flex>
                   </Flex>
                 )}
                 {step != 3 && (
                   <Button
-                    css={{ margin: '1rem', cursor: 'pointer' }}
+                    css={{
+                      // margin: '1rem',
+                      cursor: 'pointer',
+                      backgroundColor: '#1799DE',
+                      color: '#fff',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      height: '3rem',
+                      borderRadius: '30px',
+                    }}
                     onClick={() => {
                       if (step != 3) setStep(step + 1)
                     }}
                   >
-                    Next Step
+                    NEXT STEP
                   </Button>
                 )}
                 {step === 3 && (
                   <Button
-                    css={{ margin: '1rem', cursor: 'pointer' }}
+                    css={{
+                      // margin: '1rem',
+                      cursor: 'pointer',
+                      backgroundColor: '#1799DE',
+                      color: '#fff',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      height: '3rem',
+                      borderRadius: '30px',
+                    }}
                     onClick={mintYBNFT}
                   >
                     MINT YB NFT
@@ -442,7 +736,7 @@ const FinalMint = (props: Props) => {
                 css={{
                   flexDirection: 'column',
                   gap: '2rem',
-                  width: '20rem',
+                  width: '22rem',
                   height: 'max-content',
                   border: '1px solid #D8D8D8',
                   margin: '1rem',
@@ -451,14 +745,14 @@ const FinalMint = (props: Props) => {
                 <Flex
                   css={{
                     flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    // alignItems: 'center',
+                    // justifyContent: 'center',
                     padding: '2rem',
+                    gap: '2rem',
                   }}
                 >
                   <Text
                     css={{
-                      marginTop: '1rem',
                       fontWeight: '700',
                       fontFamily: 'Noto Sans',
                       fontSize: '20px',
@@ -466,14 +760,50 @@ const FinalMint = (props: Props) => {
                   >
                     YB NFT Summary
                   </Text>
-                  <Image
+                  {/* <Image
                     src={'images/artwork-dummy.png'}
                     css={{ margin: '0.5rem' }}
-                  />
-                  <Flex
-                    css={{ flexDirection: 'column', alignItems: 'self-start' }}
+                  /> */}
+                  {/* Pie Chart */}
+                  <div
+                    style={{
+                      width: '280px',
+                      height: '280px',
+                      backgroundColor: '#FCDB8F',
+                      borderRadius: '280px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    <Flex css={{ gap: '1rem' }}>
+                    <div
+                      style={{
+                        width: '260px',
+                        height: '260px',
+                        backgroundColor: '#A11D2B',
+                        borderRadius: '260px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: '240px',
+                          height: '240px',
+                          borderRadius: '50%',
+                          background: `conic-gradient(#A11D2B 0.00% ${allocated}%,#C92144 ${allocated}%)`,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                  <Flex
+                    css={{
+                      flexDirection: 'column',
+                      gap: '0.2rem',
+                    }}
+                  >
+                    <Flex css={{ gap: '0.5rem' }}>
                       <Text
                         css={{
                           fontWeight: '700',
@@ -494,7 +824,7 @@ const FinalMint = (props: Props) => {
                         Allocated
                       </Text>
                     </Flex>
-                    <Flex css={{ gap: '1rem' }}>
+                    <Flex css={{ gap: '0.5rem' }}>
                       <Text
                         css={{
                           fontWeight: '700',
@@ -515,7 +845,7 @@ const FinalMint = (props: Props) => {
                         Unallocated
                       </Text>
                     </Flex>
-                    <Flex css={{ gap: '1rem' }}>
+                    <Flex css={{ gap: '0.5rem' }}>
                       <Text
                         css={{
                           fontWeight: '700',
@@ -549,7 +879,7 @@ const FinalMint = (props: Props) => {
                         </Text>
                       )}
                     </Flex>
-                    <Flex css={{ gap: '1rem' }}>
+                    <Flex css={{ gap: '0.5rem' }}>
                       <Text
                         css={{
                           fontWeight: '700',
