@@ -37,7 +37,7 @@ const NavBar = (props: Props) => {
       </NavLink>
       <NavLink
         onClick={() => {
-          router.push('/mint')
+          router.push('/details')
         }}
         sx={themeStyles.nav}
       >

@@ -1,3 +1,3 @@
-import HPInput from "./HPInput"
+import HPInput from './HPInput'
 
 export { HPInput }

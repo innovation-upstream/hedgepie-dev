@@ -1,8 +1,8 @@
-import React from "react"
-import { useRouter } from "next/router"
-import { Box, Flex, Image, NavLink } from "theme-ui"
+import React from 'react'
+import { useRouter } from 'next/router'
+import { Box, Flex, Image, NavLink } from 'theme-ui'
 
-import NavBar from "./NavBar"
+import NavBar from './NavBar'
 
 type Props = {}
 
@@ -14,7 +14,7 @@ const Header = (props: Props) => {
       <Flex className="header_wrapper">
         <NavLink
           onClick={() => {
-            router.push("/")
+            router.push('/')
           }}
         >
           <Image src="./images/logo.png" className="logo" />

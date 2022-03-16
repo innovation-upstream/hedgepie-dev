@@ -1,3 +1,3 @@
-import HPConnectWalletButton from "./HPConnectWalletButton"
+import HPConnectWalletButton from './HPConnectWalletButton'
 
 export { HPConnectWalletButton }

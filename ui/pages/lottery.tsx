@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
-import React from "react"
-import type { NextPage } from "next"
-import Head from "next/head"
+import React from 'react'
+import type { NextPage } from 'next'
+import Head from 'next/head'
 
 // Components
 // import { HomePage } from "components/Home"

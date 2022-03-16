@@ -1,3 +1,3 @@
-import HPVaultSummary from "./HPVaultSummary"
+import HPVaultSummary from './HPVaultSummary'
 
 export { HPVaultSummary }

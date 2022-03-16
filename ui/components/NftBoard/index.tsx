@@ -1,3 +1,3 @@
-import NftBoard from "./NftBoard"
+import NftBoard from './NftBoard'
 
 export { NftBoard }

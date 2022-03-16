@@ -1,3 +1,3 @@
-import HPInstrumentSelect from "./HPInstrumentSelect"
+import HPInstrumentSelect from './HPInstrumentSelect'
 
 export { HPInstrumentSelect }

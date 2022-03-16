@@ -2,6 +2,7 @@ import React, { useState, useEffect, ReactNode } from 'react'
 import { ethers } from 'ethers'
 import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
+import { useWeb3Context } from '../../hooks/web3Context'
 
 const providerOptions = {
   walletconnect: {
@@ -21,24 +22,16 @@ export const ConnectWallet = (props: Props) => {
   // const [signer, setSigner] = useState<any | undefined>()
   const [web3Modal, setWeb3Modal] = useState<any | undefined>()
 
+  const { connect } = useWeb3Context()
+
   const getInstance = async () => {
     setInstance(await web3Modal.connect())
   }
 
   useEffect(() => {
-    // console.log("web3Modal:" + JSON.stringify(web3Modal))
+    console.log('web3Modal:' + JSON.stringify(web3Modal))
     if (web3Modal) getInstance()
   }, [web3Modal])
-
-  const connectWallet = () => {
-    setWeb3Modal(
-      new Web3Modal({
-        network: 'mainnet', // optional
-        cacheProvider: true, // optional
-        providerOptions, // required
-      }),
-    )
-  }
 
   // useEffect(() => {
   //   console.log("SD")
@@ -88,5 +81,5 @@ export const ConnectWallet = (props: Props) => {
     }
   }, [provider])
 
-  return <div onClick={connectWallet}>{children}</div>
+  return <div onClick={connect}>{children}</div>
 }

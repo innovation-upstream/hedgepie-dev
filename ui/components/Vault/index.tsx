@@ -1,3 +1,3 @@
-import Vault from "./Vault"
+import Vault from './Vault'
 
 export { Vault }

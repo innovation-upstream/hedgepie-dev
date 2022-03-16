@@ -1,12 +1,9 @@
-import React from "react"
+import React from 'react'
 
 type Props = {}
 
 const NftBoard = (props: Props) => {
-    return (
-        <>
-        </>
-    )
+  return <></>
 }
-  
+
 export default NftBoard

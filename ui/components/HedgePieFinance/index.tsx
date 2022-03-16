@@ -1,3 +1,3 @@
-import HedgePieFinance from "./HedgePieFinance"
+import HedgePieFinance from './HedgePieFinance'
 
 export { HedgePieFinance }

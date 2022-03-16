@@ -2,14 +2,18 @@
 
 pragma solidity ^0.8.4;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "../type/BEP20.sol";
 
-contract MockBEP20 is ERC20 {
+contract MockBEP20 is BEP20 {
     constructor(
         string memory _name,
         string memory _symbol,
         uint256 _initialSupply
-    ) public ERC20(_name, _symbol) {
+    ) public BEP20(_name, _symbol) {
         _mint(msg.sender, _initialSupply);
+    }
+
+    function mint(uint256 _amount) external {
+        _mint(msg.sender, _amount);
     }
 }

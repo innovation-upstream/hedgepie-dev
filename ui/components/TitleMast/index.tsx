@@ -1,3 +1,3 @@
-import TitleMast from "./TitleMast"
+import TitleMast from './TitleMast'
 
 export { TitleMast }

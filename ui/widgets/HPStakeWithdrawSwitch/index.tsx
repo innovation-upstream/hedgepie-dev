@@ -1,3 +1,3 @@
-import HPStakeWithdrawSwitch from "./HPStakeWithdrawSwitch"
+import HPStakeWithdrawSwitch from './HPStakeWithdrawSwitch'
 
 export { HPStakeWithdrawSwitch }

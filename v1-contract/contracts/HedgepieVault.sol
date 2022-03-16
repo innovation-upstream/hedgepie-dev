@@ -12,15 +12,16 @@ contract HedgepieVault {
     using SafeMath for uint256;
     using SafeBEP20 for IBEP20;
 
-    address public immutable hedgepieToken;
-    uint8 public blockEmission = 5;
-    uint256 public totalStake;
-    mapping(address => mapping(address => UserStake)) public userStake;
     struct UserStake {
         uint256 start;
         uint256 reward;
         uint256 amount;
     }
+
+    address public immutable hedgepieToken;
+    uint8 public blockEmission = 5;
+    uint256 public totalStake;
+    mapping(address => mapping(address => UserStake)) public userStake;
 
     event Stake(address indexed user, address token, uint256 amount);
     event Unstake(address indexed unSusertaker, address token, uint256 amount);

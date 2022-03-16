@@ -41,9 +41,17 @@ module.exports = {
       gasPrice: 200000000000,
       accounts: [process.env.TESTNET_PRIVKEY],
     },
+    // bsc-testnet
+    bscTestnet: {
+      url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
+      accounts: [process.env.TESTNET_PRIVKEY],
+    },
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API,
+    apiKey: {
+      mainnet: process.env.ETHERSCAN_API_KEY,
+      bscTestnet: process.env.BSCSCAN_API_KEY
+    }
   },
   typechain: {
     outDir: "typechain",
