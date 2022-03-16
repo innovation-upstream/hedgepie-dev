@@ -7,7 +7,10 @@
     "build": "npx hardhat compile",
     "lint": "npx solhint contracts/*.sol",
     "test:all": "npx hardhat test --network hardhat",
-    "test:YBNFT": "npx hardhat test ./test/YBNFT.js --network hardhat"
+    "test:YBNFT": "npx hardhat test ./test/YBNFT.js --network hardhat",
+    "deploy:mockBEP20": "npx hardhat run deploy/mockBEP20.ts --network bscTestnet",
+    "deploy:vault": "npx hardhat run deploy/vault.ts --network bscTestnet",
+    "deploy:ybnft": "npx hardhat run deploy/ybnft.ts --network bscTestnet"
   },
   "repository": {
     "type": "git",
@@ -25,15 +28,20 @@
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
     "@openzeppelin/contracts": "^4.5.0",
     "@openzeppelin/hardhat-upgrades": "^1.14.0",
+    "@types/chai": "^4.3.0",
+    "@types/mocha": "^9.1.0",
+    "@types/node": "^17.0.21",
     "dotenv-extended": "^2.9.0",
     "fs": "^0.0.1-security",
     "hardhat-contract-sizer": "^2.4.0",
+    "hardhat-deploy": "^0.10.6",
     "prettier": "^2.5.1",
     "prettier-plugin-solidity": "^1.0.0-beta.19",
     "solhint": "^3.3.7",
     "solhint-plugin-prettier": "^0.0.5",
     "ts-node": "^10.5.0",
-    "tslog": "^3.3.2"
+    "tslog": "^3.3.2",
+    "typescript": "^4.6.2"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.3",
