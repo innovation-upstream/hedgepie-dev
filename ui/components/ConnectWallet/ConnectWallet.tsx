@@ -4,21 +4,20 @@ import Web3Modal from 'web3modal'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 
 const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider, // required
-    options: {
-      infuraId: '28bcee6173ee4dfdb2ad077b026627c5', // required
-    },
-  },
+  // walletconnect: {
+  //   package: WalletConnectProvider, // required
+  //   options: {
+  //     infuraId: '28bcee6173ee4dfdb2ad077b026627c5', // required
+  //   },
+  // },
 }
 
-type Props = { children?: ReactNode }
+type Props = { children?: ReactNode; setSigner?: any }
 
 export const ConnectWallet = (props: Props) => {
-  const { children } = props
+  const { children, setSigner } = props
   const [instance, setInstance] = useState<any | undefined>()
   const [provider, setProvider] = useState<any | undefined>()
-  // const [signer, setSigner] = useState<any | undefined>()
   const [web3Modal, setWeb3Modal] = useState<any | undefined>()
 
   const getInstance = async () => {
@@ -31,6 +30,7 @@ export const ConnectWallet = (props: Props) => {
   }, [web3Modal])
 
   const connectWallet = () => {
+    console.log('sdddf')
     setWeb3Modal(
       new Web3Modal({
         network: 'mainnet', // optional
@@ -57,18 +57,19 @@ export const ConnectWallet = (props: Props) => {
     }
   }, [instance])
 
-  // useEffect(() => {
-  //   if (provider?.getSigner) {
-  //     setSigner(provider.getSigner())
-  //   }
-  // }, [provider])
+  useEffect(() => {
+    if (provider?.getSigner) {
+      setSigner && setSigner(provider.getSigner())
+    }
+  }, [provider])
 
   useEffect(() => {
+    console.log('sdfsdf')
     if (provider) {
-      console.log(provider)
+      console.log(provider.getSigner())
       // Subscribe to accounts change
       provider.on('accountsChanged', (accounts: string[]) => {
-        console.log(accounts)
+        console.log('Sdf' + accounts)
       })
 
       // Subscribe to chainId change
@@ -78,7 +79,7 @@ export const ConnectWallet = (props: Props) => {
 
       // Subscribe to provider connection
       provider.on('connect', (info: { chainId: number }) => {
-        console.log(info)
+        console.log('sdf' + info)
       })
 
       // Subscribe to provider disconnection

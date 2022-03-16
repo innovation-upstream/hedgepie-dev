@@ -2,6 +2,8 @@
 /** @jsxRuntime classic */
 
 import { useState, useEffect } from 'react'
+import { ethers } from 'ethers'
+import { abi } from '../../abi/HedgePieYBNFT'
 import {
   ThemeProvider,
   jsx,
@@ -18,6 +20,7 @@ import { theme } from 'themes/theme'
 
 import { FiUnlock, FiLock } from 'react-icons/fi'
 import { RiDeleteBinLine } from 'react-icons/ri'
+import { ConnectWallet } from 'components/ConnectWallet'
 
 type Props = {}
 
@@ -37,9 +40,63 @@ const FinalMint = (props: Props) => {
   const [chosenFileName, setChosenFileName] = useState('')
   const [chosenFile, setChosenFile] = useState<any | undefined>()
 
+  // Web3 Integration
+  const [jsonRpcProvider, setJsonRpcProvider] = useState<any | undefined>()
+  const [signer, setSigner] = useState<any | undefined>()
+  const [contract, setContract] = useState<any | undefined>()
+  const [contractWithSigner, setContractWithSigner] = useState<
+    any | undefined
+  >()
+
+  const [connectionReady, setConnectionReady] = useState(false)
+
+  const contractAddress = '0xc2e46d0e75FF51Ede36BaA69DD6e9d5510511B9F'
+  const contractAbi = abi
   useEffect(() => {
-    console.log(JSON.stringify(locked))
-  }, [locked])
+    // console.log(JSON.stringify(contractAbi) + ' ' + contractAddress)
+  }, [])
+
+  // For setting the web3 jsonRpcProvider/signer
+  useEffect(() => {
+    setJsonRpcProvider(
+      new ethers.providers.JsonRpcProvider(
+        'https://data-seed-prebsc-1-s1.binance.org:8545/',
+      ),
+    )
+  }, [])
+
+  useEffect(() => {
+    // console.log('jsonRpcProvider:' + JSON.stringify(jsonRpcProvider))
+    jsonRpcProvider &&
+      setContract(
+        new ethers.Contract(contractAddress, contractAbi, jsonRpcProvider),
+      )
+  }, [jsonRpcProvider])
+
+  useEffect(() => {
+    if (contract && signer) {
+      setContractWithSigner(contract.connect(signer))
+      setConnectionReady(true)
+    }
+  }, [contract, signer])
+
+  useEffect(() => {
+    signer &&
+      signer.getAddress().then((res: any) => console.log(JSON.stringify(res)))
+  }, [signer])
+
+  useEffect(() => {
+    if (connectionReady) {
+      contractWithSigner
+        .mint([], [], [], 15)
+        .then((res: any) => {
+          console.log('done' + JSON.stringify(res))
+        })
+        .catch((err: any) => {
+          console.log('err' + JSON.stringify(err))
+        })
+    }
+  }, [connectionReady])
 
   const onWeightChange = (event: any) => {
     var newPositions = [...positions]
@@ -78,10 +135,33 @@ const FinalMint = (props: Props) => {
   }
 
   const mintYBNFT = () => {
+    // React State Data
     console.log('YB NFT NAME: ' + YBNFTName)
     console.log('YB NFT Artwork: ' + chosenFileName)
     console.log('Performance Fee: ' + performanceFee)
     console.log('Positions: ' + JSON.stringify(positions))
+
+    // Mapping to suitable contract data
+    var swapPercent: number[] = []
+    var swapToken: number[] = []
+    var strategyAddress: string[] = []
+
+    positions.forEach((position) => {
+      strategyAddress.push(position.posType)
+      swapToken.push(position.posQuantity)
+      swapPercent.push(position.posWeight)
+    })
+
+    if (connectionReady) {
+      contractWithSigner
+        .mint(swapPercent, swapToken, strategyAddress, performanceFee)
+        .then((res: any) => {
+          console.log('done' + JSON.stringify(res))
+        })
+        .catch((err: any) => {
+          console.log('err' + JSON.stringify(err))
+        })
+    }
   }
 
   return (
@@ -115,6 +195,27 @@ const FinalMint = (props: Props) => {
               }}
             >
               YB NFT Minting
+              <ConnectWallet setSigner={setSigner}>
+                <Button
+                  css={{
+                    margin: '1rem',
+                    width: '240px',
+                    height: '60px',
+                    borderRadius: '40px',
+                    padding: '0px 20px',
+                    lineHeight: '48px',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    backgroundColor: '#1799DE',
+                    color: '#fff',
+                    cursor: 'pointer',
+                    border: '2px solid rgb(157 83 182)',
+                    boxShadow: '0px 20px 40px 0px rgba(23, 153, 222, 0.2)',
+                  }}
+                >
+                  Connect Wallet
+                </Button>
+              </ConnectWallet>
             </Flex>
             {/* Steps */}
             <Flex
