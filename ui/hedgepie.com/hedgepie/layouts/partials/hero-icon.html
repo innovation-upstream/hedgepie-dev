@@ -1,0 +1,2 @@
+{{ $svg := resources.Get (print "svg/" . ".svg") }}
+<i class="hero-icon">{{ $svg.Content | safeHTML }}</i>

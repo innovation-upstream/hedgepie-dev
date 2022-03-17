@@ -1,0 +1,86 @@
+[[footer]]
+name = "HedgePie"
+url = "/"
+identifier = ''
+pre = ''
+title = 12
+weight = 10
+
+
+[[footer]]
+name = "Vault"
+url = "/#Vault"
+identifier = ''
+pre = ''
+title = ''
+weight = 11
+parent = "HedgePie"
+
+[[footer]]
+name = "Leaderboard"
+url = "/#Leaderboard"
+identifier = ''
+pre = ''
+title = ''
+weight = 12
+parent = "HedgePie"
+
+[[footer]]
+name = "Finished Lotteries"
+url = "/#finished-lotteries"
+identifier = ''
+pre = ''
+title = ''
+weight = 13
+parent = "HedgePie"
+
+[[footer]]
+name = "Current Lottery"
+url = "/#current-lottery"
+identifier = ''
+pre = ''
+title = ''
+weight = 14
+parent = "HedgePie"
+[[footer]]
+
+name = "Mint"
+url = "/#mint"
+identifier = ''
+pre = ''
+title = ''
+weight = 15
+parent = "HedgePie"
+
+
+
+
+
+[[main]]
+name = "Vault"
+url = "/#Vault"
+identifier = ''
+pre = ''
+title = ''
+weight = 1
+[[main]]
+name = "Leaderboard"
+url = "/#Leaderboard"
+identifier = ''
+pre = ''
+title = ''
+weight = 2
+[[main]]
+name = "Lottery"
+url = "/#Lottery"
+identifier = ''
+pre = ''
+title = ''
+weight = 3
+[[main]]
+name = "Mint"
+url = "/#Mint"
+identifier = ''
+pre = ''
+title = ''
+weight = 4

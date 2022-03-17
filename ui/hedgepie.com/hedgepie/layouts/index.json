@@ -1,0 +1,9 @@
+{ "items": [
+  {{- range $index, $page :=.Site.RegularPages -}}
+      {
+          "title": "{{ .Title }}",
+          "url": "{{ .Permalink }}",
+          "date": "{{ i18n "published" (dict "Day" .PublishDate.Day "Month" .PublishDate.Month "Year" .PublishDate.Year) }}"
+      }
+  {{- end -}}
+]}

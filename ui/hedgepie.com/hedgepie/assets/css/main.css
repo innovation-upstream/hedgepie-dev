@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.inline-svg svg {
+  transform: scale(0.5);
+  width: 10px !important;
+  height: 10px;
+  display: inline-block;
+}
+
+.hero-icon svg {
+  display: inline-block;
+  stroke-width: 2;
+  fill: none;
+  stroke: white;
+  width: 24px;
+  height: 24px;
+}
+
+.timer{
+  display:flex;
+  color: "#de4686";
+}
+.timer span + span:before{
+  content:":"
+}
