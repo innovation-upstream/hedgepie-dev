@@ -34,7 +34,6 @@ subtitle="Choose your path"
 
 [[features.feature]]
 img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/piggylandscape_1.png"
-iconFile="icons-outline/chart-bar"
 icon=""
 color="curiousBlue"
 title="Earn up to 61.83% APY"
@@ -43,7 +42,6 @@ href=""
 
 [[features.feature]]
 img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/pielandscape_1.png"
-iconFile="icons-outline/search-circle"
 icon=""
 color="salomie"
 title="Create Your Own Fund"
@@ -52,7 +50,6 @@ href=""
 
 [[features.feature]]
 img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/ticketslandscape_1.png"
-iconFile="icons-outline/pencil-alt"
 icon=""
 color="darkishPink"
 title="Enter the Lottery"
