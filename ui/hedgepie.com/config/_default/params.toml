@@ -1,0 +1,76 @@
+cloudinaryName="dalyoko"
+description = "Discover and profit from expert-designed DeFi strategies that will manage and rebalance on your behalf to optimize yield for everyone!"
+cloudinary_base_url ="https://res.cloudinary.com/dalyoko/" # with trailing slash
+
+keywords = ["hedgefund", "defi", "strategy", "yield bearing NFT"]
+
+# Default AMP components for the whole site
+ampElements = ["amp-iframe", "amp-analytics", "amp-social-share", "amp-install-serviceworker"]
+
+[header]
+primary-button-text="Open App"
+primary-button-href="/#"
+
+[hero]
+title = "We simplified Defi, so you can earn big"
+subtitle = "Hedge Pie is the easiest way to earn big in crypto because you get access to funds created by crypto experts."
+img="https://res.cloudinary.com/dalyoko/f_auto,w_402/hedgepie/Asset_2landscape.png"
+imgAlt=""
+# img="https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/pd20-50-17-gloy_1.jpg?w=1300&dpr=1&fit=default&crop=default&q=80&vib=3&con=3&usm=15&bg=F4F4F3&auto=format&ixlib=js-2.2.1&s=c6872a7254a79eaef9ecb49793ad4067"
+logo=""
+subscribe=""
+buttonText="Open App"
+
+[brand]
+logo="https://res.cloudinary.com/dalyoko/dpr_auto,h_71,f_auto/hedgepie/hedgepie-logo.png"
+logo2x="https://res.cloudinary.com/dalyoko/dpr_auto,h_142,f_auto/hedgepie/hedgepie-logo.png"
+# logo="https://res.cloudinary.com/dalyoko/c_fill,f_auto,h_71,dpr_auto/hedgepie/Asset_3landscape.png"
+name="HedgePie"
+slogan = "Hedge Pie is an innovative decentralized trading platform that allows users to generate funds that others can invest in."
+
+[features]
+title="Choose the highest-performing fund, invest, and win big"
+subtitle="Choose your path"
+
+[[features.feature]]
+img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/piggylandscape_1.png"
+icon=""
+color="curiousBlue"
+title="Earn up to 61.83% APY"
+description="Access crazy high returns when you invest in funds created by crypto experts"
+href=""
+
+[[features.feature]]
+img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/pielandscape_1.png"
+icon=""
+color="salomie"
+title="Create Your Own Fund"
+description="Earn twice when you create your own fund that others pay a fee to invest in"
+href=""
+
+[[features.feature]]
+img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/ticketslandscape_1.png"
+icon=""
+color="darkishPink"
+title="Enter the Lottery"
+description="Get entered into a weekly lottery automatically when you stake using Hedge Pie"
+href=""
+
+
+[blockFirst]
+img="https://res.cloudinary.com/dalyoko/f_auto,w_400/hedgepie/Asset_1landscape.png"
+title="Your fund. Your Profit."
+description="At Hedge Pie, users can earn higher returns on already winning assets by combining them together into a fund that others can invest in. Choose your stake positions, set your fees, & earn. Top performing funds are tracked on the Hedge Pie leaderboard, so when funds perform well, investors follow. Think you have what it takes? Connect your wallet, choose your stake positions, & start earning."
+buttonText="Open App"
+
+[blockSecond]
+img="https://res.cloudinary.com/dalyoko/f_auto,w_500,h_500/hedgepie/block2-2x.png"
+title="Collect Winnings."
+description="Users who stake with Hedge Pie are automatically entered into the weekly lottery and a chance at 10% of total platform trading profits. That’s right! No more buying tickets. On Hedge Pie, investors are automatically entered into the weekly lottery where 10% of the total platform trading profits generated are redistributed to winners. Join now to get your piece of the pie."
+buttonText="Open App"
+
+[socials]
+twitter="#"
+linkedIn="#"
+facebook="#"
+
