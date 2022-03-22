@@ -1,10 +1,8 @@
 /* eslint-disable no-use-before-define */
 import React from 'react'
 import type { NextPage } from 'next'
-import Head from 'next/head'
-
-import { Mint } from 'components/Mint'
 import { HedgePieFinance } from 'components/HedgePieFinance'
+import { Mint } from 'views/nft-mint'
 
 const VaultPage: NextPage = () => {
   return (
