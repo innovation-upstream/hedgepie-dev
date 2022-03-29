@@ -1,0 +1,7 @@
+<ul class="section-one-and-two-pages">
+  {{ range .Site.Pages.ByPublishDate.Reverse }}
+    {{ if or (eq .Section "Blog") (eq .Section "News") }}
+      <li>{{ .Title }}</li>
+    {{ end }}
+  {{ end }}
+</ul>

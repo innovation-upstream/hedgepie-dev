@@ -1,0 +1,45 @@
+{{/*  layouts/partials/seo-visual-art-schema.html  */}}
+<script type="application/ld+json">
+{
+    "@context" : "http://schema.org",
+    "@type" : "VisualArtwork",
+    "name" : "{{ .Title }}",
+    "headline" : "{{ .Title }}",{{/* Include the whole content but, using funky regex, do case insensitive replacement of redundant appearances of (near) title  */}}
+    "description" : "{{ replaceRE (printf "(?i) %s " .Title ) " " ( htmlUnescape ( delimit .PlainWords " ") | plainify ) }}",
+    "material" : "fabric",
+    "artMedium": "fabric",
+    "artist" : {
+        "@type": "Person",
+        "name": "{{ .Site.Params.Author }}"
+    },
+    "creator" : {
+        "@type": "Person",
+        "name": "{{ .Site.Params.Author }}"
+    },
+    "copyrightHolder" : {
+        "@type": "Person",
+        "name": "{{ .Site.Params.Author }}"
+    },
+    "copyrightYear" : "{{ .Date.Format "2006" }}",
+    "dateCreated": "{{ .Date.Format "2006-01" }}",
+    "dateModified" : "{{ .Date.Format "2006-01-02" }}",
+    "url" : "{{ .Permalink }}",
+    "keywords" : [ {{ with .Params.tags }}"{{ delimit . "\", \"" }}{{ end }}" ],
+    {{- with .Params.price -}}{{ if findRE "[0-9]+" . }}
+    "offers" : {
+        "@type" : "Offer",
+        "price" : "{{ . }}",
+        "priceCurrency": "USD"
+    },{{ end }}{{ end }}
+    {{- $image := replaceRE "^https?://[^/]+/(.*).[A-z]+$" "$1" .Params.featured_image -}}
+    {{- $media := (.Site.GetPage "page" "media").Resources -}}
+    {{- $pattern := printf "**%s" $image -}}
+    {{- $matches := $media.Match $pattern -}}
+    {{- $original := index ($media.Match $pattern ) 0 -}}
+    {{- $options := $.Param "options" -}}
+    {{- $sizes := (sort ($.Param "sizes") "value" ) -}}
+    {{- $last := index (last 1 $sizes) 0 -}}
+    {{ $img := ($original.Resize (printf "%dx %s" $last $options)) }}
+    "image" : "{{- $img.Permalink -}}"
+}
+</script>

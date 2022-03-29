@@ -1,0 +1,101 @@
+baseURL = "https://www.hedgepie.com/"
+title = 'Hedgepie'
+languageCode = "en"
+defaultContentLanguage = "en"
+theme = "hedgepie"
+enableRobotsTXT = true
+copyright="@ 2022 HedgePie"
+cloudinaryName="dalyoko"
+#landing page
+
+[author]
+  [author.default]
+    name = "Иван Петров"
+    location = "Москва"
+    avatar =""
+    bio = ""
+    linkedin=""
+  [author.petr]
+    name = "Петр Иванов"
+    location = "Москва"
+    avatar =""
+    bio = ""
+    linkedin=""
+
+[sitemap]
+  changefreq = 'monthly'
+  filename = 'sitemap.xml'
+  priority = 0.7
+
+# 404
+
+# [404]
+
+# section="404 ERROR"
+# title="This page does not exist."
+# subtitle="The page you are looking for could not be found."
+# features_title="POPULAR PAGES"
+
+# [[404.feature]]
+# title="Documentation"
+# subtitle="Learn how to integrate our tools with your app"
+# icon=""
+# href="#"
+
+# [[404.feature]]
+# title="API Reference"
+# subtitle="A complete  API reference for our libraries"
+# icon=""
+# href="#"
+
+[taxonomies]
+    tag = "tags"
+
+[build]
+  writeStats = true
+
+[outputs]
+  home = ["HTML", "RSS", "SearchIndex", "AMP", "ATOM"]
+  page = ["HTML", "AMP"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML"]
+
+[outputFormats]
+  [outputFormats.SearchIndex]
+      mediaType= "application/json"
+      baseName= "search"
+      isPlainText= true
+      notAlternative= true
+[mediaTypes."application/rss+xml"]
+  suffixes = ["xml"]
+[outputFormats.Atom]
+  # https://validator.w3.org/feed/docs/atom.html#whatIsAtom
+  name = "Atom"
+  mediaType = "application/rss+xml"
+  baseName = "turbo" # generated file = <baseName>.<mediaType."application/atom+xml".suffixes[0]> = atom.xml
+  isPlainText = false
+  rel = "alternate"
+  isHTML = false
+  noUgly = true
+  permalinkable = false
+
+[markup]
+[markup.goldmark]
+    [markup.goldmark.extensions]
+      definitionList = true
+      footnote = true
+      linkify = true
+      strikethrough = true
+      table = true
+      taskList = true
+      typographer = true
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[languages]
+  [languages.en]
+    languageName = 'English'
+    contentDir = 'content'
+    languageCode= "em"
+    weight = 1

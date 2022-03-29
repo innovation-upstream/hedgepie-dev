@@ -1,0 +1,61 @@
+form:
+  fullName:
+    other: Name
+  firstName:
+    other: First Name
+  lastName:
+    other: Last Name
+  company:
+    other: Company
+  subscribeEmail:
+    other: Subscribe Email
+  email:
+    other: Email
+  phone:
+    other: Phone
+  web:
+    other: Website
+  country:
+    other: Country
+  province:
+    other: State / Province
+  city:
+    other: City
+  street:
+    other: Street Address
+  postal:
+    other: Postal Code
+  subject:
+    other: Subject
+  message:
+    other: Message
+  project:
+    other: Describe your project
+  howCanWeHelp:
+    other: How can we help?
+  expectedBudget:
+    other: Estimated budget
+  howDidYouHear:
+    other: How did you hear about us?
+  submit:
+    other: Submit
+  submitting:
+    other: Submitting...
+  submitted:
+    other: Thank you for the message!
+  subscribe:
+    other: Notify me
+  subscribed:
+    other: Thanks you for subscribing!
+formValidation:
+  phone:
+    other: Please enter valid phone number
+  email:
+    other: Please enter valid email
+  name:
+    other: Please enter your name
+  message:
+    other: Please enter your message
+whatsNew:
+  other: What's new
+
