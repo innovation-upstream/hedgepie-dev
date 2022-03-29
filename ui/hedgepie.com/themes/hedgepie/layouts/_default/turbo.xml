@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:yandex="http://news.yandex.ru"
+     xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:turbo="http://turbo.yandex.ru"
+     version="2.0">
+    <channel>
+        <!-- Информация о сайте-источнике -->
+        <title>{{.Site.Title}}</title>
+        <link>{{.Site.baseURL}}/</link>
+        <description>{{ .Site.Params.description }}</description>
+        <language> {{.Site.language }}</language>
+        <turbo:analytics></turbo:analytics>
+        <turbo:adNetwork></turbo:adNetwork>
+
+        {{ range .Data.Pages }}
+        <item turbo="true">
+            <turbo:extendedHtml>true</turbo:extendedHtml>
+            <link>{{ .Permalink }}</link>
+            <turbo:source></turbo:source>
+            <turbo:topic></turbo:topic>
+            <pubDate>>{{ safeHTML ( .Lastmod.Format "2006-01-02T15:04:05-07:00" ) }}</pubDate>
+            <author>HAHA</author>
+            <metrics>
+                <yandex schema_identifier="Идентификатор">
+                    <breadcrumblist>
+                        <breadcrumb url="http://example.com/" text="Домашняя"/>
+                        <breadcrumb url="http://example.com/category/" text="Категория"/>
+                        <breadcrumb url="http://example.com/category/sub-category/" text="Подкатегория"/>
+                        <breadcrumb url="http://example.com/category/sub-category/page1.html" text="Пример страницы"/>
+                    </breadcrumblist>
+                </yandex>
+            </metrics>
+            <yandex:related></yandex:related>
+            <turbo:content>
+                <![CDATA[
+                    {{ .Content }}
+                ]]>
+            </turbo:content>
+        </item>
+        {{end}}
+    </channel>
+</rss>

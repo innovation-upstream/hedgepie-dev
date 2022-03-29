@@ -1,0 +1,46 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+{{with .data}}
+<div class="bg-white">
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+      <div>
+        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">
+          {{.title}}
+        </h2>
+        <div class="mt-3 max-w-3xl text-lg text-gray-500">
+          {{.description}}
+        </div>
+        <div class="mt-8 sm:flex">
+          <div class="rounded-md shadow">
+            <a
+              href="{{.primaryButtonHref | safeURL}}"
+              class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
+            >
+              {{.primaryButtonText}}
+            </a>
+          </div>
+          <div class="mt-3 sm:mt-0 sm:ml-3">
+            <a
+              href="{{.secondaryButtonHref | safeURL}}"
+              class="flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary-700 bg-primary-100 hover:bg-primary-200"
+            >
+            {{.secondaryButtonText}}
+          </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2"
+      >
+      {{range .item}}
+      <div class="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
+        {{$svgName := (print "svgs/" .svg ".svg")}}
+        {{ partial $svgName (dict "width" "80px" "height" "80px")}}
+      </div>
+      {{end}}
+
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}

@@ -1,0 +1,140 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {{/* <meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width" /> */}}
+  {{- if hugo.IsProduction | or (eq .Site.Params.env "production") }}
+    <meta name="robots" content="index, follow" />
+  {{- else }}
+    <meta name="robots" content="noindex, nofollow" />
+  {{- end }}
+
+  {{- /* Title */}}
+  <title>
+    {{ if .IsHome }}
+    {{ else }}
+      {{ if .Title }}{{ .Title }} |{{ end }}
+    {{ end }}
+    {{ .Site.Title }}
+  </title>
+
+  {{- /* Meta */}}
+  {{- if .IsHome }}
+    {{ with .Site.Params.keywords -}}
+      <meta
+        name="keywords"
+        content="{{- range $i, $e := . }}{{ if $i }},{{ end }}{{ $e }}{{ end }}"
+      />
+    {{ end }}
+  {{- else }}
+    <meta
+      name="keywords"
+      content="{{ if .Params.keywords -}}
+        {{- range $i, $e := .Params.keywords }}
+          {{ if $i }},{{ end }}{{ $e }}
+        {{ end }}
+      {{- else }}
+        {{- range $i, $e := .Params.tags }}
+          {{ if $i }},{{ end }}{{ $e }}
+        {{ end }}
+      {{- end -}}"
+    />
+  {{- end }}
+  <meta
+    name="description"
+    content="{{- with .Description }}
+      {{ . }}
+    {{- else }}
+      {{- if or .IsPage .IsSection }}
+        {{- .Summary | default (printf "%s - %s" .Title  .Site.Title) }}
+      {{- else }}
+        {{- with .Site.Params.description }}{{ . }}{{- end }}
+      {{- end }}
+    {{- end -}}"
+  />
+
+  <link
+    rel="sitemap"
+    href="{{ "sitemap.xml" | absURL }}"
+    type="application/xml"
+  />
+
+  <meta name="author" content="{{ (partial "author.html" . ) }}" />
+
+  {{ range .AlternativeOutputFormats -}}
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .RelPermalink | safeURL }}">
+  {{ end -}}
+    
+  {{- if .Site.Params.analytics.google.SiteVerificationTag }}
+    <meta
+      name="google-site-verification"
+      content="{{ .Site.Params.analytics.google.SiteVerificationTag }}"
+    />
+  {{- end }}
+  {{- if .Site.Params.analytics.yandex.SiteVerificationTag }}
+    <meta
+      name="yandex-verification"
+      content="{{ .Site.Params.analytics.yandex.SiteVerificationTag }}"
+    />
+  {{- end }}
+  {{- if .Site.Params.analytics.bing.SiteVerificationTag }}
+    <meta
+      name="msvalidate.01"
+      content="{{ .Site.Params.analytics.bing.SiteVerificationTag }}"
+    />
+  {{- end }}
+
+  {{ $styles := resources.Get "css/index.css" | postCSS }}
+  {{ if .Site.IsServer }}
+    <link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+  {{ else }}
+    {{ $styles = $styles | minify | fingerprint | resources.PostProcess }}
+    <link
+      rel="stylesheet"
+      href="{{ $styles.RelPermalink }}"
+      integrity="{{ $styles.Data.Integrity }}"
+    />
+  {{ end }}
+
+  {{- /* Favicons */}}
+  <link
+    rel="icon"
+    href="{{ .Site.Params.assets.favicon | default "favicon.ico" | absURL }}"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="{{ .Site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="{{ .Site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}"
+  />
+  <link
+    rel="apple-touch-icon"
+    href="{{ .Site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}"
+  />
+  <link
+    rel="mask-icon"
+    href="{{ .Site.Params.assets.safari_pinned_tab | default "safari-pinned-tab.svg" | absURL }}"
+  />
+  <meta
+    name="theme-color"
+    content="{{ .Site.Params.assets.theme_color | default "#2e2e33" }}"
+  />
+  <meta
+    name="msapplication-TileColor"
+    content="{{ .Site.Params.assets.msapplication_TileColor | default "#2e2e33" }}
+    "
+  />
+
+  {{- /* Misc */}}
+  {{- template "partials/templates/opengraph.html" . }}
+  {{- template "partials/templates/twitter_cards.html" . }}
+  {{- template "partials/templates/schema_json.html" . }}
+  {{- if hugo.IsProduction | or (eq .Site.Params.env "production") }}
+  {{- end -}}
+
+</head>
