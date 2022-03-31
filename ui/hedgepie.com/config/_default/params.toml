@@ -4,9 +4,6 @@ cloudinary_base_url ="https://res.cloudinary.com/dalyoko/" # with trailing slash
 
 keywords = ["hedgefund", "defi", "strategy", "yield bearing NFT"]
 
-# Default AMP components for the whole site
-ampElements = ["amp-iframe", "amp-analytics", "amp-social-share", "amp-install-serviceworker"]
-
 [header]
 primary-button-text="Open App"
 primary-button-href="/#"
