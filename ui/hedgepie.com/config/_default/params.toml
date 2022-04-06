@@ -30,7 +30,7 @@ title="Choose the highest-performing fund, invest, and win big"
 subtitle="Choose your path"
 
 [[features.feature]]
-img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/piggylandscape_1.png"
+img="https://res.cloudinary.com/dalyoko/w_70,f_auto,q_80/hedgepie/piggylandscape_1.png"
 icon=""
 color="curiousBlue"
 title="Earn up to 61.83% APY"
@@ -38,7 +38,7 @@ description="Access crazy high returns when you invest in funds created by crypt
 href=""
 
 [[features.feature]]
-img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/pielandscape_1.png"
+img="https://res.cloudinary.com/dalyoko/w_70,f_auto,q_80/hedgepie/pielandscape_1.png"
 icon=""
 color="salomie"
 title="Create Your Own Fund"
@@ -46,7 +46,7 @@ description="Earn twice when you create your own fund that others pay a fee to i
 href=""
 
 [[features.feature]]
-img="https://res.cloudinary.com/dalyoko/w_70/hedgepie/ticketslandscape_1.png"
+img="https://res.cloudinary.com/dalyoko/w_70,f_auto,q_80/hedgepie/ticketslandscape_1.png"
 icon=""
 color="darkishPink"
 title="Enter the Lottery"
