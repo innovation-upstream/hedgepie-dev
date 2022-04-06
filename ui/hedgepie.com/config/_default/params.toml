@@ -67,7 +67,10 @@ description="Users who stake with Hedge Pie are automatically entered into the w
 buttonText="Open App"
 
 [socials]
-twitter="#"
+twitter="https://twitter.com/Hedgepiefinance"
+reddit="https://www.reddit.com/user/hedgepiefinance"
+telegram="https://t.me/hedgepiefinance"
+discord="https://discord.gg/2xb4SsvB"
 linkedIn="#"
 facebook="#"
 
