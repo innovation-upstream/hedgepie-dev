@@ -15,6 +15,7 @@ const Footer = (props: Props) => {
         backgroundImage: 'url(/images/foot-mask.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center top',
+        position: 'relative'
       }}
     >
       <Box
