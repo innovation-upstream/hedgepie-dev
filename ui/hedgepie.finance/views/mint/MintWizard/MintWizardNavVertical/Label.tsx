@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import { MintWizardContext } from '../MintContextProvider'
+import MintWizardContext from 'contexts/MintWizardContext'
 
 type Props = {
   index: number

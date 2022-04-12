@@ -1,7 +1,7 @@
 import React from 'react'
 import { Box } from 'theme-ui'
 import Label from './Label'
-import { MintWizardContext } from '../MintContextProvider'
+import MintWizardContext from 'contexts/MintWizardContext'
 
 const MintWizardNavVertical = ({ ...props }) => {
 

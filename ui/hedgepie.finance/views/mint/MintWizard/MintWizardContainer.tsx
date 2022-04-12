@@ -2,6 +2,7 @@ import React from 'react'
 import { Box } from 'theme-ui'
 import MintWizardNav from './MintWizardNav'
 import MintWizardNavVertical from './MintWizardNavVertical'
+import FormPosition from './Form/FormPosition'
 
 const MintWizard = () => {
 
@@ -55,6 +56,7 @@ const MintWizard = () => {
             }
           }}
         />
+        <FormPosition />
       </Box>
     </Box>
   )
