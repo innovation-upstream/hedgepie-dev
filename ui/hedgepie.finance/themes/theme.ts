@@ -37,6 +37,22 @@ export const theme: Theme = {
     },
   },
   buttons: {
+    icon: {
+      width: 40,
+      height: 40,
+      backgroundColor: '#0000',
+      borderRadius: '50%',
+      color: '#000',
+      padding: 0,
+      transition: 'all .2s',
+      cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: '#0001'
+      },
+      '&:active': {
+        backgroundColor: '#0002'
+      },
+    },
     primary: {
       bg: '#1799DE',
       color: '#fff',
