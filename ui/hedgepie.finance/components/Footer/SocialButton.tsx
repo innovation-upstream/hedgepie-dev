@@ -1,32 +1,12 @@
 import React from 'react'
 
-import { Box, Link } from 'theme-ui'
+import { Box, Link, ThemeUICSSObject } from 'theme-ui'
+
+import { styles } from './styles'
 
 const SocialButton = ({ href = '#', children, ...props }) => (
-  <Link
-    href={href}
-  >
-    <Box
-      sx={{
-        width: 36,
-        height: 36,
-        backgroundColor: '#fff',
-        borderRadius: '50%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        cursor: 'pointer',
-        userSelect: 'none',
-        transition: 'all .2s',
-        '&:hover': {
-          opacity: .9
-        },
-        '&:active': {
-          opacity: 1
-        }
-      }}
-      {...props}
-    >
+  <Link href={href}>
+    <Box sx={styles.social_btn as ThemeUICSSObject} {...props}>
       {children}
     </Box>
   </Link>

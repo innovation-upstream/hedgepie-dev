@@ -2,6 +2,8 @@ import React from 'react'
 import { Box, Button, Flex, Image, Text } from 'theme-ui'
 import { ConnectWallet } from 'components/ConnectWallet'
 
+import { styles } from './styles'
+
 type Props = { drawTime?: number }
 
 const YBNFTDescription = (props: Props) => {

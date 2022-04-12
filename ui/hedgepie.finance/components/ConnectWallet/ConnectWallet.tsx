@@ -1,9 +1,11 @@
 import React from 'react'
-import { Button, Box } from 'theme-ui'
+import { Button, Box, ThemeUICSSObject } from 'theme-ui'
 import { ArrowRight } from 'react-feather'
 import { useWeb3React } from '@web3-react/core'
 import useWalletModal from 'widgets/WalletModal/useWalletModal'
 import useAuth from 'hooks/useAuth'
+
+import { styles } from './styles'
 
 const ConnectWallet = (props) => {
   const { isHeaderBtn } = props
@@ -17,18 +19,7 @@ const ConnectWallet = (props) => {
     <>
       {isHeaderBtn ? (
         <Button
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 24px',
-            cursor: 'pointer',
-            color: '#1799DE',
-            height: '100%',
-            background: 'transparent',
-            '&:hover': {
-              background: 'transparent',
-            },
-          }}
+          sx={styles.header_connect_wallet_btn as ThemeUICSSObject}
           onClick={() => {
             if (account) return
             onPresentConnectModal()
@@ -52,7 +43,7 @@ const ConnectWallet = (props) => {
         </Button>
       ) : (
         <Button
-          sx={{ background: '#1799DE', borderRadius: '50px', padding: '0px 48.5px', cursor: 'pointer' }}
+          sx={styles.non_header_connect_wallet_btn as ThemeUICSSObject}
           onClick={onPresentConnectModal}
           {...props}
         >

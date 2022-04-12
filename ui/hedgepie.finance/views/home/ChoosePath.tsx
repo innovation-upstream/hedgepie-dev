@@ -1,13 +1,15 @@
 import React from 'react'
 import { Box, Image } from 'theme-ui'
 
+import { styles } from './styles'
+
 const ChoosePath = () => {
   return (
     <Box
       px={3}
       sx={{
         marginTop: 60,
-        marginBottom: [50, 150]
+        marginBottom: [50, 150],
       }}
     >
       <Box
@@ -20,7 +22,7 @@ const ChoosePath = () => {
           sx={{
             fontSize: 48,
             fontWeight: 700,
-            textAlign: 'center'
+            textAlign: 'center',
           }}
         >
           Choose your path
@@ -33,7 +35,7 @@ const ChoosePath = () => {
             textAlign: 'center',
             color: '#8E8DA0',
             letterSpacing: 2,
-            fontFamily: 'Poppins'
+            fontFamily: 'Poppins',
           }}
         >
           get your piece of the pie
@@ -46,7 +48,7 @@ const ChoosePath = () => {
             marginTop: 60,
             '& > *': {
               maxWidth: 380,
-            }
+            },
           }}
         >
           <Box
@@ -63,7 +65,7 @@ const ChoosePath = () => {
             <Box
               sx={{
                 textAlign: 'center',
-                height: 56
+                height: 56,
               }}
             >
               <Image src="images/step1.svg" />
@@ -74,24 +76,21 @@ const ChoosePath = () => {
                 textAlign: 'center',
                 fontSize: [18, 30],
                 fontWeight: 700,
-                fontFamily: 'Poppins'
+                fontFamily: 'Poppins',
               }}
             >
-              <Box>
-                Eearn Up to XX%
-              </Box>
-              <Box>
-                APY
-              </Box>
+              <Box>Earn Up to XX%</Box>
+              <Box>APY</Box>
             </Box>
             <Box
               sx={{
                 marginTop: 32,
                 textAlign: 'center',
-                color: '#16103A'
+                color: '#16103A',
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat ullamcorper v
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat
+              ullamcorper v
             </Box>
           </Box>
           <Box
@@ -108,7 +107,7 @@ const ChoosePath = () => {
             <Box
               sx={{
                 textAlign: 'center',
-                height: 56
+                height: 56,
               }}
             >
               <Image src="images/step2.svg" />
@@ -119,24 +118,21 @@ const ChoosePath = () => {
                 textAlign: 'center',
                 fontSize: [18, 30],
                 fontWeight: 700,
-                fontFamily: 'Poppins'
+                fontFamily: 'Poppins',
               }}
             >
-              <Box>
-                Create Your Own
-              </Box>
-              <Box>
-                Fund
-              </Box>
+              <Box>Create Your Own</Box>
+              <Box>Fund</Box>
             </Box>
             <Box
               sx={{
                 marginTop: 32,
                 textAlign: 'center',
-                color: '#16103A'
+                color: '#16103A',
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat ullamcorper v
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat
+              ullamcorper v
             </Box>
           </Box>
           <Box
@@ -153,7 +149,7 @@ const ChoosePath = () => {
             <Box
               sx={{
                 textAlign: 'center',
-                height: 56
+                height: 56,
               }}
             >
               <Image src="images/step3.svg" />
@@ -164,24 +160,21 @@ const ChoosePath = () => {
                 textAlign: 'center',
                 fontSize: [18, 30],
                 fontWeight: 700,
-                fontFamily: 'Poppins'
+                fontFamily: 'Poppins',
               }}
             >
-              <Box>
-                Enter the
-              </Box>
-              <Box>
-                Lottery
-              </Box>
+              <Box>Enter the</Box>
+              <Box>Lottery</Box>
             </Box>
             <Box
               sx={{
                 marginTop: 32,
                 textAlign: 'center',
-                color: '#16103A'
+                color: '#16103A',
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat ullamcorper v
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis mauris nunc sit placerat
+              ullamcorper v
             </Box>
           </Box>
         </Box>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ThemeProvider, Box, Input, Button, Flex } from 'theme-ui'
+import { ThemeProvider, Box, Input, Button, Flex, ThemeUICSSObject } from 'theme-ui'
 import BigNumber from 'bignumber.js'
 import { theme } from 'themes/theme'
 import { useWeb3React } from '@web3-react/core'
@@ -8,6 +8,8 @@ import { useVaultPools } from 'state/hooks'
 import { useERC20Contract } from 'hooks/useContract'
 import { useVault } from 'hooks/useVault'
 import { getBalanceInEther, getBalanceInWei } from 'utils/formatBalance'
+
+import { styles } from './styles'
 
 type Props = {
   activePoolIdx?: number
@@ -116,17 +118,8 @@ const HPButtonInput = (props: Props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        sx={{
-          position: 'relative',
-          width: '100%',
-          overflow: 'hidden',
-          marginBottom: '10px',
-          backgroundColor: '#fff',
-          borderRadius: '31px',
-        }}
-      >
-        <Flex sx={{ position: 'absolute', marginTop: 0, height: '100%', gap: '6px', zIndex: '1' }}>
+      <Box sx={styles.button_input_container as ThemeUICSSObject}>
+        <Flex sx={styles.button_input_flex_container as ThemeUICSSObject}>
           {account ? (
             <Button
               {...props}
@@ -147,43 +140,12 @@ const HPButtonInput = (props: Props) => {
           ) : (
             <ConnectWallet />
           )}
-          <Button
-            sx={{
-              width: 'min-content',
-              height: 'min-content',
-              alignSelf: 'center',
-              backgroundColor: 'rgba(160, 160, 160, 0.32)',
-              borderRadius: '4px',
-              fontSize: '12px',
-              color: '#8E8DA0',
-              fontWeight: '300',
-              cursor: 'pointer',
-              ':hover': {
-                backgroundColor: '#fff',
-                border: '2px solid rgba(160, 160, 160, 0.32)',
-              },
-              padding: '4px',
-            }}
-            onClick={onMaxClick}
-          >
+          <Button sx={styles.button_input_max_btn as ThemeUICSSObject} onClick={onMaxClick}>
             MAX
           </Button>
         </Flex>
         <Input
-          sx={{
-            position: 'relative',
-            height: '56px',
-            borderRadius: '30px',
-            minWidth: '100%',
-            boxShadow: 'none',
-            border: 'none',
-            outline: 0,
-            fontSize: '16px',
-            paddingRight: '1rem',
-            textAlign: 'right',
-            fontWeight: '600',
-            color: '#8E8DA0',
-          }}
+          sx={styles.button_input_input as ThemeUICSSObject}
           placeholder="0.0"
           value={amountString}
           onChange={onChangeAmount}

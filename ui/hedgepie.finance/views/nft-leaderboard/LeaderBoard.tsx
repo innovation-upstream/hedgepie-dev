@@ -1,8 +1,10 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, ThemeUICSSObject } from 'theme-ui'
 import LotterySearch from './LotterySearch'
 import LotteryTable from './LotteryTable'
 import LotteryLoad from './LotteryLoad'
+
+import { styles } from './styles'
 
 const testData = [
   {
@@ -159,22 +161,8 @@ const LeaderBoard = () => {
   })
 
   return (
-    <Box
-      sx={{
-        padding: '100px 16px',
-        display: 'flex',
-        justifyContent: 'center',
-      }}
-    >
-      <Box
-        sx={{
-          width: '100%',
-          maxWidth: 1200,
-          borderRadius: 8,
-          overflow: 'hidden',
-          boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px',
-        }}
-      >
+    <Box sx={styles.leaderboard_container as ThemeUICSSObject}>
+      <Box sx={styles.leaderboard_inner_container as ThemeUICSSObject}>
         <LotterySearch onSearch={handleSearch} />
         <LotteryTable data={sorted} onSort={handleSort} sortKey={sortKey} />
         <LotteryLoad onLoad={handleLoad} />

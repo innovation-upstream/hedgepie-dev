@@ -1,6 +1,8 @@
 import React from 'react'
-import { ThemeProvider, jsx, Flex, Text, Switch } from 'theme-ui'
+import { ThemeProvider, jsx, Flex, Text, Switch, ThemeUICSSObject } from 'theme-ui'
 import { theme } from 'themes/theme'
+
+import { styles } from './styles'
 
 type Props = {
   value: string
@@ -12,26 +14,9 @@ const HPSwitch = (props: Props) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Flex
-        sx={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'row',
-          marginBottom: '1rem',
-          marginLeft: '3rem',
-        }}
-      >
-        <Text
-          sx={{
-            fontSize: '18px',
-            fontWeight: '700',
-            color: '#16103A',
-            opacity: '0.8',
-          }}
-        >
-          DEPOSIT
-        </Text>
-        <Flex sx={{ padding: '0rem 2rem 0rem 2rem' }}>
+      <Flex sx={styles.switch_container as ThemeUICSSObject}>
+        <Text sx={styles.switch_deposit_text as ThemeUICSSObject}>DEPOSIT</Text>
+        <Flex sx={styles.button_input_flex_container as ThemeUICSSObject}>
           <Switch
             css={{
               backgroundColor: 'rgba(200,179,207,1)',
@@ -46,16 +31,7 @@ const HPSwitch = (props: Props) => {
             onClick={onSwitch}
           />
         </Flex>
-        <Text
-          css={{
-            fontSize: '18px',
-            fontWeight: '700',
-            color: '#16103A',
-            opacity: '0.8',
-          }}
-        >
-          WITHDRAW
-        </Text>
+        <Text sx={styles.switch_withdraw_text as ThemeUICSSObject}>WITHDRAW</Text>
       </Flex>
     </ThemeProvider>
   )

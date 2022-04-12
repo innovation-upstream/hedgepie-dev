@@ -1,53 +1,24 @@
 import React from 'react'
 import Link from 'next/link'
 import { theme } from 'themes/theme'
-import { Box, Flex, Text, ThemeProvider, Image, Link as ThemeLink, Divider } from 'theme-ui'
+import { Box, Flex, Text, ThemeProvider, Image, Link as ThemeLink, Divider, ThemeUICSSObject } from 'theme-ui'
 import SocialButton from './SocialButton'
+
+import { styles } from './styles'
 
 type Props = {}
 
 const Footer = (props: Props) => {
   return (
-    <Box
-      sx={{
-        bg: 'header',
-        color: '#fff',
-        backgroundImage: 'url(/images/foot-mask.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center top',
-        position: 'relative'
-      }}
-    >
-      <Box
-        py={90}
-        px={[16, 60]}
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: ['column', 'row']
-        }}
-      >
+    <Box sx={styles.footer_container as ThemeUICSSObject}>
+      <Box py={90} px={[16, 60]} sx={styles.footer_inner_container as ThemeUICSSObject}>
         <Box mr={4}>
           <Image src="images/logo.png" />
-          <Box
-            sx={{
-              maxWidth: 420,
-              marginTop: 30,
-              color: '#8E8DA0',
-            }}
-          >
+          <Box sx={styles.footer_text_container as ThemeUICSSObject}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lectus molestie eu purus vel massa tristique diam
             cursus. Ut nunc consectetur penatib.
           </Box>
-          <Box
-            sx={{
-              marginTop: 50,
-              display: 'flex',
-              '& > *': {
-                marginRight: 30,
-              },
-            }}
-          >
+          <Box sx={styles.footer_social_btns_container as ThemeUICSSObject}>
             <SocialButton>
               <Image src="images/fb.png" />
             </SocialButton>
@@ -66,16 +37,7 @@ const Footer = (props: Props) => {
           }}
         >
           <Box sx={{}}>HedgePie</Box>
-          <Box
-            mt={54}
-            sx={{
-              color: '#8E8DA0',
-              '& > *': {
-                display: 'block',
-                marginBottom: 10,
-              },
-            }}
-          >
+          <Box mt={54} sx={styles.footer_navbar as ThemeUICSSObject}>
             <Link href="/vault" passHref>
               <ThemeLink>Vault</ThemeLink>
             </Link>
@@ -100,23 +62,13 @@ const Footer = (props: Props) => {
           opacity: 0.2,
         }}
       />
-      <Box
-        py={30}
-        px={[16, 60]}
-        sx={{
-          display: 'flex',
-          flexDirection: ['column', 'row'],
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          color: '#8E8DA0',
-        }}
-      >
+      <Box py={30} px={[16, 60]} sx={styles.footer_company_container as ThemeUICSSObject}>
         <Box>&copy; 2022 HedgePie</Box>
         <Flex
           mt={[4, 0]}
           sx={{
             flexDirection: ['column', 'row'],
-            gap: [12, 24]
+            gap: [12, 24],
           }}
         >
           <Link href="/" passHref>

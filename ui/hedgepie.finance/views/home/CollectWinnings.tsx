@@ -2,13 +2,15 @@ import React from 'react'
 import { Box, Image, Button } from 'theme-ui'
 import { ArrowRight } from 'react-feather'
 
+import { styles } from './styles'
+
 const CollectWinnings = () => {
   return (
     <Box
       sx={{
         padding: '0 16px',
         marginTop: 60,
-        marginBottom: 150
+        marginBottom: 150,
       }}
     >
       <Box
@@ -23,14 +25,14 @@ const CollectWinnings = () => {
             flexDirection: ['column', 'column', 'row'],
             marginBottom: 50,
             '& > *': {
-              flex: 1
-            }
+              flex: 1,
+            },
           }}
         >
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Image src="/images/piebear.png" />
@@ -39,14 +41,14 @@ const CollectWinnings = () => {
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Box
               sx={{
                 color: '#16103A',
                 fontSize: [30, 50],
-                fontWeight: 700
+                fontWeight: 700,
               }}
             >
               Choose your path.
@@ -58,7 +60,11 @@ const CollectWinnings = () => {
                 fontSize: [14, 16],
               }}
             >
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+              It is a long established fact that a reader will be distracted by the readable content of a page when
+              looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
+              letters, as opposed to using 'Content here, content here', making it look like readable English. Many
+              desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+              search for 'lorem ipsum' will uncover many web sites
             </Box>
             <Box sx={{ marginTop: 50 }}>
               <Button
@@ -70,12 +76,10 @@ const CollectWinnings = () => {
                   cursor: 'pointer',
                   transition: 'all .2s',
                   display: 'flex',
-                  alignItems: 'center'
+                  alignItems: 'center',
                 }}
               >
-                <Box mr={2}>
-                  Connect Wallet
-                </Box>
+                <Box mr={2}>Connect Wallet</Box>
                 <ArrowRight />
               </Button>
             </Box>
@@ -86,22 +90,22 @@ const CollectWinnings = () => {
             display: 'flex',
             flexDirection: ['column-reverse', 'column-reverse', 'row'],
             '& > *': {
-              flex: 1
-            }
+              flex: 1,
+            },
           }}
         >
           <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Box
               sx={{
                 color: '#16103A',
                 fontSize: [30, 50],
-                fontWeight: 700
+                fontWeight: 700,
               }}
             >
               Collect Winnings.
@@ -109,10 +113,14 @@ const CollectWinnings = () => {
             <Box
               sx={{
                 color: '#8E8DA0',
-                marginTop: 16
+                marginTop: 16,
               }}
             >
-              It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites
+              It is a long established fact that a reader will be distracted by the readable content of a page when
+              looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
+              letters, as opposed to using 'Content here, content here', making it look like readable English. Many
+              desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a
+              search for 'lorem ipsum' will uncover many web sites
             </Box>
             <Box sx={{ marginTop: 50 }}>
               <Button
@@ -128,9 +136,7 @@ const CollectWinnings = () => {
                   border: '1px solid #1799DE',
                 }}
               >
-                <Box mr={2}>
-                  Connect Winning
-                </Box>
+                <Box mr={2}>Connect Winning</Box>
                 <ArrowRight />
               </Button>
             </Box>
@@ -140,7 +146,7 @@ const CollectWinnings = () => {
               position: 'relative',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
             }}
           >
             <Image src="/images/cake-ring.png" />
@@ -154,7 +160,7 @@ const CollectWinnings = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: '15%'
+                padding: '15%',
               }}
             >
               <Image src="/images/logo-large.png" />
