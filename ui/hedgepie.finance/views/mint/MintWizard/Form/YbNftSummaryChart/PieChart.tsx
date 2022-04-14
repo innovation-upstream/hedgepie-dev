@@ -17,28 +17,28 @@ const PieChart = () => {
     // data
     const allocated = Math.min(100, formData.allocated)
     const values = [allocated, 100 - allocated]
-    // const indexes = d3.range(values.length)
+    const indexes = d3.range(values.length)
     const colors = ['#C92144', '#A11D2B']
 
     // arc
-    // const arcs = d3.pie().padAngle(0).sort(null).value((i: any) => values[i])(indexes)
-    // const arc: any = d3.arc().innerRadius(0).outerRadius(radius)
+    const arcs = d3.pie().padAngle(0).sort(null).value((i: any) => values[i])(indexes)
+    const arc: any = d3.arc().innerRadius(0).outerRadius(radius)
 
-    // // svg
-    // const svg = d3.select(rootRef.current)
-    //   .attr('width', width)
-    //   .attr('height', width)
-    //   .attr('viewBox', [-width / 2, -width / 2, width, width])
+    // svg
+    const svg = d3.select(rootRef.current)
+      .attr('width', width)
+      .attr('height', width)
+      .attr('viewBox', [-width / 2, -width / 2, width, width])
 
-    // svg.selectAll('g').remove()
+    svg.selectAll('g').remove()
 
-    // svg.append('g')
-    //   .selectAll('path')
-    //   .attr('stroke-width', 0)
-    //   .data(arcs)
-    //   .join('path')
-    //   .attr('fill', (d: any) => colors[d.data])
-    //   .attr('d', arc)
+    svg.append('g')
+      .selectAll('path')
+      .attr('stroke-width', 0)
+      .data(arcs)
+      .join('path')
+      .attr('fill', (d: any) => colors[d.data])
+      .attr('d', arc)
   }
 
   React.useEffect(() => {
