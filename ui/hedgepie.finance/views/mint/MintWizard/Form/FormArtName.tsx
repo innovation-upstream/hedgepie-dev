@@ -1,18 +1,17 @@
 import React from 'react'
 import { Box, Button } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
-import PositionList from './PositionList'
-import YbNftSummaryChart from './YbNftSummaryChart'
+import UploadArtwork from './UploadArtwork'
+import NftName from './NftName'
+import YbNftSummaryArt from './YbNftSummaryArt'
 
-const FormPosition = () => {
+const FormArtName = () => {
 
-  const { wizard, setWizard } = React.useContext(MintWizardContext)
+  const { formData } = React.useContext(MintWizardContext)
 
-  const handleNext = () => {
-    setWizard({
-      ...wizard,
-      order: 1
-    })
+  const handleMint = () => {
+    console.log('form data')
+    console.log(formData)
   }
 
   return (
@@ -32,7 +31,12 @@ const FormPosition = () => {
           flex: 1
         }}
       >
-        <PositionList />
+        <Box>
+          <UploadArtwork />
+        </Box>
+        <Box mt={3}>
+          <NftName />
+        </Box>
         <Box mt={24}>
           <Button
             variant="primary"
@@ -45,9 +49,9 @@ const FormPosition = () => {
               cursor: 'pointer',
               transition: 'all .2s'
             }}
-            onClick={handleNext}
+            onClick={handleMint}
           >
-            NEXT STEP
+            MINT YB NFT
           </Button>
         </Box>
       </Box>
@@ -57,10 +61,10 @@ const FormPosition = () => {
           flexShrink: 0
         }}
       >
-        <YbNftSummaryChart allocated={40} />
+        <YbNftSummaryArt />
       </Box>
     </Box>
   )
 }
 
-export default FormPosition
+export default FormArtName

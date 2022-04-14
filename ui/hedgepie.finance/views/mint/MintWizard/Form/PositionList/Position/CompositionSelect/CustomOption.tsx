@@ -18,7 +18,7 @@ const CustomOption = ({ data, setValue }) => {
       onClick={() => setValue(data)}
     >
       <Image
-        src={`/images/${data.symbol}.png`}
+        src={data.icon}
         sx={{
           width: 30,
           height: 30
@@ -31,16 +31,7 @@ const CustomOption = ({ data, setValue }) => {
           fontWeight: 700
         }}
       >
-        {data.value}
-      </Box>
-      <Box
-        sx={{
-          ml: 2,
-          color: '#8E8DA0',
-          fontSize: 12
-        }}
-      >
-        {data.description}
+        {data.name}
       </Box>
     </Box>
   )
