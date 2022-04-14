@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-// import * as d3 from 'd3'
+import * as d3 from 'd3'
 import MintWizardContext from 'contexts/MintWizardContext'
 
 const PieChart = () => {
