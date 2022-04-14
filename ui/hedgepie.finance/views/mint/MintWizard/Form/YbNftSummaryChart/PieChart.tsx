@@ -17,7 +17,7 @@ const PieChart = () => {
     // data
     const allocated = Math.min(100, formData.allocated)
     const values = [allocated, 100 - allocated]
-    const indexes = d3.range(values.length)
+    // const indexes = d3.range(values.length)
     const colors = ['#C92144', '#A11D2B']
 
     // arc
