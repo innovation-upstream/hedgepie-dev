@@ -57,7 +57,7 @@ const FormPosition = () => {
           flexShrink: 0
         }}
       >
-        <YbNftSummaryChart allocated={40} />
+        <YbNftSummaryChart />
       </Box>
     </Box>
   )
