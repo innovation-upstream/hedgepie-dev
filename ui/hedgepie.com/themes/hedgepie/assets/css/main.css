@@ -18,10 +18,19 @@
   height: 24px;
 }
 
-.timer{
-  display:flex;
+.timer {
+  display: flex;
   color: "#de4686";
 }
-.timer span + span:before{
-  content:":"
+
+.timer span+span:before {
+  content: ":"
+}
+
+input.banner-input:-webkit-autofill,
+input.banner-input:-webkit-autofill:hover,
+input.banner-input:-webkit-autofill:focus,
+input.banner-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #230f66 inset !important;
+  -webkit-text-fill-color: #fff;
 }
