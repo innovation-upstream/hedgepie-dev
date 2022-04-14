@@ -20,7 +20,7 @@ const CustomValue = (props) => {
         }}
       >
         <Image
-          src={`/images/${data.symbol}.png`}
+          src={data.icon}
           sx={{
             width: 40,
             height: 40,
@@ -48,9 +48,9 @@ const CustomValue = (props) => {
               }
             }}
           >
-            {data.value}
+            1.9
           </Box>
-          <Box
+          {/* <Box
             sx={{
               display: 'none',
               color: '#8E8DA0',
@@ -66,7 +66,7 @@ const CustomValue = (props) => {
             }}
           >
             {data.description}
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </components.ValueContainer >

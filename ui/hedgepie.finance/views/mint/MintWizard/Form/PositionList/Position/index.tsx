@@ -1,12 +1,29 @@
 import React from 'react'
-import { Box, Image, Button } from 'theme-ui'
+import { Box, Image, Button, Input } from 'theme-ui'
 import CompositionSelect from './CompositionSelect'
 
-const Position = ({ data, onUpdate, onDelete }) => {
+const Position = ({ data, onUpdate, onDelete, onLock }) => {
 
-  const handleSelect = (option) => {
-    onUpdate(option)
-    // onChangePoolIdx(option.value)
+  const handleSelect = (composition) => {
+    onUpdate({
+      ...data,
+      composition
+    })
+  }
+
+  const handleChangeWeight = (e) => {
+    if (e.target.value === '' || (parseInt(e.target.value) > 0 && parseInt(e.target.value) < 100)) {
+      onUpdate({
+        ...data,
+        weight: e.target.value
+      })
+    }
+  }
+
+  const handleLock = () => {
+    if (!data.locked) {
+      onLock()
+    }
   }
 
   return (
@@ -48,26 +65,64 @@ const Position = ({ data, onUpdate, onDelete }) => {
           }}
         >
           <Box
+            as="label"
             sx={{
               flex: 1,
               fontSize: 20,
               fontWeight: 700,
-              color: '#0A3F5C',
+              color: data.locked ? '#ccc' : '#0A3F5C',
+              display: 'flex',
+              alignItems: 'center',
+              userSelect: 'none',
               [`@media screen and (min-width: 500px)`]: {
                 fontSize: 30,
               }
             }}
           >
-            {data.weight}%
+            {data.locked ?
+              <Box
+                sx={{
+                  width: 50,
+                  height: 44,
+                  textAlign: 'right',
+                  pr: 2,
+                }}
+              >
+                {data.weight}
+              </Box>
+              :
+              <Input
+                sx={{
+                  border: 'none',
+                  outline: 'none',
+                  padding: 0,
+                  textAlign: 'right',
+                  pr: 2,
+                  width: 50
+                }}
+                type="number"
+                min={1}
+                max={99}
+                value={data.weight}
+                onChange={handleChangeWeight}
+              />
+            }
+
+            <Box sx={{ height: 44 }}>
+              %
+            </Box>
           </Box>
-          <Button variant="icon">
-            <Image src="/images/icon-trash.png" />
+          <Button
+            variant="icon"
+            onClick={handleLock}
+          >
+            <Image src="/images/icon-lock.png" />
           </Button>
           <Button
             variant="icon"
             onClick={onDelete}
           >
-            <Image src="/images/icon-lock.png" />
+            <Image src="/images/icon-trash.png" />
           </Button>
         </Box>
       </Box>

@@ -6,7 +6,7 @@ import CustomValue from './CustomValue'
 
 const CompositionSelect = ({ value, onSelect }) => {
 
-  const { compositionOptions } = React.useContext(MintWizardContext)
+  const { strategies } = React.useContext(MintWizardContext)
 
   const handleSelect = (option) => {
     onSelect(option)
@@ -18,7 +18,7 @@ const CompositionSelect = ({ value, onSelect }) => {
       classNamePrefix="select"
       name="color"
       isSearchable={false}
-      options={compositionOptions}
+      options={strategies}
       placeholder=""
       value={value}
       onChange={handleSelect}

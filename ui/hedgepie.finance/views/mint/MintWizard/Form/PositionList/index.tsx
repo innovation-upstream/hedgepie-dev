@@ -6,33 +6,30 @@ import Position from './Position'
 
 const PositionList = () => {
 
-  const { formData, setFormData, compositionOptions } = React.useContext(MintWizardContext)
+  const { formData, setFormData, strategies } = React.useContext(MintWizardContext)
 
   const handleAdd = () => {
     setFormData({
       ...formData,
+      allocated: formData.allocated + 1,
       positions: [
         ...formData.positions,
         {
-          composition: compositionOptions[0],
-          weight: 25
+          composition: strategies[0],
+          weight: 1,
+          locked: false
         }
       ]
     })
   }
 
-  const handleUpdate = (index, composition) => {
+  const handleUpdate = (index, newData) => {
+    const newPositions = formData.positions.map((d, i) => i === index ? newData : d);
+    const allocated = newPositions.reduce((p, c) => p + parseInt(c.weight), 0)
     setFormData({
       ...formData,
-      positions: formData.positions.map((d, i) => {
-        if (i === index) {
-          return {
-            ...d,
-            composition
-          }
-        }
-        return d
-      })
+      allocated,
+      positions: newPositions
     })
   }
 
@@ -40,6 +37,13 @@ const PositionList = () => {
     setFormData({
       ...formData,
       positions: formData.positions.filter((d, i) => i !== index)
+    })
+  }
+
+  const handleLock = (index) => {
+    setFormData({
+      ...formData,
+      positions: formData.positions.map((d, i) => i === index ? { ...d, locked: true } : d)
     })
   }
 
@@ -58,6 +62,7 @@ const PositionList = () => {
       <Box
         sx={{
           mt: 4,
+          minHeight: 300,
         }}
       >
         {formData.positions.map((d, i) =>
@@ -65,6 +70,7 @@ const PositionList = () => {
             <Position
               data={d}
               onUpdate={composition => handleUpdate(i, composition)}
+              onLock={() => handleLock(i)}
               onDelete={() => handleDelete(i)}
             />
           </Box>

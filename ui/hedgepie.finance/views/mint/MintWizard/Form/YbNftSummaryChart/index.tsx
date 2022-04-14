@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from 'theme-ui'
-import * as d3 from 'd3'
+import PieChart from './PieChart'
 import Legend from './Legend'
 
-const YbNftSummary = ({ allocated, unallocated }) => {
+const YbNftSummaryChart = () => {
   return (
     <Box
       sx={{
@@ -13,14 +13,21 @@ const YbNftSummary = ({ allocated, unallocated }) => {
     >
       <Box
         sx={{
-          padding: '24px 34px'
+          padding: '14px 14px',
+          [`@media screen and (min-width: 400px)`]: {
+            padding: '24px 34px',
+          }
         }}
       >
         <Box
           sx={{
             textAlign: 'center',
             color: '#16103A',
-            fontSize: 24
+            fontSize: 16,
+            fontWeight: 700,
+            [`@media screen and (min-width: 400px)`]: {
+              fontSize: 24,
+            }
           }}
         >
           YB NFT Summary
@@ -30,35 +37,25 @@ const YbNftSummary = ({ allocated, unallocated }) => {
             marginTop: 22
           }}
         >
-          Chart
+          <PieChart />
         </Box>
         <Box
           sx={{
             marginTop: 18
           }}
         >
-          {(allocated === 100 || allocated === 0) ?
-            <Legend
-              percent={allocated}
-              label="Allocated"
-            />
-            :
-            <>
-              <Legend
-                percent={allocated}
-                label="Allocated"
-              />
-              <Legend
-                percent={unallocated}
-                label="Unallocated"
-              />
-            </>
-          }
+          <Legend />
         </Box>
       </Box>
       <Box
         sx={{
-          padding: '20px 34px'
+          fontSize: 14,
+          padding: '10px 14px',
+          borderTop: '1px solid #D8D8D8',
+          [`@media screen and (min-width: 400px)`]: {
+            padding: '20px 34px',
+            fontSize: 16
+          }
         }}
       >
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptas, a, suscipit delectus ipsa harum voluptatibus eius hic quae et aliquam obcaecati aliquid modi assumenda ex mollitia unde, ut porro?
@@ -67,4 +64,4 @@ const YbNftSummary = ({ allocated, unallocated }) => {
   )
 }
 
-export default YbNftSummary
+export default YbNftSummaryChart

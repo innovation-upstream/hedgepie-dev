@@ -1,17 +1,17 @@
 import React from 'react'
 import { Box, Button } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
-import PositionList from './PositionList'
+import PerformanceFee from './PerformanceFee'
 import YbNftSummaryChart from './YbNftSummaryChart'
 
-const FormPosition = () => {
+const FormPerformanceFee = () => {
 
   const { wizard, setWizard } = React.useContext(MintWizardContext)
 
   const handleNext = () => {
     setWizard({
       ...wizard,
-      order: 1
+      order: 2
     })
   }
 
@@ -27,12 +27,8 @@ const FormPosition = () => {
         }
       }}
     >
-      <Box
-        sx={{
-          flex: 1
-        }}
-      >
-        <PositionList />
+      <Box sx={{ flex: 1 }}>
+        <PerformanceFee />
         <Box mt={24}>
           <Button
             variant="primary"
@@ -63,4 +59,4 @@ const FormPosition = () => {
   )
 }
 
-export default FormPosition
+export default FormPerformanceFee
