@@ -21,8 +21,8 @@ const PieChart = () => {
     const colors = ['#C92144', '#A11D2B']
 
     // arc
-    const arcs = d3.pie().padAngle(0).sort(null).value(i => values[i])(indexes)
-    const arc = d3.arc().innerRadius(0).outerRadius(radius)
+    const arcs = d3.pie().padAngle(0).sort(null).value((i: any) => values[i])(indexes)
+    const arc: any = d3.arc().innerRadius(0).outerRadius(radius)
 
     // svg
     const svg = d3.select(rootRef.current)
@@ -37,7 +37,7 @@ const PieChart = () => {
       .attr('stroke-width', 0)
       .data(arcs)
       .join('path')
-      .attr('fill', d => colors[d.data])
+      .attr('fill', (d: any) => colors[d.data])
       .attr('d', arc)
   }
 
