@@ -26,6 +26,7 @@
     "@web3-react/walletlink-connector": "^6.2.13",
     "ethers": "^5.5.3",
     "next": "12.1.0",
+    "next-pwa": "^5.5.0",
     "prettier": "^2.6.0",
     "react": "17.0.2",
     "react-countdown": "^2.3.2",
