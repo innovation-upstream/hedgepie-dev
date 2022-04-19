@@ -1,0 +1,166 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<footer class="bg-haiti" aria-labelledby="footer-heading">
+  <h2 id="footer-heading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto py-12 grid-cols-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    
+    <div class="grid grid-cols-12">
+      <div class="col-span-12 pb-6 md:col-span-4 md:col-start-1">
+              {{ with .Site.Params.brand }}
+        {{$logoURL := .logo }}
+        {{$logoURL2x := .logo2x }}
+        {{$slogan := .slogan}}
+        <div class="flex">
+        <img class="mb-6" alt="logo" src="{{ $logoURL }}" srcset="{{ $logoURL2x }} 2x" />
+
+
+        </div>
+
+
+        <p class="mb-6 text-gray-500 text-base">
+          {{$slogan}}
+        </p>
+        {{end}}
+        <div class="flex space-x-6">
+
+<!--           <a href="#" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Facebook</span>
+            <svg class="h-6 w-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M37 18.5C37 28.7173 28.7173 37 18.5 37C8.28273 37 0 28.7173 0 18.5C0 8.28273 8.28273 0 18.5 0C28.7173 0 37 8.28273 37 18.5Z" fill="white"/>
+            <path d="M21.514 11.0032L19.6412 11C17.5372 11 16.1775 12.5084 16.1775 14.8431V16.615H14.2945C14.1318 16.615 14 16.7577 14 16.9336V19.501C14 19.6769 14.1319 19.8194 14.2945 19.8194H16.1775V26.2976C16.1775 26.4735 16.3092 26.616 16.472 26.616H18.9287C19.0914 26.616 19.2232 26.4733 19.2232 26.2976V19.8194H21.4249C21.5876 19.8194 21.7193 19.6769 21.7193 19.501L21.7203 16.9336C21.7203 16.8492 21.6892 16.7682 21.634 16.7085C21.5789 16.6487 21.5038 16.615 21.4256 16.615H19.2232V15.113C19.2232 14.391 19.3823 14.0245 20.2521 14.0245L21.5137 14.024C21.6762 14.024 21.808 13.8814 21.808 13.7056V11.3217C21.808 11.1461 21.6764 11.0036 21.514 11.0032Z" fill="#16103A"/>
+            </svg>
+          </a>
+ -->
+          <a href="{{.Site.Params.socials.twitter}}" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Twitter</span>
+            <svg class="h-6 w-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18.6333" cy="18.8052" r="18.5" fill="white"/>
+            <path d="M15.1652 25.6199C21.2032 25.6199 24.5051 20.1127 24.5051 15.3372C24.5051 15.1808 24.5022 15.025 24.4958 14.8701C25.1367 14.36 25.6938 13.7233 26.1333 12.9987C25.5451 13.2866 24.9121 13.4802 24.2482 13.5678C24.9259 13.1202 25.4462 12.4124 25.6916 11.5688C25.0574 11.9827 24.3549 12.2835 23.6072 12.446C23.0082 11.7435 22.1552 11.3042 21.2109 11.3042C19.3982 11.3042 17.9281 12.9226 17.9281 14.9176C17.9281 15.2014 17.9569 15.4772 18.0132 15.7417C15.2849 15.5906 12.8656 14.1526 11.2467 11.9658C10.9649 12.4998 10.8023 13.1203 10.8023 13.7824C10.8023 15.036 11.3818 16.1431 12.263 16.7905C11.7245 16.7723 11.2186 16.6095 10.7763 16.3386C10.7759 16.3538 10.7759 16.3686 10.7759 16.3847C10.7759 18.135 11.9074 19.5964 13.4096 19.9275C13.1337 20.0101 12.8434 20.0546 12.544 20.0546C12.3328 20.0546 12.1269 20.0318 11.9269 19.9894C12.3448 21.4254 13.5568 22.4703 14.9935 22.4996C13.87 23.4691 12.4546 24.0466 10.9164 24.0466C10.6518 24.0466 10.3902 24.0299 10.1333 23.9965C11.5861 25.0217 13.3113 25.62 15.1653 25.62" fill="#16103A"/>
+            </svg>
+          </a>
+
+          <a href="{{.Site.Params.socials.reddit}}" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Reddit</span>
+            <svg class="h-6 w-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18.5" cy="18.5" r="18.5" fill="white"/>
+            <path d="M24.9928 16.5102C24.4237 16.5102 23.9229 16.7454 23.5549 17.1134C22.2005 16.1764 20.3757 15.5731 18.3536 15.5087L19.4045 10.7739L22.7507 11.5251C22.7507 12.3446 23.4184 13.0123 24.2378 13.0123C25.0725 13.0123 25.744 12.3256 25.744 11.5062C25.744 10.6867 25.0763 10 24.2378 10C23.6536 10 23.149 10.3528 22.8986 10.8346L19.2034 10.0152C19.0175 9.96586 18.8354 10.0986 18.7861 10.2845L17.6328 15.5049C15.6258 15.5883 13.82 16.1915 12.4618 17.1286C12.0938 16.7454 11.574 16.5102 11.0049 16.5102C8.89556 16.5102 8.20508 19.3404 10.1361 20.3079C10.0679 20.6076 10.0375 20.9262 10.0375 21.2449C10.0375 24.4242 13.6189 27.0002 18.0159 27.0002C22.432 27.0002 26.0133 24.4242 26.0133 21.2449C26.0133 20.9262 25.9792 20.5924 25.8957 20.2927C27.7889 19.3215 27.0908 16.5102 24.9928 16.5102V16.5102ZM13.1978 20.5089C13.1977 19.6743 13.8655 19.0028 14.7039 19.0028C15.5234 19.0028 16.1911 19.6705 16.1911 20.5089C16.1911 21.3284 15.5234 21.9961 14.7039 21.9961C13.8693 21.9999 13.1978 21.3284 13.1978 20.5089V20.5089ZM21.328 24.0562C19.947 25.4371 16.0507 25.4371 14.6698 24.0562C14.518 23.9234 14.518 23.6882 14.6698 23.5364C14.8026 23.4036 15.0378 23.4036 15.1706 23.5364C16.2253 24.6177 19.7232 24.6366 20.8234 23.5364C20.9562 23.4036 21.1914 23.4036 21.3242 23.5364C21.4797 23.6882 21.4797 23.9234 21.328 24.0562ZM21.2976 21.9999C20.4781 21.9999 19.8104 21.3322 19.8104 20.5127C19.8104 19.6781 20.4781 19.0066 21.2976 19.0066C22.1323 19.0066 22.8038 19.6743 22.8038 20.5127C22.8 21.3284 22.1323 21.9999 21.2976 21.9999Z" fill="#16103A"/>
+            </svg>
+          </a>
+          <a href="{{.Site.Params.socials.telegram}}" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Telegram</span>
+            <svg class="h-6 w-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18.5" cy="18.5" r="18.5" fill="white"/>
+            <path d="M26.9487 12.3743L24.2324 25.1843C24.0275 26.0884 23.493 26.3134 22.7336 25.8875L18.5948 22.8377L16.5978 24.7584C16.3768 24.9794 16.1919 25.1642 15.766 25.1642L16.0634 20.9491L23.7341 14.0177C24.0677 13.7204 23.6618 13.5556 23.2158 13.853L13.7328 19.824L9.65029 18.5462C8.76227 18.269 8.7462 17.6582 9.83513 17.2323L25.8035 11.0804C26.5429 10.8031 27.1898 11.2451 26.9487 12.3743V12.3743Z" fill="#16103A"/>
+            </svg>
+          </a>
+          <a href="{{.Site.Params.socials.discord}}" class="text-gray-400 hover:text-gray-500">
+            <span class="sr-only">Discord</span>
+            <svg class="h-6 w-6" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="18.5" cy="18.5" r="18.5" fill="white"/>
+            <path d="M24.2648 13.1613C24.2596 13.1515 24.2513 13.1438 24.2412 13.1398V13.1398C23.0738 12.6028 21.8421 12.2201 20.5767 12.001C20.5528 11.9964 20.5292 12.0078 20.5176 12.0289L20.5175 12.0289C20.3498 12.3339 20.1973 12.6472 20.0613 12.9679C18.6971 12.7602 17.3095 12.7602 15.9455 12.9679H15.9455C15.8083 12.6463 15.6534 12.333 15.482 12.0289V12.0289C15.4697 12.0083 15.4464 11.997 15.4229 12.001C14.1572 12.2194 12.9254 12.6024 11.7583 13.1394C11.7482 13.1434 11.7397 13.1508 11.7341 13.16C9.40022 16.6529 8.76063 20.0605 9.07445 23.4256C9.07598 23.4422 9.08456 23.4572 9.09772 23.4678C10.4565 24.4761 11.9766 25.246 13.5929 25.7441V25.744C13.6162 25.7508 13.6413 25.7425 13.656 25.7232C14.0028 25.2497 14.3105 24.7483 14.5754 24.2242C14.5895 24.1959 14.5781 24.1616 14.5503 24.1471C14.5481 24.1459 14.546 24.145 14.5439 24.1444C14.0586 23.9581 13.5892 23.7341 13.1395 23.4736H13.1394C13.1119 23.4573 13.1027 23.4217 13.1189 23.3941C13.1226 23.3874 13.1275 23.3818 13.1336 23.3772C13.2279 23.3064 13.3222 23.2324 13.4122 23.1581H13.4122C13.4284 23.1446 13.4508 23.1416 13.4704 23.1502C16.4163 24.4976 19.6063 24.4976 22.5176 23.1502H22.5176C22.5369 23.1406 22.5599 23.1437 22.5764 23.1572C22.6664 23.2315 22.7607 23.306 22.8559 23.3769C22.8813 23.396 22.8865 23.4322 22.8676 23.4576C22.863 23.4635 22.8572 23.4687 22.8507 23.4724C22.4019 23.7347 21.9319 23.9587 21.4457 24.1422C21.416 24.1533 21.401 24.1867 21.4123 24.2162C21.413 24.218 21.4139 24.2199 21.4148 24.222H21.4148C21.6839 24.7431 21.991 25.2435 22.3336 25.7198C22.3477 25.7397 22.3731 25.7483 22.3966 25.7413C24.0157 25.2445 25.5382 24.4746 26.8992 23.4647V23.4647C26.9124 23.4548 26.921 23.4395 26.9225 23.4229C27.2979 19.5323 26.2936 16.1528 24.2607 13.157L24.2648 13.1613ZM15.0172 21.3771C14.13 21.3771 13.3991 20.5612 13.3991 19.5593C13.3991 18.5571 14.1156 17.7411 15.0169 17.7411C15.925 17.7411 16.6488 18.5641 16.6347 19.5587C16.6347 20.5606 15.918 21.3765 15.0166 21.3765L15.0172 21.3771ZM20.9992 21.3771C20.1119 21.3771 19.3811 20.5612 19.3811 19.5593C19.3811 18.5571 20.0975 17.7411 20.9989 17.7411C21.907 17.7411 22.6307 18.5641 22.6167 19.5587C22.6167 20.5606 21.907 21.3765 20.9986 21.3765L20.9992 21.3771Z" fill="#16103A"/>
+            </svg>
+          </a>
+
+      </div>
+    </div>
+
+      <div class="col-span-12 pb-6 md:col-span-3 md:col-start-6">
+        {{ range $index, $element :=.Site.Menus.footer }} 
+          <div>
+            <h3
+              class="
+                text-sm
+                font-semibold
+                text-gray-400
+                tracking-wider
+                uppercase
+              "
+            >
+              {{ .Name }}
+            </h3>
+
+            {{ if .HasChildren }}
+            <ul role="list" class="mt-4 space-y-4">
+              {{ range .Children }}
+              <li>
+                <a href="{{ .URL }}" class="text-base text-gray-500 hover:text-curiousBlue">
+                  {{.Name}}
+                </a>
+              </li>
+              {{end}}
+            </ul>
+            {{ end}}
+          </div>
+       {{ end }}
+      </div>
+
+            <div class="col-span-12 pb-6 md:col-span-3 md:col-start-9">
+        <!-- Begin Mailchimp Signup Form -->
+        <!-- <link href="//cdn-images.mailchimp.com/embedcode/slim-10_7_dtp.css" rel="stylesheet" type="text/css"> -->
+<!--         <style type="text/css">
+          #mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; }
+          /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+             We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+        </style>
+-->        
+
+        <div id="mc_embed_signup" class="">
+        <form action="https://hedgepie.us14.list-manage.com/subscribe/post?u=ab821e6316185cc3d26d1c3b7&amp;id=9975897967" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <div id="mc_embed_signup_scroll" class="grid space-y-4 ">
+          <label for="mce-EMAIL" class="text-sm
+                font-semibold
+                text-gray-400
+                tracking-wider
+                uppercase">Signup For The Launch!</label>
+          <br/>
+          <div class="flex md:flex-col lg:flex-row">
+          <input type="email" value="" name="EMAIL" class="w-full email bg-white h-10 px-5 pr-10 rounded-full text-sm  inline-block" id="mce-EMAIL" placeholder="email address" required><br/>
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ab821e6316185cc3d26d1c3b7_9975897967" tabindex="-1" value=""></div>
+                <div class="lg:ml-4 optionalParent">
+                    <div class="clear foot">
+                        <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button                 inline-block
+                bg-white
+                px-4
+                py-2
+                inline-block
+                border border-curiousBlue
+                rounded-full
+                text-base
+                font-medium
+                text-curiousBlue
+                hover:bg-primary-50
+                ">
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+        </div>
+
+        <!--End mc_embed_signup-->
+
+      </div>
+
+</div>
+
+
+
+  <div class="mt-12 border-t border-gray-200 pt-8">
+    <div class="grid grid-cols-12">
+      <div class="col-span-12 md:col-span-4 md:col-start-1">
+              <p class="text-base text-gray-400">
+        {{ .Site.Copyright}}
+      </p>
+      </div>
+
+    <!-- another column -->
+    <div class="col-span-12 md:col-start-6 md:col-span-6">
+      <a class="text-base pr-4 font-medium block lg:inline text-gray-500 hover:text-curiousBlue">Privacy policy</a>
+      <a class="text-base pr-4 font-medium block lg:inline text-gray-500 hover:text-curiousBlue">Terms & Conditions</a>
+    </div>
+</div>
+
+</div>
+
+
+</footer>

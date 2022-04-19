@@ -1,0 +1,48 @@
+{{ $baseURL := site.Params.cloudinary_base_url }}
+
+{{ $url := urls.Parse .src }}
+{{ $file := path.Base ($url.Path) }}
+{{ $sm := "f_auto,q_10,w_376" }}
+{{ $ml := "f_auto,q_10,w_640" }}
+{{ $lg := "f_auto,q_10,w_1024" }}
+{{ $xl := "f_auto,q_10,w_1400" }}
+{{ $imageDir := path.Split (path.Dir ($url.Path)) }}
+{{ $transformation := "f_auto,q_10" }}
+{{- $host := $url.Host -}}
+{{ if in $host "res.cloudinary.com" }}
+
+<picture>
+  <source
+    media="(max-width: 376px)"
+    srcset="
+      {{ $baseURL }}{{ $sm }}/{{ $imageDir.File }}/{{ $file }}
+    "
+  />
+  <source
+    media="(max-width: 640px)"
+    srcset="
+      {{ $baseURL }}{{ $ml }}/{{ $imageDir.File }}/{{ $file }}
+    "
+  />
+  <source
+    media="(max-width: 1024px)"
+    srcset="
+      {{ $baseURL }}{{ $lg }}/{{ $imageDir.File }}/{{ $file }}
+    "
+  />
+  <source
+    media="(max-width: 1600px)"
+    srcset="
+      {{ $baseURL }}{{ $transformation }}{{ $xl }}/{{ $imageDir.File }}/{{ $file }}
+    "
+  />
+  <img src="{{ .src | safeURL }}" class="{{- .class -}}" alt="{{- .alt -}}" width='{{.width | default "100%"}}' height='{{.height | default "100%"}}' />
+</picture>
+
+ {{else}}
+  <picture >
+    <img src="{{ .src | safeURL }}" class="{{- .class -}}"  alt="{{- .alt -}}" width='{{.width | default "100%"}}' height='{{.height | default "100%"}}' />
+  </picture>
+</figure>
+{{end}} 
+

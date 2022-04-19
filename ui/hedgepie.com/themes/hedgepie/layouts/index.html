@@ -1,0 +1,22 @@
+{{ define "main" }}
+  
+
+  <!-- <div class="bg-hero-pattern bg-auto"> -->
+  {{- partial "heroes/split-with-screenshot-original.html" . -}}
+
+  {{- partial "feature-sections/grid-with-offset-icons.html" . -}}  
+  
+
+<!-- Table -->
+{{- partial "hedgepie/leaderboard.html" . -}}
+<!-- Draw -->
+<div class="bg-background-gradient bg-cover">
+{{- partial "hedgepie/profile.html" . -}}
+
+<!-- Finished rounds -->
+{{- partial "hedgepie/rounds.html" . -}}
+</div>
+<!-- Blocks -->
+   {{- partial "feature-sections/alternating-with-optional-testimonial.html" . -}}
+
+{{ end }}

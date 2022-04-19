@@ -1,0 +1,74 @@
+<script>
+  function smoothScroll(){
+    document.querySelector('#mc_embed_signup').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
+
+</script>
+<div class="pb-8 sm:pb-12 lg:pb-12">
+  <div class="pt-8 sm:pt-12 lg:relative lg:py-48">
+    <div
+      class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid lg:grid-cols-2 lg:gap-24"
+    >
+      <div>
+        <div class="">
+          <div class="sm:max-w-xl">
+            {{ with .Site.Params.hero }}
+            <h1
+              class="text-7xl font-extrabold text-gray-900 tracking-tight sm:text-7xl"
+            >
+              {{ .title }}
+            </h1>
+            <p class="mt-8 text-xl text-gray-500">{{ .subtitle }}</p>
+          </div>
+            <div class="mt-12">
+              <a
+                href="#mc_embed_signup"
+                class="
+                  inline-flex
+                  px-12
+                  py-4
+                  border border-transparent
+                  text-base
+                  font-medium
+                  rounded-full
+                  shadow-sm
+                  text-white
+                  bg-curiousBlue
+                  hover:bg-honolulu
+                  shadow-lg
+                  shadow-curiousBlue/50
+                "
+                x-on:click="smoothScroll()"
+              >
+                <span class="arrow-white">{{.buttonText}}</span>
+
+              </a>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sm:mx-auto sm:max-w-3xl sm:px-6">
+      <div
+        class="py-12 sm:relative sm:mt-12 sm:py-16 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2"
+      >
+        <div class="hidden sm:block">
+
+          <div class="absolute top-8 right-1 lg:m-0 lg:left-8 coin-pattern">
+            <img src="https://res.cloudinary.com/dalyoko/h_900,f_auto,q_80/hedgepie/Frame_1000002141.png" alt="">
+          </div>
+        </div>
+        <div
+          class="relative pt-32 sm:mx-auto sm:max-w-2xl sm:px-0 lg:max-w-xl lg:pl-12"
+        >
+          <img src="https://res.cloudinary.com/dalyoko/f_auto,w_420,q_80/hedgepie/Asset_2landscape.png" alt="">
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</div>
+</div>
+</div>

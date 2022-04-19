@@ -10,14 +10,8 @@ cloudinaryName="dalyoko"
 
 [author]
   [author.default]
-    name = "Иван Петров"
-    location = "Москва"
-    avatar =""
-    bio = ""
-    linkedin=""
-  [author.petr]
-    name = "Петр Иванов"
-    location = "Москва"
+    name = "Hedgepie"
+    location = "Hedgepie"
     avatar =""
     bio = ""
     linkedin=""
@@ -27,26 +21,6 @@ cloudinaryName="dalyoko"
   filename = 'sitemap.xml'
   priority = 0.7
 
-# 404
-
-# [404]
-
-# section="404 ERROR"
-# title="This page does not exist."
-# subtitle="The page you are looking for could not be found."
-# features_title="POPULAR PAGES"
-
-# [[404.feature]]
-# title="Documentation"
-# subtitle="Learn how to integrate our tools with your app"
-# icon=""
-# href="#"
-
-# [[404.feature]]
-# title="API Reference"
-# subtitle="A complete  API reference for our libraries"
-# icon=""
-# href="#"
 
 [taxonomies]
     tag = "tags"
@@ -55,30 +29,12 @@ cloudinaryName="dalyoko"
   writeStats = true
 
 [outputs]
-  home = ["HTML", "RSS", "SearchIndex", "AMP", "ATOM"]
-  page = ["HTML", "AMP"]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
   section = ["HTML", "RSS"]
   taxonomy = ["HTML", "RSS"]
   taxonomyTerm = ["HTML"]
 
-[outputFormats]
-  [outputFormats.SearchIndex]
-      mediaType= "application/json"
-      baseName= "search"
-      isPlainText= true
-      notAlternative= true
-[mediaTypes."application/rss+xml"]
-  suffixes = ["xml"]
-[outputFormats.Atom]
-  # https://validator.w3.org/feed/docs/atom.html#whatIsAtom
-  name = "Atom"
-  mediaType = "application/rss+xml"
-  baseName = "turbo" # generated file = <baseName>.<mediaType."application/atom+xml".suffixes[0]> = atom.xml
-  isPlainText = false
-  rel = "alternate"
-  isHTML = false
-  noUgly = true
-  permalinkable = false
 
 [markup]
 [markup.goldmark]

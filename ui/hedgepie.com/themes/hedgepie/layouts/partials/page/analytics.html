@@ -1,0 +1,15 @@
+{{ if isset $.Site.Params "googleanalytics" }}
+  <amp-analytics type="gtag" data-credentials="include">
+    <script type="application/json">
+      {
+        "vars": {
+          "gtag_id": "{{ $.Site.Params.googleAnalytics }}",
+          "config": {
+            "{{ $.Site.Params.googleAnalytics }}": { "groups": "default" }
+          }
+        },
+        "triggers": {{ index $.Site.Data "analytics-triggers" }}
+      }
+    </script>
+  </amp-analytics>
+{{ end }}

@@ -3,3 +3,8 @@ node_modules
 .vscode
 .next
 .vercel
+
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
