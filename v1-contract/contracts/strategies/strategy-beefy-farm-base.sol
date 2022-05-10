@@ -23,19 +23,12 @@ abstract contract StrategyBeefyFarmBase is Ownable {
     }
 
     function invest(uint256 _amount) external onlyInvestor {
+        IBeefyStrategy(strategy).want().approve(strategy, _amount);
         IBeefyStrategy(strategy).deposit(_amount);
-    }
-
-    function investAll() external onlyInvestor {
-        IBeefyStrategy(strategy).depositAll();
     }
 
     function withdraw(uint256 _amount) external onlyInvestor {
         IBeefyStrategy(strategy).withdraw(_amount);
-    }
-
-    function withdrawAll() external onlyInvestor {
-        IBeefyStrategy(strategy).withdrawAll();
     }
 
     // ===== Owner functions =====
