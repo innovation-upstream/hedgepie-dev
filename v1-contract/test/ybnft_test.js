@@ -2,7 +2,7 @@ const { ethers } = require("hardhat");
 const { expect } = require("chai");
 const { utils } = require("ethers");
 
-describe.only("YBNFT contract test", () => {
+describe("YBNFT contract test", () => {
     // accounts
     let deployer, account1, account2;
     let ybnftContract;
