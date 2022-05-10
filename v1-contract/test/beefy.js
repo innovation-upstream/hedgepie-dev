@@ -32,7 +32,7 @@ describe.only("Beefy adapter test", () => {
         console.log(`strategy manager deployed to ${strategyManager.address}`);
 
         const BeefyAdapter = await ethers.getContractFactory("StrategyBeefySingle");
-        beefyAdapter = await BeefyAdapter.deploy(cakeVault);
+        const beefyAdapter = await BeefyAdapter.deploy(cakeVault);
         await beefyAdapter.deployed();
         console.log(`Beefy adapter deployed to ${beefyAdapter.address}`);
 
@@ -55,6 +55,9 @@ describe.only("Beefy adapter test", () => {
 
         await ybnftContract.connect(deployer).setInvestor(hedgepieInvestor.address);
         await ybnftContract.connect(deployer).setTreasury(deployer.address);
+
+        // allow token to depsit
+        await ybnftContract.connect(deployer).manageToken([cakeAddr], true);
     });
 
     describe("setting test", () => {
