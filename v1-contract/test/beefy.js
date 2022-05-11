@@ -4,7 +4,7 @@ const { expect } = require("chai");
 
 describe.only("Beefy adapter test", () => {
     let deployer;
-    let ybnftContract, beefyAdapter;
+    let ybnftContract, beefyAdapter, beefyVault, hedgepieInvestor;
 
     const whaleWallet = "0xf35A6bD6E0459A4B53A27862c51A2A7292b383d1";
     let whaleUser, cakeToken;
@@ -20,7 +20,7 @@ describe.only("Beefy adapter test", () => {
         [deployer] = await ethers.getSigners();
 
         const HedgepieInvestor = await ethers.getContractFactory("HedgepieInvestor");
-        const hedgepieInvestor = await HedgepieInvestor.deploy(swapRouter, wBNB);
+        hedgepieInvestor = await HedgepieInvestor.deploy(swapRouter, wBNB);
         await hedgepieInvestor.deployed();
         console.log(`hedgepie investor deployed to ${hedgepieInvestor.address}`);
 
@@ -40,6 +40,8 @@ describe.only("Beefy adapter test", () => {
         await ybnftContract.deployed();
         console.log(`ybnft Contract deployed to: ${ybnftContract.address}`);
 
+        beefyVault = await ethers.getContractAt("BeefyVaultV6", cakeVault);
+
         cakeToken = await ethers.getContractAt("CakeToken", cakeAddr);
 
         // set strategy manager in investor contract
@@ -56,14 +58,14 @@ describe.only("Beefy adapter test", () => {
         await ybnftContract.connect(deployer).setTreasury(deployer.address);
 
         // allow token to depsit
-        await ybnftContract.connect(deployer).manageToken([cakeAddr], true);
+        await ybnftContract.connect(deployer).manageToken([cakeAddr, wBNB], true);
 
         // list strategy on strategy manager
         await strategyManager.addStrategy(beefyAdapter.address);
         await strategyManager.setInvestor(hedgepieInvestor.address);
     });
 
-    describe("setting test", () => {
+    describe("deposit function test", () => {
         it("create strategy", async() => {
             await ybnftContract.connect(deployer).mint(
                 [10000],
@@ -73,22 +75,48 @@ describe.only("Beefy adapter test", () => {
             );
         });
 
-        it("testing", async() => {
+        it("testing deposit", async() => {
             // approve tokens first
             await cakeToken.connect(whaleUser).approve(ybnftContract.address, ethers.utils.parseUnits("100"));
 
-            // const cakeBalance = Number(await cakeToken.balanceOf(beefyAdapter.address)) / Math.pow(10, 18);
-            // expect(cakeBalance).to.be.equal(100);
-
-            // const tx = await beefyAdapter.connect(whaleUser).invest(ethers.utils.parseUnits("100"));
-            // await tx.wait();
-
-            const tx = await ybnftContract.connect(whaleUser).deposit(
+            await ybnftContract.connect(whaleUser).deposit(
                 1, // tokenid
                 cakeAddr, // cake token
                 ethers.utils.parseUnits("100") // amount
             );
-            await tx.wait();
-        });
+            
+            // deposit amount should be 100
+            const depositAmount = Number(await hedgepieInvestor.userInfo(whaleWallet, ybnftContract.address, 1)) / Math.pow(10, 18);
+            expect(depositAmount).to.be.equal(100);
+        }).timeout(100000);
     });
+
+    describe("withdraw function test", () => {
+        it("withdraw request requires vault token", async() => {
+            await expect(ybnftContract.connect(deployer).callStatic['withdraw(uint256,address,uint256)'](
+                1,
+                cakeAddr,
+                ethers.utils.parseUnits("50")
+            )).to.be.revertedWith("Withdraw: exceeded amount");
+        });
+
+        it("withdraw amount should be smaller than token balance", async() => {
+            await expect(ybnftContract.connect(whaleUser).callStatic['withdraw(uint256,address,uint256)'](
+                1,
+                cakeAddr,
+                ethers.utils.parseUnits("150")
+            )).to.be.revertedWith("Withdraw: exceeded amount");
+        })
+
+        it("withdraw will be successed", async() => {
+            // change investor address - this should be fixed
+            await beefyAdapter.setInvestor(hedgepieInvestor.address);
+
+            await ybnftContract.connect(whaleUser).callStatic['withdraw(uint256,address,uint256)'](
+                1,
+                cakeAddr,
+                ethers.utils.parseUnits("50")
+            );
+        }).timeout(100000);
+    })
 });
