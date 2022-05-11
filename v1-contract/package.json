@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx hardhat compile",
     "lint": "npx solhint contracts/*.sol",
+    "test": "npx hardhat test",
     "test:all": "npx hardhat test --network hardhat",
     "test:YBNFT": "npx hardhat test ./test/YBNFT.js --network hardhat",
     "deploy:mockBEP20": "npx hardhat run deploy/mockBEP20.ts --network bscTestnet",

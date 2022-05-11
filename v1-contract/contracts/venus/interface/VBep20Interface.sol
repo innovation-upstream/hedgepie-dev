@@ -31,6 +31,11 @@ interface VBep20Interface is IERC20 {
         VTokenInterface vTokenCollateral
     ) external returns (uint256);
 
+    /***  View Functions ***/
+    function isVToken() external view returns (bool);
+
+    function underlying() external view returns (address);
+
     /*** Admin Functions ***/
 
     function _addReserves(uint256 addAmount) external returns (uint256);
