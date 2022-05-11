@@ -4,14 +4,12 @@ const { expect } = require("chai");
 
 describe.only("Beefy adapter test", () => {
     let deployer;
-    let ybnftContract;
+    let ybnftContract, beefyAdapter;
 
     const whaleWallet = "0xf35A6bD6E0459A4B53A27862c51A2A7292b383d1";
     let whaleUser, cakeToken;
 
     // constants
-    const pancakeswapRouter = "0xD99D1c33F9fC3444f8101754aBC46c52416550D1"
-
     const cakeVault = "0x97e5d50Fe0632A95b9cf1853E744E02f7D816677";
     const cakeAddr = "0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82";
 
@@ -32,7 +30,7 @@ describe.only("Beefy adapter test", () => {
         console.log(`strategy manager deployed to ${strategyManager.address}`);
 
         const BeefyAdapter = await ethers.getContractFactory("StrategyBeefySingle");
-        const beefyAdapter = await BeefyAdapter.deploy(cakeVault);
+        beefyAdapter = await BeefyAdapter.deploy(cakeVault);
         await beefyAdapter.deployed();
         console.log(`Beefy adapter deployed to ${beefyAdapter.address}`);
 
@@ -46,18 +44,23 @@ describe.only("Beefy adapter test", () => {
 
         // set strategy manager in investor contract
         await hedgepieInvestor.setStrategyManager(strategyManager.address);
+        await hedgepieInvestor.listNft(ybnftContract.address);
 
         await hre.network.provider.send("hardhat_impersonateAccount", [whaleWallet]);
         whaleUser = ethers.provider.getSigner(whaleWallet);
 
         // set investor
-        await beefyAdapter.setInvestor(whaleWallet);
+        await beefyAdapter.setInvestor(strategyManager.address);
 
         await ybnftContract.connect(deployer).setInvestor(hedgepieInvestor.address);
         await ybnftContract.connect(deployer).setTreasury(deployer.address);
 
         // allow token to depsit
         await ybnftContract.connect(deployer).manageToken([cakeAddr], true);
+
+        // list strategy on strategy manager
+        await strategyManager.addStrategy(beefyAdapter.address);
+        await strategyManager.setInvestor(hedgepieInvestor.address);
     });
 
     describe("setting test", () => {
@@ -65,14 +68,14 @@ describe.only("Beefy adapter test", () => {
             await ybnftContract.connect(deployer).mint(
                 [10000],
                 [cakeAddr],
-                [pancakeswapRouter],
+                [beefyAdapter.address],
                 100
             );
         });
 
         it("testing", async() => {
-            // // send tokens first
-            // await cakeToken.connect(whaleUser).transfer(beefyAdapter.address, ethers.utils.parseUnits("100"));
+            // approve tokens first
+            await cakeToken.connect(whaleUser).approve(ybnftContract.address, ethers.utils.parseUnits("100"));
 
             // const cakeBalance = Number(await cakeToken.balanceOf(beefyAdapter.address)) / Math.pow(10, 18);
             // expect(cakeBalance).to.be.equal(100);
@@ -80,11 +83,12 @@ describe.only("Beefy adapter test", () => {
             // const tx = await beefyAdapter.connect(whaleUser).invest(ethers.utils.parseUnits("100"));
             // await tx.wait();
 
-            await ybnftContract.connect(deployer).deposit(
+            const tx = await ybnftContract.connect(whaleUser).deposit(
                 1, // tokenid
                 cakeAddr, // cake token
                 ethers.utils.parseUnits("100") // amount
             );
+            await tx.wait();
         });
     });
 });
