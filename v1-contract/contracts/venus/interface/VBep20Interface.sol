@@ -36,6 +36,8 @@ interface VBep20Interface is IERC20 {
 
     function underlying() external view returns (address);
 
+    function exchangeRateStored() external view returns (uint256);
+
     /*** Admin Functions ***/
 
     function _addReserves(uint256 addAmount) external returns (uint256);
