@@ -38,13 +38,18 @@ contract VenusAdapter is Ownable, Pausable, ReentrancyGuard {
     }
 
     /**
-     * @notice Approve vToken allowance
-     * @param _vToken  vToken address
-     * @param _amount  vToken amount that going to use from user's wallet
+     * @notice Approve Token allowance to target address
+     * @param _token  Token address
+     * @param _target  Token address
+     * @param _amount  Token amount that going to use from user's wallet
      */
-    function _approveVToken(address _vToken, uint256 _amount) internal {
-        if (IERC20(_vToken).allowance(address(this), _vToken) < _amount) {
-            IERC20(_vToken).approve(_vToken, 2**256 - 1);
+    function _approveVToken(
+        address _token,
+        address _target,
+        uint256 _amount
+    ) internal {
+        if (IERC20(_token).allowance(address(this), _target) < _amount) {
+            IERC20(_token).approve(_target, 2**256 - 1);
         }
     }
 
@@ -59,17 +64,18 @@ contract VenusAdapter is Ownable, Pausable, ReentrancyGuard {
         whenNotPaused
         nonReentrant
     {
-        require(nTokens[_nToken] != address(0), "vToken is not set or invalid");
+        require(vTokens[_nToken] != address(0), "vToken is not set or invalid");
 
-        address _vToken = nTokens[_nToken];
+        address _vToken = vTokens[_nToken];
 
-        _approveVToken(_vToken, _amount);
+        _approveVToken(_nToken, _vToken, _amount);
         IERC20(_nToken).safeTransferFrom(msg.sender, address(this), _amount);
 
         require(
             VBep20Interface(_vToken).mint(_amount) == 0,
             "Venus Protocol Error"
         );
+        // VBep20Interface(_vToken).mint(_amount);
         IERC20(_vToken).safeTransfer(
             msg.sender,
             IERC20(_vToken).balanceOf(address(this))
@@ -89,16 +95,16 @@ contract VenusAdapter is Ownable, Pausable, ReentrancyGuard {
     {
         require(isVToken[_vToken], "vToken is not set or invalid");
 
-        _approveVToken(_vToken, _amount);
+        _approveVToken(_vToken, _vToken, _amount);
         IERC20(_vToken).safeTransferFrom(msg.sender, address(this), _amount);
 
         require(
-            VBep20Interface(_vToken).borrow(_amount) == 0,
+            VBep20Interface(_vToken).redeem(_amount) == 0,
             "Venus Protocol Error"
         );
-        IERC20(vTokens[_vToken]).safeTransfer(
+        IERC20(nTokens[_vToken]).safeTransfer(
             msg.sender,
-            IERC20(vTokens[_vToken]).balanceOf(address(this))
+            IERC20(nTokens[_vToken]).balanceOf(address(this))
         );
     }
 
