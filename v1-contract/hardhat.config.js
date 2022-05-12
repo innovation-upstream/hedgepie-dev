@@ -15,9 +15,9 @@ module.exports = {
   networks: {
     hardhat: {
       /// BSC mainnet forking environment
-      chainId: 31337,
       forking: {
         url: "https://bsc-dataseed.binance.org",
+        enabled: true,
       },
       /// ETH mainet forking environment
       // chainId: 31337,
@@ -65,6 +65,9 @@ module.exports = {
     cache: "./cache",
     sources: "./contracts",
     tests: "./test",
+  },
+  mocha: {
+    timeout: 20000000,
   },
   solidity: {
     compilers: [

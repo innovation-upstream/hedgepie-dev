@@ -1,10 +1,16 @@
 const hre = require("hardhat");
+const { expect } = require("chai");
+const { time } = require("@openzeppelin/test-helpers");
 const { ethers } = require("hardhat");
 
 const BUSD_TOKEN = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 const vBUSD_TOKEN = "0x95c78222B3D6e262426483D42CfA53685A67Ab9D";
-const WHALE = "0xF977814e90dA44bFA03b6295A0616a897441aceC";
+const WHALE = "0x41772edd47d9ddf9ef848cdb34fe76143908c7ad";
 const REWARD_FEE = 500;
+
+const BigNumber = ethers.BigNumber;
+
+const E18 = BigNumber.from(10).pow(18);
 
 const unlockAccount = async (address) => {
   await hre.network.provider.send("hardhat_impersonateAccount", [address]);
@@ -47,7 +53,53 @@ describe("Venus Adapter Integration Test", function () {
       this.vAdapter.address,
       ethers.constants.MaxUint256
     );
+
+    // Approve vBUSD for adapter contract
+    await this.vBUSD
+      .connect(this.alice)
+      .approve(this.vAdapter.address, ethers.constants.MaxUint256);
+
+    // Add vTokens
+    await this.vAdapter.addVTokens([this.vBUSD.address], [this.BUSD.address]);
   });
 
-  describe("should set correct state variable", function () {});
+  it("(1) test supply workflow", async function () {
+    await this.vAdapter
+      .connect(this.alice)
+      .supply(this.BUSD.address, ethers.utils.parseEther("100").toString());
+
+    expect(await this.vBUSD.balanceOf(this.alice.address)).to.eq(
+      BigNumber.from(100)
+        .mul(E18)
+        .mul(E18)
+        .div(BigNumber.from(await this.vBUSD.exchangeRateStored()))
+    );
+  });
+
+  it("(2) test redeem workflow", async function () {
+    const vTokenBal = await this.vBUSD.balanceOf(this.alice.address);
+    const balBefore = await this.BUSD.balanceOf(this.alice.address);
+
+    // mint 10 blocks
+    for (let i = 0; i < 10; i++) {
+      await ethers.provider.send("evm_mine");
+    }
+
+    await this.vAdapter
+      .connect(this.alice)
+      .redeem(this.vBUSD.address, BigNumber.from(vTokenBal).toString());
+
+    const balAfter = await this.BUSD.balanceOf(this.alice.address);
+
+    expect(BigNumber.from(balAfter).sub(BigNumber.from(balBefore))).to.eq(
+      BigNumber.from(vTokenBal)
+        .mul(BigNumber.from(await this.vBUSD.exchangeRateStored()))
+        .div(E18)
+    ) &&
+      expect(
+        BigNumber.from(balAfter).sub(
+          BigNumber.from(balBefore).gt(BigNumber.from(1000).mul(E18))
+        )
+      ).to.eq(true);
+  });
 });
