@@ -12,7 +12,9 @@ describe("VenusAdapter Unit Test", function () {
     this.stakingToken = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 
     // Deploy Venus Adapter contract
-    const VenusAdapter = await ethers.getContractFactory("VenusLendAdapter");
+    const VenusAdapter = await ethers.getContractFactory(
+      "VenusLeverageAdapter"
+    );
     this.vAdapter = await VenusAdapter.deploy(
       this.strategy,
       this.stakingToken,

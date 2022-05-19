@@ -4,14 +4,14 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./interface/VBep20Interface.sol";
 
-contract VenusLendAdapter is Ownable {
+contract VenusLeverageAdapter is Ownable {
     address public stakingToken;
     address public repayToken;
     address public strategy;
     string public name;
     address public investor;
-    // user => nft id => withdrawal amount
-    mapping(address => mapping(uint256 => uint256)) public withdrawalAmount;
+    // user => withdrawal amount
+    mapping(address => uint256) public withdrawalAmount;
 
     modifier onlyInvestor() {
         require(msg.sender == investor, "Error: Caller is not investor");
@@ -39,6 +39,7 @@ contract VenusLendAdapter is Ownable {
             VBep20Interface(_strategy).underlying() == _stakingToken,
             "Error: Invalid underlying address"
         );
+
         strategy = _strategy;
         stakingToken = _stakingToken;
         repayToken = _repayToken;
@@ -48,14 +49,13 @@ contract VenusLendAdapter is Ownable {
     /**
      * @notice Get withdrwal amount
      * @param _user  user address
-     * @param _nftId  nftId
      */
-    function getWithdrawalAmount(address _user, uint256 _nftId)
+    function getWithdrawalAmount(address _user)
         external
         view
         returns (uint256 amount)
     {
-        amount = withdrawalAmount[_user][_nftId];
+        amount = withdrawalAmount[_user];
     }
 
     /**
@@ -73,7 +73,7 @@ contract VenusLendAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("mint(uint256)", _amount);
+        data = abi.encodeWithSignature("borrow(uint256)", _amount);
     }
 
     /**
@@ -91,21 +91,19 @@ contract VenusLendAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("redeem(uint256)", _amount);
+        data = abi.encodeWithSignature("repayBorrow(uint256)", _amount);
     }
 
     /**
-     * @notice Increase withdrwal amount
+     * @notice Set withdrwal amount
      * @param _user  user address
-     * @param _nftId  nftId
      * @param _amount  amount of withdrawal
      */
-    function increaseWithdrawalAmount(
-        address _user,
-        uint256 _nftId,
-        uint256 _amount
-    ) external onlyInvestor {
-        withdrawalAmount[_user][_nftId] += _amount;
+    function setWithdrawalAmount(address _user, uint256 _amount)
+        external
+        onlyInvestor
+    {
+        withdrawalAmount[_user] = _amount;
     }
 
     /**
