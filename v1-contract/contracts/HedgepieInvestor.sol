@@ -27,6 +27,8 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
     address public wbnb;
     // strategy manager
     address public adapterManager;
+    // borrowDepth
+    uint8 public borrowDepth;
 
     event Deposit(
         address indexed user,
@@ -41,6 +43,7 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         uint256 amount
     );
     event AdapterManagerChanged(address indexed user, address adapterManager);
+    event BorrowDepthChanged(uint8 depth);
 
     /**
      * @notice Construct
@@ -173,6 +176,18 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         adapterManager = _adapterManager;
 
         emit AdapterManagerChanged(msg.sender, _adapterManager);
+    }
+
+    /**
+     * @notice Set borrow depth
+     * @param _borrowDepth borrow depth number
+     */
+    function setBorrowDepth(uint8 _borrowDepth) external onlyOwner {
+        require(_borrowDepth != 0, "Error: borrowDepth number");
+
+        borrowDepth = _borrowDepth;
+
+        emit BorrowDepthChanged(borrowDepth);
     }
 
     /**
