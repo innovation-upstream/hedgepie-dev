@@ -32,6 +32,8 @@ interface VBep20Interface is IERC20 {
     ) external returns (uint256);
 
     /***  View Functions ***/
+    function comptroller() external view returns (address);
+
     function isVToken() external view returns (bool);
 
     function underlying() external view returns (address);

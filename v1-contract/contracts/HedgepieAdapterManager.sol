@@ -9,6 +9,7 @@ contract HedgepieAdapterManager is Ownable {
         address addr;
         string name;
         bool status;
+        bool storable;
     }
 
     // Info of each adapter
@@ -66,6 +67,46 @@ contract HedgepieAdapterManager is Ownable {
     }
 
     /**
+     * @notice Get Supply call data of adapter contract
+     * @param _adapter  adapter address
+     * @param _amount  supply amount
+     */
+    function getSupplyCallData(address _adapter, uint256 _amount)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        require(_amount != 0, "Amount can not be 0");
+        return IAdapter(_adapter).getSupplyCallData(_amount);
+    }
+
+    /**
+     * @notice Get Redeem call data of adapter contract
+     * @param _adapter  adapter address
+     * @param _amount  supply amount
+     */
+    function getRedeemCallData(address _adapter, uint256 _amount)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        require(_amount != 0, "Amount can not be 0");
+        return IAdapter(_adapter).getRedeemCallData(_amount);
+    }
+
+    /**
      * @notice Get Deposit call data of adapter contract
      * @param _adapter  adapter address
      * @param _amount  deposit amount
@@ -105,19 +146,38 @@ contract HedgepieAdapterManager is Ownable {
         return IAdapter(_adapter).getDevestCallData(_amount);
     }
 
+    /**
+     * @notice Get EnterMarket call data of adapter contract
+     * @param _adapter  adapter address
+     */
+    function getEnterMarketCallData(address _adapter)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        return IAdapter(_adapter).getEnterMarketCallData();
+    }
+
     // ===== Owner functions =====
     /**
      * @notice Add adapter
      * @param _adapter  adapter address
      */
-    function addAdapter(address _adapter) external onlyOwner {
+    function addAdapter(address _adapter, bool _storable) external onlyOwner {
         require(_adapter != address(0), "Invalid adapter address");
 
         adapterInfo.push(
             AdapterInfo({
                 addr: _adapter,
                 name: IAdapter(_adapter).name(),
-                status: true
+                status: true,
+                storable: _storable
             })
         );
 
@@ -129,10 +189,15 @@ contract HedgepieAdapterManager is Ownable {
      * @param _adapterId  adapter id
      * @param _status  adapter status
      */
-    function setAdapter(uint256 _adapterId, bool _status) external onlyOwner {
+    function setAdapter(
+        uint256 _adapterId,
+        bool _status,
+        bool _storable
+    ) external onlyOwner {
         require(_adapterId < adapterInfo.length, "Invalid adapter address");
 
         adapterInfo[_adapterId].status = _status;
+        adapterInfo[_adapterId].storable = _storable;
     }
 
     /**

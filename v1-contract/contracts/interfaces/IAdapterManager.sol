@@ -25,5 +25,23 @@ interface IAdapterManager {
             bytes memory data
         );
 
+    function getEnterMarketCallData(address _adapter)
+        external
+        view
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        );
+
+    function getSupplyCallData(address _adapter, uint256 _amount)
+        external
+        view
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        );
+
     function adapters(address _adapter) external view returns (bool);
 }

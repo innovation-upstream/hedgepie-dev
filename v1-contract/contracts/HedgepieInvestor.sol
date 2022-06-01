@@ -311,4 +311,122 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
 
         amountOut = amounts[amounts.length - 1];
     }
+
+    /**
+     * @dev Repeatedly supplies and borrows {want} following the configured {borrowRate} and {borrowDepth}
+     * @param _amount amount of {want} to leverage
+     */
+    function _leverage(
+        address _adapterAddr,
+        uint256 _amount,
+        address _token,
+        uint256 _borrowDepth
+    ) internal {
+        bool success;
+        address to;
+        uint256 value;
+        bytes memory callData;
+
+        // Enter market call data
+        (to, value, callData) = IAdapterManager(adapterManager)
+            .getEnterMarketCallData(_adapterAddr);
+
+        (success, ) = to.call{value: value}(callData);
+        require(success, "Error: EnterMarket internal issue");
+
+        // Swap WBNB to strategy
+        uint256 amountOut = _swapOnPKS(
+            _amount,
+            _token,
+            IAdapter(_adapterAddr).stakingToken()
+        );
+
+        // Leverage
+        for (uint8 i = 0; i < _borrowDepth; i++) {
+            amountOut = (amountOut * 80) / 100;
+
+            // Supply to platform
+            (to, value, callData) = IAdapterManager(adapterManager)
+                .getSupplyCallData(_adapterAddr, amountOut);
+
+            (success, ) = to.call{value: value}(callData);
+            require(success, "Error: Supply internal issue");
+
+            // Borrow from platform
+            (to, value, callData) = IAdapterManager(adapterManager)
+                .getDepositCallData(_adapterAddr, amountOut);
+
+            (success, ) = to.call{value: value}(callData);
+            require(success, "Error: Deposit internal issue");
+        }
+
+        reserves = IERC20(IAdapter(_adapterAddr).strategy()).balanceOf();
+    }
+
+    /**
+     * @dev Incrementally alternates between paying part of the debt and withdrawing part of the supplied
+     * collateral. Continues to do this until it repays the entire debt and withdraws all the supplied {want}
+     * from the system
+     */
+    function _deleverage(
+        address _adapterAddr,
+        uint256 _amount,
+        uint256 _borrowDepth
+    ) internal {
+        uint256 wantBal = balanceOfWant();
+        (uint256 supplyBal, uint256 borrowBal) = userReserves();
+
+        // while (wantBal < borrowBal) {
+        // Leverage
+        for (uint8 i = 0; i < _borrowDepth; i++) {
+            // Repay to platform
+            (to, value, callData) = IAdapterManager(adapterManager)
+                .getWithdrawCallData(_adapter, _amount);
+
+            (success, ) = to.call{value: value}(callData);
+            require(success, "Error: Repay internal issue");
+
+            // Repay to platform
+            (to, value, callData) = IAdapterManager(adapterManager)
+                .getWithdrawCallData(_adapter, _amount);
+
+            (success, ) = to.call{value: value}(callData);
+            require(success, "Error: Repay internal issue");
+
+            ILendingPool(lendingPool).repay(
+                want,
+                wantBal,
+                INTEREST_RATE_MODE,
+                address(this)
+            );
+
+            (supplyBal, borrowBal) = userReserves();
+            uint256 targetSupply = borrowBal.mul(100).div(borrowRate);
+
+            ILendingPool(lendingPool).withdraw(
+                want,
+                supplyBal.sub(targetSupply),
+                address(this)
+            );
+            wantBal = balanceOfWant();
+        }
+
+        if (borrowBal > 0) {
+            ILendingPool(lendingPool).repay(
+                want,
+                uint256(-1),
+                INTEREST_RATE_MODE,
+                address(this)
+            );
+        }
+        if (supplyBal > 0) {
+            ILendingPool(lendingPool).withdraw(
+                want,
+                type(uint256).max,
+                address(this)
+            );
+        }
+
+        reserves = 0;
+    }
 }

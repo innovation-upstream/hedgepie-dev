@@ -59,6 +59,42 @@ contract VenusLeverageAdapter is Ownable {
     }
 
     /**
+     * @notice Get supply calldata
+     * @param _amount  amount of invest
+     */
+    function getSupplyCallData(uint256 _amount)
+        external
+        view
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        to = strategy;
+        value = 0;
+        data = abi.encodeWithSignature("mint(uint256)", _amount);
+    }
+
+    /**
+     * @notice Get redeem calldata
+     * @param _amount  amount of invest
+     */
+    function getRedeemCallData(uint256 _amount)
+        external
+        view
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        to = strategy;
+        value = 0;
+        data = abi.encodeWithSignature("redeem(uint256)", _amount);
+    }
+
+    /**
      * @notice Get invest calldata
      * @param _amount  amount of invest
      */
@@ -92,6 +128,23 @@ contract VenusLeverageAdapter is Ownable {
         to = strategy;
         value = 0;
         data = abi.encodeWithSignature("repayBorrow(uint256)", _amount);
+    }
+
+    /**
+     * @notice Get enter market calldata
+     */
+    function getEnterMarketCallData()
+        external
+        view
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        to = VBep20Interface(strategy).comptroller();
+        value = 0;
+        data = abi.encodeWithSignature("enterMarkets(address[])", [strategy]);
     }
 
     /**
