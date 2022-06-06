@@ -1,8 +1,8 @@
-import React from 'react'
-import { Box, Image, Button, Input } from 'theme-ui'
+import React, { useEffect } from 'react'
+import { Box, Image, Button, Input, ThemeUICSSObject } from 'theme-ui'
 import CompositionSelect from './CompositionSelect'
 
-const Position = ({ data, onUpdate, onDelete, onLock }) => {
+const Position = ({ data, onUpdate, onDelete, onLock, allocated }) => {
   const handleSelect = (composition) => {
     onUpdate({
       ...data,
@@ -22,6 +22,12 @@ const Position = ({ data, onUpdate, onDelete, onLock }) => {
 
   const handleLock = () => {
     onLock()
+  }
+
+  const onMaxClick = () => {
+    const otherWeights = allocated - data.weight
+    const newValue = 100 - otherWeights
+    onUpdate({ ...data, weight: newValue.toString() })
   }
 
   return (
@@ -107,6 +113,30 @@ const Position = ({ data, onUpdate, onDelete, onLock }) => {
 
             <Box sx={{ height: 44 }}>%</Box>
           </Box>
+          <Button
+            sx={{
+              width: 44,
+              height: 26,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(160, 160, 160, 0.32)',
+              borderRadius: '4px',
+              color: '#8E8DA0',
+              flexShrink: 0,
+              margin: '0 8px 0 32px',
+              [`@media screen and (min-width: 600px)`]: {
+                margin: '0 8px',
+              },
+              ':hover': {
+                cursor: 'pointer',
+                backgroundColor: '#ccc',
+              },
+            }}
+            onClick={onMaxClick}
+          >
+            MAX
+          </Button>
           <Button variant="icon" className="position-lock" onClick={handleLock}>
             <Image src="/images/icon-lock.png" />
           </Button>

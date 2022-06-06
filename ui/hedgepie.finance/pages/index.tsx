@@ -5,12 +5,15 @@ import type { NextPage } from 'next'
 // Components
 import { HedgePieFinance } from 'components/HedgePieFinance'
 import { Home } from 'views/home'
+import { LeaderBoard } from 'views/nft-leaderboard'
+
+import LeaderboardMain from 'views/nft-leaderboard/LeaderBoard'
 
 const HomePage: NextPage = () => {
   return (
     <>
-      <HedgePieFinance overlayHeader={true} dark={false}>
-        <Home />
+      <HedgePieFinance title="YB NFT leaderboard">
+        <LeaderboardMain />
       </HedgePieFinance>
     </>
   )

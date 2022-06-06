@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
 import MintWizardNav from './MintWizardNav'

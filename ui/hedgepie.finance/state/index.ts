@@ -7,7 +7,7 @@ const store = configureStore({
   reducer: {
     vault: vaultReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false })
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 })
 
 export type AppDispatch = typeof store.dispatch

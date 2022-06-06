@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Select from 'react-select'
 import MintWizardContext from 'contexts/MintWizardContext'
 import CustomOption from './CustomOption'
@@ -10,6 +10,11 @@ const CompositionSelect = ({ value, onSelect }) => {
   const handleSelect = (option) => {
     onSelect(option)
   }
+
+  useEffect(() => {
+    console.log('val' + JSON.stringify(value))
+    console.log(onSelect)
+  }, [value, onSelect])
 
   return (
     <Select

@@ -5,10 +5,17 @@ interface IAddresses {
 export const addresses: IAddresses = {
   56: {
     // mainnet
+    YBNFT_ADDRESS: '',
+    INVESTOR_ADDRESS: '',
+    ADAPTER_ADDRESS: '',
+    VAULT_ADDRESS: '',
+    MOCLUP_ADDRESS: '',
   },
   97: {
     // testnet
     YBNFT_ADDRESS: '',
+    INVESTOR_ADDRESS: '',
+    ADAPTER_ADDRESS: '',
     VAULT_ADDRESS: '0xF6c1Ea7Ee990D1Ecdec051652F88b5c6cB7a4EfD',
     MOCLUP_ADDRESS: '0xb71C87Ec8d132Cb6aCe4977fDdF07aad98F73d78',
   },

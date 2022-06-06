@@ -1,14 +1,23 @@
 import React from 'react'
 import MintWizardContext from 'contexts/MintWizardContext'
+import { useAdapterManager } from 'hooks/useAdapterManager'
+
+interface AdapterOption {
+  icon?: string
+  name?: string
+  type?: string
+  address?: string
+}
 
 const MintContextProvider = ({ children }) => {
+  const { getAdapters } = useAdapterManager()
   const [wizard, setWizard] = React.useState({
     forms: ['Choose positions & Widgets', 'Set Performance fee', 'Optional Art & Name'],
     order: 0,
   })
   const [formData, setFormData] = React.useState({
     positions: [],
-    performanceFee: 35,
+    performanceFee: 10,
     artWorkFile: null,
     artWorkUrl: '',
     nftName: '',
@@ -17,20 +26,22 @@ const MintContextProvider = ({ children }) => {
   const [strategies, setStrategies] = React.useState<any>([])
 
   React.useEffect(() => {
-    const getCompositionOptions = () => {
-      setStrategies([
-        {
-          icon: '/images/token-xvs.png',
-          name: 'Venus (XVS)',
-          type: 'venus',
-        },
-        {
-          icon: '/images/token-cake.png',
-          name: 'Pancakeswap (Cake)',
-          type: 'pancakeswap',
-        },
-      ])
+    const getCompositionOptions = async () => {
+      try {
+        const adapters = await getAdapters()
+        console.log('adapter' + JSON.stringify(adapters))
+        var adapterOptions = [] as AdapterOption[]
+        adapters.map((adapter) => {
+          console.log(adapter)
+          adapterOptions.push({ icon: '', name: adapter.name, type: '', address: adapter.addr })
+        })
+
+        setStrategies(adapterOptions)
+      } catch (err) {
+        console.log('err' + JSON.stringify(err))
+      }
     }
+
     getCompositionOptions()
   }, [])
 

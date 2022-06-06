@@ -16,17 +16,21 @@ const CustomValue = (props) => {
           userSelect: 'none',
         }}
       >
-        <Image
-          src={data.icon}
-          sx={{
-            width: 40,
-            height: 40,
-            [`@media screen and (min-width: 500px)`]: {
-              width: 50,
-              height: 50,
-            },
-          }}
-        />
+        {data?.icon && data.icon !== '' ? (
+          <Image
+            src={data.icon}
+            sx={{
+              width: 40,
+              height: 40,
+              [`@media screen and (min-width: 500px)`]: {
+                width: 50,
+                height: 50,
+              },
+            }}
+          />
+        ) : (
+          ''
+        )}
         <Box
           sx={{
             display: 'flex',
