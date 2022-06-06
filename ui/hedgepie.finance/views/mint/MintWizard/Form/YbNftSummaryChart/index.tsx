@@ -1,9 +1,14 @@
 import React from 'react'
-import { Box } from 'theme-ui'
+import { Box, Textarea } from 'theme-ui'
 import PieChart from './PieChart'
 import SummaryLegend from '../SummaryLegend'
+import MintWizardContext from 'contexts/MintWizardContext'
 
 const YbNftSummaryChart = () => {
+  const { formData, setFormData } = React.useContext(MintWizardContext)
+  const setDescription = (e) => {
+    setFormData({ ...formData, description: e.target.value })
+  }
   return (
     <Box
       sx={{
@@ -30,7 +35,7 @@ const YbNftSummaryChart = () => {
             },
           }}
         >
-          YB NFT Summary
+          {formData.nftName ? formData.nftName : 'YBNFT'}
         </Box>
         <Box
           sx={{
@@ -50,16 +55,30 @@ const YbNftSummaryChart = () => {
       <Box
         sx={{
           fontSize: 14,
-          padding: '10px 14px',
+          padding: '10px 10px',
           borderTop: '1px solid #D8D8D8',
           [`@media screen and (min-width: 400px)`]: {
-            padding: '20px 34px',
             fontSize: 16,
           },
         }}
       >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit voluptas, a, suscipit delectus ipsa harum
-        voluptatibus eius hic quae et aliquam obcaecati aliquid modi assumenda ex mollitia unde, ut porro?
+        <Textarea
+          sx={{
+            width: '100%',
+            height: 100,
+            fontFamily: 'Noto Sans',
+            border: '1px solid #e9e9e9',
+            color: '#0A3F5C',
+            ':focus': {
+              outline: 'none !important',
+            },
+          }}
+          cols={40}
+          rows={5}
+          onChange={setDescription}
+          placeholder="Provide a description for your Yield Bearing NFT..."
+          value={formData.description}
+        />
       </Box>
     </Box>
   )

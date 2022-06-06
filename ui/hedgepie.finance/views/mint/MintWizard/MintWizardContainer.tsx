@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
 import MintWizardNav from './MintWizardNav'
@@ -6,6 +6,7 @@ import MintWizardNavVertical from './MintWizardNavVertical'
 import FormPosition from './Form/FormPosition'
 import FormPerformanceFee from './Form/FormPerformanceFee'
 import FormArtNameAndSubmit from './Form/FormArtNameAndSubmit'
+import FormInitialStake from './Form/FormInitialStake'
 
 const MintWizard = () => {
   const { wizard } = React.useContext(MintWizardContext)
@@ -60,9 +61,10 @@ const MintWizard = () => {
             },
           }}
         />
-        {wizard.order === 0 && <FormPosition />}
-        {wizard.order === 1 && <FormPerformanceFee />}
-        {wizard.order === 2 && <FormArtNameAndSubmit />}
+        {wizard.order === 0 && <FormInitialStake />}
+        {wizard.order === 1 && <FormPosition />}
+        {wizard.order === 2 && <FormPerformanceFee />}
+        {wizard.order === 3 && <FormArtNameAndSubmit />}
       </Box>
     </Box>
   )

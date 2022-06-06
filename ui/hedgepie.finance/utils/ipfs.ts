@@ -34,7 +34,9 @@ const makeMetadataFile = (metadata, name) => {
 
 const uploadMetadataToIPFS = async (metadata, name) => {
   const file = makeMetadataFile(metadata, name)
-  return uploadToIPFS(file, name)
+  const ipfsCID = await uploadToIPFS(file, name)
+  const fileLink = 'https://' + ipfsCID + '.ipfs.dweb.link/hedgepie_ybnft_' + name + '.json'
+  return fileLink
 }
 
 export default { uploadImageToIPFS, uploadMetadataToIPFS }

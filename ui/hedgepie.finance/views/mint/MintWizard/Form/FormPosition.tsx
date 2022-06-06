@@ -10,7 +10,7 @@ const FormPosition = () => {
   const handleNext = () => {
     setWizard({
       ...wizard,
-      order: 1,
+      order: 2,
     })
   }
 

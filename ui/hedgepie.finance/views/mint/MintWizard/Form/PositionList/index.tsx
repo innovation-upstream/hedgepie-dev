@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
 import Head from './Head'
@@ -14,13 +14,20 @@ const PositionList = () => {
       positions: [
         ...formData.positions,
         {
-          composition: strategies[0],
+          composition: { name: 'Select a Strategy..' },
           weight: 1,
           locked: false,
         },
       ],
     })
   }
+
+  useEffect(() => {
+    console.log('strategies' + JSON.stringify(strategies))
+    if (strategies?.length && !formData?.positions.length) {
+      handleAdd()
+    }
+  }, [strategies])
 
   const handleUpdate = (index, newData) => {
     const newPositions = formData.positions.map((d, i) => (i === index ? newData : d))
@@ -71,6 +78,7 @@ const PositionList = () => {
               onUpdate={(composition) => handleUpdate(i, composition)}
               onLock={() => handleLock(i)}
               onDelete={() => handleDelete(i)}
+              allocated={formData.allocated}
             />
           </Box>
         ))}

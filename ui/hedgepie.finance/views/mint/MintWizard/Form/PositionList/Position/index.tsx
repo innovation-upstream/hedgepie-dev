@@ -1,12 +1,24 @@
-import React from 'react'
-import { Box, Image, Button, Input } from 'theme-ui'
+import MintWizardContext from 'contexts/MintWizardContext'
+import React, { useEffect, useContext, useState } from 'react'
+import { Box, Image, Button, Input, ThemeUICSSObject, Text } from 'theme-ui'
 import CompositionSelect from './CompositionSelect'
 
-const Position = ({ data, onUpdate, onDelete, onLock }) => {
-  const handleSelect = (composition) => {
+const Position = ({ data, onUpdate, onDelete, onLock, allocated }) => {
+  const { formData } = useContext(MintWizardContext)
+  const [bnbValue, setBNBValue] = useState<any>()
+  // const [usdValue, setUSDValue] = useState<any>()
+
+  const handleProtocolSelect = (composition) => {
     onUpdate({
       ...data,
       composition,
+    })
+  }
+
+  const handlePoolSelect = (pools) => {
+    onUpdate({
+      ...data,
+      pools,
     })
   }
 
@@ -20,8 +32,24 @@ const Position = ({ data, onUpdate, onDelete, onLock }) => {
     }
   }
 
+  useEffect(() => {
+    let value = (data.weight * formData.initialStake) / 100
+    value > 0 && setBNBValue(value.toFixed(3))
+  }, [data])
+
+  // useEffect(() => {
+  //   console.log('bnbValue' + bnbValue)
+  //   bnbValue && setUSDValue((Number(bnbValue) * bnbPrice).toString())
+  // }, [bnbValue])
+
   const handleLock = () => {
     onLock()
+  }
+
+  const onMaxClick = () => {
+    const otherWeights = allocated - data.weight
+    const newValue = 100 - otherWeights
+    onUpdate({ ...data, weight: newValue.toString() })
   }
 
   return (
@@ -38,7 +66,11 @@ const Position = ({ data, onUpdate, onDelete, onLock }) => {
       }}
     >
       <Box sx={{ flex: '1 1 0' }}>
-        <CompositionSelect value={data.composition} onSelect={handleSelect} />
+        <CompositionSelect
+          value={data.composition}
+          onProtocolSelect={handleProtocolSelect}
+          onPoolSelect={handlePoolSelect}
+        />
       </Box>
       <Box
         sx={{
@@ -104,9 +136,45 @@ const Position = ({ data, onUpdate, onDelete, onLock }) => {
                 onChange={handleChangeWeight}
               />
             )}
-
             <Box sx={{ height: 44 }}>%</Box>
+            <Box
+              sx={{
+                marginLeft: 20,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignContent: 'center',
+                gap: '0.3rem',
+              }}
+            >
+              <Text sx={{ fontSize: 20, fontWeight: 400 }}>{bnbValue ? bnbValue + ' BNB' : ''}</Text>
+              {/* <Text sx={{ fontSize: 14, fontWeight: 400 }}>{usdValue ? usdValue : ''}</Text> */}
+            </Box>
           </Box>
+          <Button
+            sx={{
+              width: 44,
+              height: 26,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(160, 160, 160, 0.32)',
+              borderRadius: '4px',
+              color: '#8E8DA0',
+              flexShrink: 0,
+              margin: '0 8px 0 32px',
+              [`@media screen and (min-width: 600px)`]: {
+                margin: '0 8px',
+              },
+              ':hover': {
+                cursor: 'pointer',
+                backgroundColor: '#ccc',
+              },
+            }}
+            onClick={onMaxClick}
+          >
+            MAX
+          </Button>
           <Button variant="icon" className="position-lock" onClick={handleLock}>
             <Image src="/images/icon-lock.png" />
           </Button>
