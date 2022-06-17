@@ -33,7 +33,7 @@ async function deploy() {
   );
 
   // deploy Autofarm Lp adater contract
-  const autoFarmLpAdapter = await hre.ethers.getContractFactory("AutoFarmAdapter");
+  const autoFarmLpAdapter = await hre.ethers.getContractFactory("AutoVaultAdapter");
   const autoFarmLpAdapterInstance = await autoFarmLpAdapter.deploy(
     autoFarmAdapterArgs.strategy,
     autoFarmAdapterArgs.vStrategy,
@@ -128,15 +128,15 @@ async function main() {
     contractName: "ApeswapFarmLPAdapter",
     address: apeswapFarmLpAdapter,
     constructorArguments: apeswapFarmLpAdapterArgValues,
-    contractPath: "contracts/adapters/apeswap/apeswap-farm-lp-adapter.sol:ApeswapFarmLPAdapter",
+    contractPath: "contracts/adapters/apeswap/apeswap-farm-adapter.sol:ApeswapFarmLPAdapter",
   });
 
   // verify Autofarm lp adapter contract
   await verify({
-    contractName: "AutoFarmAdapter",
+    contractName: "AutoVaultAdapter",
     address: autofarmLpAdapter,
     constructorArguments: autoFarmAdapterArgValues,
-    contractPath: "contracts/adapters/autofarm/auto-farm-adapter.sol:AutoFarmAdapter",
+    contractPath: "contracts/adapters/autofarm/autofarm-vault-adapter.sol:AutoVaultAdapter",
   });
 
   // verify ybnft contract

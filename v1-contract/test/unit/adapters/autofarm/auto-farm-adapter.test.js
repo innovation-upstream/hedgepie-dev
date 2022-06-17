@@ -1,7 +1,7 @@
 const { assert, expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("AutoFarmAdapter Unit Test", function () {
+describe("AutoVaultAdapter Unit Test", function () {
   before("Deploy contract", async function () {
     const [owner, investor, alice] = await ethers.getSigners();
 
@@ -14,9 +14,9 @@ describe("AutoFarmAdapter Unit Test", function () {
     this.poolID = 674;
     this.router = "0x10ED43C718714eb63d5aA57B78B54704E256024E";
 
-    // Deploy AutoFarmAdapter
-    const AutoFarmAdapter = await ethers.getContractFactory("AutoFarmAdapter");
-    this.aAdapter = await AutoFarmAdapter.deploy(
+    // Deploy AutoVaultAdapter
+    const AutoVaultAdapter = await ethers.getContractFactory("AutoVaultAdapter");
+    this.aAdapter = await AutoVaultAdapter.deploy(
       this.strategy,
       this.lpToken,
       this.rewardToken,
@@ -36,7 +36,7 @@ describe("AutoFarmAdapter Unit Test", function () {
     console.log("Owner: ", this.owner.address);
     console.log("Investor: ", this.investor.address);
     console.log("Strategy: ", this.strategy);
-    console.log("AutoFarmAdapter: ", this.aAdapter.address);
+    console.log("AutoVaultAdapter: ", this.aAdapter.address);
   });
 
   describe("should set correct state variable", function () {

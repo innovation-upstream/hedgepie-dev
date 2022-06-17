@@ -20,7 +20,7 @@ async function doubleWantLockedTotal(address, slot, current) {
   ]);
 }
 
-describe("AutoFarmAdapter Vault Integration Test", function () {
+describe("AutoVaultAdapter Vault Integration Test", function () {
   before("Deploy contract", async function () {
     const [owner, alice, bob, carol] = await ethers.getSigners();
 
@@ -46,8 +46,8 @@ describe("AutoFarmAdapter Vault Integration Test", function () {
     console.log("Owner: ", this.owner.address);
 
     // Deploy Apeswap LP Adapter contract
-    const AutoFarmAdapter = await ethers.getContractFactory("AutoFarmAdapter");
-    this.aAdapter = await AutoFarmAdapter.deploy(
+    const AutoVaultAdapter = await ethers.getContractFactory("AutoVaultAdapter");
+    this.aAdapter = await AutoVaultAdapter.deploy(
       this.strategy,
       this.vStrategy,
       this.stakingToken,
@@ -113,12 +113,6 @@ describe("AutoFarmAdapter Vault Integration Test", function () {
 
     // Set investor in vAdapter
     await this.aAdapter.setInvestor(this.investor.address);
-
-    // this.whaleWallet = await unlockAccount(whaleAddr);
-    this.lpContract = await ethers.getContractAt(
-      "VBep20Interface",
-      this.stakingToken
-    );
 
     this.ctVStrategy = await ethers.getContractAt(
       "IVaultStrategy",
