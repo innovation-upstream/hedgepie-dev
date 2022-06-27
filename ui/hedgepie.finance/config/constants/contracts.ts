@@ -24,4 +24,42 @@ export default {
     56: '',
     97: '0x59dd067C8F2fb0C33dD032f63eA5D308E69cFEB0',
   },
+
+  // HedgepieYBNFT
+  ybnft: {
+    56: '0xD00A6a7aE8A41fE001d037396FDfD0C162DaAc1d',
+    97: '',
+  },
+
+  // HedgepieInvestor
+  investor: {
+    56: '0xcdCA05F11Fd4F7d79999C688ec46C3Cf8Fa110Af',
+    97: '',
+  },
+
+  // HedgepieAdapterManager
+  adapterManager: {
+    56: '0x9e2e21a7Fd35E51dfDDa50117723cE9121aDE523',
+    97: '',
+  },
+
+  // WBNB
+  wBNB: {
+    56: '0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c',
+    97: '',
+  },
+
+  // Adapters
+
+  // ApeSwap
+  ApeswapLPAdapter: {
+    56: '0x311402F5C8Cd9cc0254C7dcDF0F00f04aBC93149',
+    97: '',
+  },
+
+  // AutoFarm
+  AutoFarmLpAdapter: {
+    56: '0x8e0D7508c3f38D49DD336c0A17261573AeA9db7C',
+    97: '',
+  },
 }

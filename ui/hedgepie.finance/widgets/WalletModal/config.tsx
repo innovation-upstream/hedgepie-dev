@@ -21,18 +21,18 @@ const connectors: Config[] = [
     connectorId: ConnectorNames.WalletConnect,
     bgColor: '#FFF7E6',
   },
-  {
-    title: 'Trust Wallet',
-    icon: 'images/wallet-logos/trust-wallet.png',
-    connectorId: ConnectorNames.Injected,
-    bgColor: '#FFE6F0',
-  },
-  {
-    title: 'More',
-    icon: 'images/wallet-logos/more.png',
-    connectorId: ConnectorNames.Injected,
-    bgColor: '#E6F6FF',
-  },
+  // {
+  //   title: 'Trust Wallet',
+  //   icon: 'images/wallet-logos/trust-wallet.png',
+  //   connectorId: ConnectorNames.Injected,
+  //   bgColor: '#FFE6F0',
+  // },
+  // {
+  //   title: 'More',
+  //   icon: 'images/wallet-logos/more.png',
+  //   connectorId: ConnectorNames.Injected,
+  //   bgColor: '#E6F6FF',
+  // },
   // {
   //   title: 'Coinbase',
   //   icon: CoinbaseWallet,

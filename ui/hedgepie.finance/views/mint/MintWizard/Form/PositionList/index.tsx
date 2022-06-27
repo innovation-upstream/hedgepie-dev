@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Box, Button } from 'theme-ui'
 import MintWizardContext from 'contexts/MintWizardContext'
 import Head from './Head'
@@ -14,13 +14,20 @@ const PositionList = () => {
       positions: [
         ...formData.positions,
         {
-          composition: strategies[0],
+          composition: { name: 'Protocol' },
           weight: 1,
           locked: false,
         },
       ],
     })
   }
+
+  useEffect(() => {
+    console.log('strategies' + JSON.stringify(strategies))
+    if (Object.keys(strategies)?.length && !formData?.positions.length) {
+      handleAdd()
+    }
+  }, [strategies])
 
   const handleUpdate = (index, newData) => {
     const newPositions = formData.positions.map((d, i) => (i === index ? newData : d))
@@ -32,17 +39,17 @@ const PositionList = () => {
     })
   }
 
-  const handleDelete = (index) => {
-    setFormData({
-      ...formData,
-      positions: formData.positions.filter((d, i) => i !== index),
-    })
-  }
-
   const handleLock = (index) => {
     setFormData({
       ...formData,
       positions: formData.positions.map((d, i) => (i === index ? { ...d, locked: !d.locked } : d)),
+    })
+  }
+
+  const handleDelete = (index) => {
+    setFormData({
+      ...formData,
+      positions: formData.positions.filter((d, i) => i !== index),
     })
   }
 
@@ -53,7 +60,7 @@ const PositionList = () => {
         backgroundColor: '#E5F6FF',
         borderRadius: 8,
         [`@media screen and (min-width: 500px)`]: {
-          padding: 24,
+          padding: 20,
         },
       }}
     >
@@ -71,6 +78,7 @@ const PositionList = () => {
               onUpdate={(composition) => handleUpdate(i, composition)}
               onLock={() => handleLock(i)}
               onDelete={() => handleDelete(i)}
+              allocated={formData.allocated}
             />
           </Box>
         ))}

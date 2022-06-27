@@ -10,9 +10,6 @@
     "cypress": "cypress open",
     "cypress:headless": "cypress run"
   },
-  "engines": {
-    "node": "16.14.0"
-  },
   "dependencies": {
     "@binance-chain/bsc-connector": "^1.0.0",
     "@emotion/react": "^11.7.1",
@@ -27,12 +24,17 @@
     "@web3-react/injected-connector": "^6.0.7",
     "@web3-react/walletconnect-connector": "^6.2.13",
     "@web3-react/walletlink-connector": "^6.2.13",
+    "axios": "^0.27.2",
+    "coinbase": "^2.0.8",
     "cypress-file-upload": "^5.0.8",
     "d3": "^7.4.4",
     "ethers": "^5.5.3",
+    "fs": "^0.0.1-security",
+    "net": "^1.0.2",
     "next": "12.1.0",
     "next-pwa": "^5.5.0",
     "prettier": "^2.6.0",
+    "query-string": "^7.1.1",
     "react": "17.0.2",
     "react-countdown": "^2.3.2",
     "react-dom": "17.0.2",
@@ -44,6 +46,7 @@
     "sass": "^1.49.0",
     "styled-components": "^5.3.3",
     "theme-ui": "^0.13.1",
+    "tls": "^0.0.1",
     "web3": "^1.7.1",
     "web3-core-helpers": "^1.7.1",
     "web3-eth-contract": "^1.7.1",

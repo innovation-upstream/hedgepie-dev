@@ -39,7 +39,7 @@ const YbNftSummaryArt = () => {
             },
           }}
         >
-          YB NFT Summary
+          {formData.nftName ? formData.nftName : 'YBNFT'}
         </Box>
         <Box mt={22}>
           <Box
@@ -78,8 +78,8 @@ const YbNftSummaryArt = () => {
       <Box
         sx={{
           fontSize: 14,
-          padding: '10px 10px',
           borderTop: '1px solid #D8D8D8',
+          padding: '10px 10px',
           [`@media screen and (min-width: 400px)`]: {
             fontSize: 16,
           },
@@ -99,6 +99,8 @@ const YbNftSummaryArt = () => {
           cols={40}
           rows={5}
           onChange={setDescription}
+          placeholder="Provide a description for your Yield Bearing NFT..."
+          value={formData.description}
         />
       </Box>
     </Box>

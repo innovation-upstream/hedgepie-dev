@@ -10,7 +10,7 @@ const FormPerformanceFee = () => {
   const handleNext = () => {
     setWizard({
       ...wizard,
-      order: 2,
+      order: 3,
     })
   }
 
