@@ -15,7 +15,7 @@ async function doubleWantLockedTotal(address, slot, current) {
   ]);
 }
 
-describe.only("ApeswapVaultAdapter Integration Test", function () {
+describe("ApeswapVaultAdapter Integration Test", function () {
   before("Deploy contract", async function () {
     const [owner, alice, bob, tom] = await ethers.getSigners();
 
