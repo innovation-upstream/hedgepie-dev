@@ -3,18 +3,24 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface IStrategy {
-    function pendingCake(uint256 _pid, address _user)
+interface IMasterChef {
+    function pendingAlpaca(uint256 pid, address user)
         external
         view
         returns (uint256);
+
+    function userInfo(uint256 pid, address user)
+        external
+        view
+        returns (uint256, uint256);
 }
 
-contract ApeswapFarmLPAdapter is Ownable {
-    uint256 pid;
+contract AlpacaStakeAdapter is Ownable {
+    uint256 public pid;
     address public stakingToken;
     address public rewardToken;
     address public repayToken;
+    address public wrapToken;
     address public strategy;
     address public vStrategy;
     address public router;
@@ -34,9 +40,11 @@ contract ApeswapFarmLPAdapter is Ownable {
 
     /**
      * @notice Construct
+     * @param _pid  number of pID
      * @param _strategy  address of strategy
      * @param _stakingToken  address of staking token
      * @param _rewardToken  address of reward token
+     * @param _wrapToken  address of wrap token
      * @param _name  adatper name
      */
     constructor(
@@ -44,14 +52,14 @@ contract ApeswapFarmLPAdapter is Ownable {
         address _strategy,
         address _stakingToken,
         address _rewardToken,
-        address _router,
+        address _wrapToken,
         string memory _name
     ) {
-        pid = _pid;
         stakingToken = _stakingToken;
         rewardToken = _rewardToken;
         strategy = _strategy;
-        router = _router;
+        wrapToken = _wrapToken;
+        pid = _pid;
         name = _name;
     }
 
@@ -84,7 +92,8 @@ contract ApeswapFarmLPAdapter is Ownable {
         to = strategy;
         value = 0;
         data = abi.encodeWithSignature(
-            "deposit(uint256,uint256)",
+            "deposit(address,uint256,uint256)",
+            investor,
             pid,
             _amount
         );
@@ -106,7 +115,8 @@ contract ApeswapFarmLPAdapter is Ownable {
         to = strategy;
         value = 0;
         data = abi.encodeWithSignature(
-            "withdraw(uint256,uint256)",
+            "withdraw(address,uint256,uint256)",
+            investor,
             pid,
             _amount
         );
@@ -147,6 +157,20 @@ contract ApeswapFarmLPAdapter is Ownable {
     function setInvestor(address _investor) external onlyOwner {
         require(_investor != address(0), "Error: Investor zero address");
         investor = _investor;
+    }
+
+    /**
+     * @notice Get pending AUTO token reward
+     */
+    function pendingReward() external view returns (uint256 reward) {
+        reward = IMasterChef(strategy).pendingAlpaca(pid, msg.sender);
+    }
+
+    /**
+     * @notice Get pending shares
+     */
+    function pendingShares() external view returns (uint256 shares) {
+        (shares, ) = IMasterChef(strategy).userInfo(pid, msg.sender);
     }
 
     /**
@@ -211,13 +235,5 @@ contract ApeswapFarmLPAdapter is Ownable {
                 i < paths[_inToken][_outToken].length - _paths.length;
                 i++
             ) paths[_inToken][_outToken].pop();
-    }
-
-    /**
-     * @notice Get pending reward
-     * @param _user  address of investor
-     */
-    function getReward(address _user) external view returns (uint256) {
-        return IStrategy(strategy).pendingCake(pid, _user);
     }
 }

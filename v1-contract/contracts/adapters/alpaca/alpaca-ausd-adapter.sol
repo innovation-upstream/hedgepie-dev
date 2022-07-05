@@ -3,18 +3,11 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-interface IStrategy {
-    function pendingCake(uint256 _pid, address _user)
-        external
-        view
-        returns (uint256);
-}
-
-contract ApeswapFarmLPAdapter is Ownable {
-    uint256 pid;
+contract AlpacaAUSDAdapter is Ownable {
     address public stakingToken;
     address public rewardToken;
     address public repayToken;
+    address public wrapToken;
     address public strategy;
     address public vStrategy;
     address public router;
@@ -37,21 +30,20 @@ contract ApeswapFarmLPAdapter is Ownable {
      * @param _strategy  address of strategy
      * @param _stakingToken  address of staking token
      * @param _rewardToken  address of reward token
+     * @param _repayToken  address of reward token
      * @param _name  adatper name
      */
     constructor(
-        uint256 _pid,
         address _strategy,
         address _stakingToken,
         address _rewardToken,
-        address _router,
+        address _repayToken,
         string memory _name
     ) {
-        pid = _pid;
         stakingToken = _stakingToken;
         rewardToken = _rewardToken;
+        repayToken = _repayToken;
         strategy = _strategy;
-        router = _router;
         name = _name;
     }
 
@@ -84,8 +76,7 @@ contract ApeswapFarmLPAdapter is Ownable {
         to = strategy;
         value = 0;
         data = abi.encodeWithSignature(
-            "deposit(uint256,uint256)",
-            pid,
+            "deposit(uint256)",
             _amount
         );
     }
@@ -106,8 +97,7 @@ contract ApeswapFarmLPAdapter is Ownable {
         to = strategy;
         value = 0;
         data = abi.encodeWithSignature(
-            "withdraw(uint256,uint256)",
-            pid,
+            "withdraw(uint256)",
             _amount
         );
     }
@@ -211,13 +201,5 @@ contract ApeswapFarmLPAdapter is Ownable {
                 i < paths[_inToken][_outToken].length - _paths.length;
                 i++
             ) paths[_inToken][_outToken].pop();
-    }
-
-    /**
-     * @notice Get pending reward
-     * @param _user  address of investor
-     */
-    function getReward(address _user) external view returns (uint256) {
-        return IStrategy(strategy).pendingCake(pid, _user);
     }
 }

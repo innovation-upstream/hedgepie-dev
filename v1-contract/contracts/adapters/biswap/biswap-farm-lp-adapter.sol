@@ -4,13 +4,13 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 interface IStrategy {
-    function pendingCake(uint256 _pid, address _user)
+    function pendingBSW(uint256 _pid, address _user)
         external
         view
         returns (uint256);
 }
 
-contract ApeswapFarmLPAdapter is Ownable {
+contract BiSwapFarmLPAdapter is Ownable {
     uint256 pid;
     address public stakingToken;
     address public rewardToken;
@@ -83,11 +83,14 @@ contract ApeswapFarmLPAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature(
-            "deposit(uint256,uint256)",
-            pid,
-            _amount
-        );
+        if (pid == 0)
+            data = abi.encodeWithSignature("enterStaking(uint256)", _amount);
+        else
+            data = abi.encodeWithSignature(
+                "deposit(uint256,uint256)",
+                pid,
+                _amount
+            );
     }
 
     /**
@@ -105,11 +108,14 @@ contract ApeswapFarmLPAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature(
-            "withdraw(uint256,uint256)",
-            pid,
-            _amount
-        );
+        if (pid == 0)
+            data = abi.encodeWithSignature("leaveStaking(uint256)", _amount);
+        else
+            data = abi.encodeWithSignature(
+                "withdraw(uint256,uint256)",
+                pid,
+                _amount
+            );
     }
 
     /**
@@ -218,6 +224,6 @@ contract ApeswapFarmLPAdapter is Ownable {
      * @param _user  address of investor
      */
     function getReward(address _user) external view returns (uint256) {
-        return IStrategy(strategy).pendingCake(pid, _user);
+        return IStrategy(strategy).pendingBSW(pid, _user);
     }
 }

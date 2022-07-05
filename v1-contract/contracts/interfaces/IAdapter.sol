@@ -1,6 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 pragma solidity ^0.8.4;
 
+interface IWrap {
+    function deposit(uint256 amount) external;
+
+    function withdraw(uint256 share) external;
+}
+
 interface IAdapter {
     function getPaths(address _inToken, address _outToken)
         external
@@ -24,6 +30,8 @@ interface IAdapter {
     function repayToken() external view returns (address);
 
     function rewardToken() external view returns (address);
+
+    function wrapToken() external view returns (address);
 
     function router() external view returns (address);
 
