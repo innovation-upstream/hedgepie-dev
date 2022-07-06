@@ -15,7 +15,8 @@ interface IPancakeRouter {
         uint256 deadline
     ) external returns (uint256[] memory amounts);
 
-    function swapExactETHForTokensSupportingFeeOnTransferTokens(
+    // function swapExactETHForTokensSupportingFeeOnTransferTokens(
+    function swapExactETHForTokens(
         uint256 amountOutMin,
         address[] calldata path,
         address to,
@@ -86,4 +87,9 @@ interface IPancakeRouter {
         external
         view
         returns (uint256[] memory amounts);
+
+    function add_liquidity(
+        uint256[4] memory uamounts,
+        uint256 min_mint_amount
+    ) external;
 }

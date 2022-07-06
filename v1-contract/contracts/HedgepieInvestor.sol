@@ -240,13 +240,32 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
                     }
                 }
             } else {
-                // get lp
-                amountOut = _getLPBNB(
-                    adapter.addr,
-                    amountIn,
-                    adapter.token,
-                    routerAddr
-                );
+                address wrapToken = IAdapter(adapter.addr).wrapToken();
+                if(wrapToken == address(0)) {
+                    // get lp
+                    amountOut = _getLPBNB(
+                        adapter.addr,
+                        amountIn,
+                        adapter.token,
+                        routerAddr
+                    );
+                } else {
+                    // get wrapToken(stablecoin) first
+                    amountOut = _swapOnRouterBNB(
+                        adapter.addr,
+                        amountIn,
+                        wrapToken,
+                        swapRouter
+                    );
+
+                    amountOut = _addLiquidity(
+                        adapter.addr,
+                        amountOut,
+                        wrapToken,
+                        adapter.token,
+                        routerAddr
+                    );
+                }
             }
 
             // deposit to adapter
@@ -700,7 +719,8 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         address[] memory path = _getPaths(_adapter, wbnb, _outToken);
         uint256 beforeBalance = IBEP20(_outToken).balanceOf(address(this));
         IPancakeRouter(_router)
-            .swapExactETHForTokensSupportingFeeOnTransferTokens{
+            // .swapExactETHForTokensSupportingFeeOnTransferTokens{
+            .swapExactETHForTokens{
             value: _amountIn
         }(0, path, address(this), block.timestamp + 2 hours);
 
@@ -737,6 +757,32 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
 
         uint256 afterBalance = address(this).balance;
         amountOut = afterBalance - beforeBalance;
+    }
+
+    /**
+     * @notice GET LP by add_liquidity
+     * @param _adapter  address of adapter
+     * @param _amountIn  amount of inToken
+     * @param _inToken  address of inToken
+     * @param _lpToken  address of lpToken
+     * @param _router  address of router
+     */
+    function _addLiquidity(
+        address _adapter,
+        uint256 _amountIn,
+        address _inToken,
+        address _lpToken,
+        address _router
+    ) internal returns(uint256 amountOut) {
+        uint256[4] memory uamounts = IAdapter(_adapter).getAmounts(_amountIn);
+        amountOut = IBEP20(_lpToken).balanceOf(address(this));
+
+        IBEP20(_inToken).approve(_router, _amountIn);
+        IPancakeRouter(_router).add_liquidity(uamounts, 0);
+
+        unchecked {
+            amountOut = IBEP20(_lpToken).balanceOf(address(this)) - amountOut;
+        }
     }
 
     /**
@@ -959,7 +1005,7 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         uint256 _tokenId,
         address _account,
         address _adapterAddr
-    ) internal returns (uint256) {
+    ) internal view returns (uint256) {
         AdapterInfo memory adapter = adapterInfos[_tokenId][_adapterAddr];
         UserAdapterInfo memory userAdapterInfo = userAdapterInfos[_account][
             _tokenId

@@ -78,4 +78,6 @@ interface IAdapter {
     ) external;
 
     function setInvestor(address _investor) external;
+
+    function getAmounts(uint256) external view returns(uint256[4] memory);
 }

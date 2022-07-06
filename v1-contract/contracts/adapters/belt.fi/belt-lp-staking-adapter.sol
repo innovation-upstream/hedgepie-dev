@@ -11,8 +11,14 @@ contract BeltLPStakeAdapter is Ownable {
     address public strategy;
     address public vStrategy;
     address public wrapToken;
+    address public router;
     string public name;
     address public investor;
+
+    address private constant USDT = 0x55d398326f99059fF775485246999027B3197955;
+    address private constant USDC = 0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d;
+    address private constant DAI = 0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3;
+    address private constant BUSD = 0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56;
 
     // inToken => outToken => paths
     mapping(address => mapping(address => address[])) public paths;
@@ -27,10 +33,12 @@ contract BeltLPStakeAdapter is Ownable {
 
     /**
      * @notice Construct
-     * @param _strategy  number of pid
+     * @param _pid  number of pid
      * @param _strategy  address of strategy
      * @param _stakingToken  address of staking token
      * @param _rewardToken  address of reward token
+     * @param _wrapToken  address of wrap token(stablecoin)
+     * @param _router  address of router
      * @param _name  adatper name
      */
     constructor(
@@ -38,11 +46,15 @@ contract BeltLPStakeAdapter is Ownable {
         address _strategy,
         address _stakingToken,
         address _rewardToken,
+        address _wrapToken,
+        address _router,
         string memory _name
     ) {
         stakingToken = _stakingToken;
         rewardToken = _rewardToken;
         strategy = _strategy;
+        wrapToken = _wrapToken;
+        router = _router;
         pid = _pid;
         name = _name;
     }
@@ -93,7 +105,7 @@ contract BeltLPStakeAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("withdraw(uint256)", _amount);
+        data = abi.encodeWithSignature("withdraw(uint256,uint256)", pid, _amount);
     }
 
     /**
@@ -181,5 +193,12 @@ contract BeltLPStakeAdapter is Ownable {
                 i < paths[_inToken][_outToken].length - _paths.length;
                 i++
             ) paths[_inToken][_outToken].pop();
+    }
+
+    function getAmounts(uint256 _amount) external view returns(uint256[4] memory uamounts) {
+        uamounts[0] = wrapToken == DAI ? _amount : 0; // DAI
+        uamounts[1] = wrapToken == USDC ? _amount : 0; // USDC
+        uamounts[2] = wrapToken == USDT ? _amount : 0; // USDT
+        uamounts[3] = wrapToken == BUSD ? _amount : 0; // BUSD
     }
 }

@@ -11,6 +11,7 @@ contract BeltSingleStakeAdapter is Ownable {
     address public strategy;
     address public vStrategy;
     address public wrapToken;
+    address public router;
     string public name;
     address public investor;
 
@@ -27,7 +28,7 @@ contract BeltSingleStakeAdapter is Ownable {
 
     /**
      * @notice Construct
-     * @param _strategy  number of pid
+     * @param _pid  number of pid
      * @param _strategy  address of strategy
      * @param _stakingToken  address of staking token
      * @param _rewardToken  address of reward token
@@ -93,7 +94,7 @@ contract BeltSingleStakeAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("withdraw(uint256)", _amount);
+        data = abi.encodeWithSignature("withdraw(uint256,uint256)", pid, _amount);
     }
 
     /**

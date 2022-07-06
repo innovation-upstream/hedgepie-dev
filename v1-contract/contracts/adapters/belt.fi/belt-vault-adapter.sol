@@ -3,16 +3,18 @@ pragma solidity ^0.8.4;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract BeltLPStakeAdapter is Ownable {
-    uint256 public pid;
+contract BeltVaultAdapter is Ownable {
     address public stakingToken;
     address public rewardToken;
     address public repayToken;
     address public strategy;
     address public vStrategy;
     address public wrapToken;
+    address public router;
     string public name;
     address public investor;
+
+    address public constant WBNB = 0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c;
 
     // inToken => outToken => paths
     mapping(address => mapping(address => address[])) public paths;
@@ -34,7 +36,6 @@ contract BeltLPStakeAdapter is Ownable {
      * @param _name  adatper name
      */
     constructor(
-        uint256 _pid,
         address _strategy,
         address _stakingToken,
         address _rewardToken,
@@ -43,7 +44,6 @@ contract BeltLPStakeAdapter is Ownable {
         stakingToken = _stakingToken;
         rewardToken = _rewardToken;
         strategy = _strategy;
-        pid = _pid;
         name = _name;
     }
 
@@ -75,7 +75,7 @@ contract BeltLPStakeAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("deposit(uint256,uint256)", pid, _amount);
+        data = abi.encodeWithSignature("deposit(uint256)", _amount);
     }
 
     /**
