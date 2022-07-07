@@ -210,9 +210,14 @@ contract BeltLPStakeAdapter is Ownable {
     }
 
     function getAmounts(uint256 _amount) external view returns(uint256[4] memory uamounts) {
-        uamounts[0] = wrapToken == DAI ? _amount : 0; // DAI
-        uamounts[1] = wrapToken == USDC ? _amount : 0; // USDC
-        uamounts[2] = wrapToken == USDT ? _amount : 0; // USDT
-        uamounts[3] = wrapToken == BUSD ? _amount : 0; // BUSD
+        if(wrapToken == DAI) {
+            uamounts[0] = _amount;
+        } else if(wrapToken ==  USDC) {
+            uamounts[1] = _amount;
+        } else if(wrapToken ==  USDT) {
+            uamounts[2] = _amount;
+        } else if(wrapToken ==  BUSD) {
+            uamounts[3] = _amount;    
+        }
     }
 }

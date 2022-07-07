@@ -180,6 +180,14 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         emit Deposit(_user, ybnft, _tokenId, _amount);
     }
 
+    function getInfo(uint _tokenId) external view returns(address) {
+        IYBNFT.Adapter[] memory adapterInfo = IYBNFT(ybnft).getAdapterInfo(
+            _tokenId
+        );
+
+        return IAdapter(adapterInfo[0].addr).router();
+    }
+
     /**
      * @notice Deposit with BNB
      * @param _user  user address
@@ -269,7 +277,7 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
             }
 
             // deposit to adapter
-            _depositToAdapter(adapter.token, adapter.addr, _tokenId, amountOut);
+            // _depositToAdapter(adapter.token, adapter.addr, _tokenId, amountOut);
 
             userAdapterInfos[_user][_tokenId][adapter.addr].amount += amountOut;
             adapterInfos[_tokenId][adapter.addr].totalStaked += amountOut;
@@ -719,8 +727,7 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         address[] memory path = _getPaths(_adapter, wbnb, _outToken);
         uint256 beforeBalance = IBEP20(_outToken).balanceOf(address(this));
         IPancakeRouter(_router)
-            // .swapExactETHForTokensSupportingFeeOnTransferTokens{
-            .swapExactETHForTokens{
+            .swapExactETHForTokensSupportingFeeOnTransferTokens{
             value: _amountIn
         }(0, path, address(this), block.timestamp + 2 hours);
 

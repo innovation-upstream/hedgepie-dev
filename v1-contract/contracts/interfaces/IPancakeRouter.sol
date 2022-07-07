@@ -15,8 +15,7 @@ interface IPancakeRouter {
         uint256 deadline
     ) external returns (uint256[] memory amounts);
 
-    // function swapExactETHForTokensSupportingFeeOnTransferTokens(
-    function swapExactETHForTokens(
+    function swapExactETHForTokensSupportingFeeOnTransferTokens(
         uint256 amountOutMin,
         address[] calldata path,
         address to,
