@@ -29,20 +29,22 @@ contract BeltVaultAdapter is Ownable {
 
     /**
      * @notice Construct
-     * @param _strategy  number of pid
      * @param _strategy  address of strategy
      * @param _stakingToken  address of staking token
      * @param _rewardToken  address of reward token
+     * @param _repayToken  address of reward token
      * @param _name  adatper name
      */
     constructor(
         address _strategy,
         address _stakingToken,
         address _rewardToken,
+        address _repayToken,
         string memory _name
     ) {
         stakingToken = _stakingToken;
         rewardToken = _rewardToken;
+        repayToken = _repayToken;
         strategy = _strategy;
         name = _name;
     }
@@ -74,8 +76,10 @@ contract BeltVaultAdapter is Ownable {
         )
     {
         to = strategy;
-        value = 0;
-        data = abi.encodeWithSignature("deposit(uint256)", _amount);
+        value = stakingToken == WBNB ? _amount : 0;
+        data = stakingToken == WBNB ? 
+            abi.encodeWithSignature("depositBNB(uint256)", 0) :
+            abi.encodeWithSignature("deposit(uint256,uint256)", _amount, 0);
     }
 
     /**
@@ -93,7 +97,9 @@ contract BeltVaultAdapter is Ownable {
     {
         to = strategy;
         value = 0;
-        data = abi.encodeWithSignature("withdraw(uint256)", _amount);
+        data = stakingToken == WBNB ?
+            abi.encodeWithSignature("withdrawBNB(uint256,uint256)", _amount, 0) :
+            abi.encodeWithSignature("withdraw(uint256,uint256)", _amount, 0);
     }
 
     /**
@@ -108,6 +114,20 @@ contract BeltVaultAdapter is Ownable {
         uint256 _amount
     ) external onlyInvestor {
         withdrawalAmount[_user][_nftId] += _amount;
+    }
+
+    /**
+     * @notice Set withdrwal amount
+     * @param _user  user address
+     * @param _nftId  nftId
+     * @param _amount  amount of withdrawal
+     */
+    function setWithdrawalAmount(
+        address _user,
+        uint256 _nftId,
+        uint256 _amount
+    ) external onlyInvestor {
+        withdrawalAmount[_user][_nftId] = _amount;
     }
 
     /**

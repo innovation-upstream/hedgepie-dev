@@ -112,6 +112,20 @@ contract BeltSingleStakeAdapter is Ownable {
     }
 
     /**
+     * @notice Set withdrwal amount
+     * @param _user  user address
+     * @param _nftId  nftId
+     * @param _amount  amount of withdrawal
+     */
+    function setWithdrawalAmount(
+        address _user,
+        uint256 _nftId,
+        uint256 _amount
+    ) external onlyInvestor {
+        withdrawalAmount[_user][_nftId] = _amount;
+    }
+
+    /**
      * @notice Set investor
      * @param _investor  address of investor
      */
