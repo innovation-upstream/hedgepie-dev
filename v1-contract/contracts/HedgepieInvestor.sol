@@ -180,14 +180,6 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         emit Deposit(_user, ybnft, _tokenId, _amount);
     }
 
-    function getInfo(uint _tokenId) external view returns(address) {
-        IYBNFT.Adapter[] memory adapterInfo = IYBNFT(ybnft).getAdapterInfo(
-            _tokenId
-        );
-
-        return IAdapter(adapterInfo[0].addr).router();
-    }
-
     /**
      * @notice Deposit with BNB
      * @param _user  user address
@@ -379,7 +371,8 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
             );
 
             balances[1] = adapter.token == wbnb ? address(this).balance : IBEP20(adapter.token).balanceOf(address(this));
-            if (IAdapter(adapter.addr).router() == address(0)) {
+            address routerAddr = IAdapter(adapter.addr).router();
+            if (routerAddr == address(0)) {
                 if(adapter.token == wbnb) {
                     unchecked { amountOut = balances[1] - balances[0]; }
                 } else {
@@ -448,12 +441,22 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
                     userAdapter.userShares = 0;
                 }
 
-                amountOut += _withdrawLPBNB(
-                    adapter.addr,
-                    balances[1] - balances[0] - taxAmount,
-                    adapter.token,
-                    IAdapter(adapter.addr).router()
-                );
+                address wrapToken = IAdapter(adapter.addr).wrapToken();
+                if(wrapToken == address(0)) {
+                    amountOut += _withdrawLPBNB(
+                        adapter.addr,
+                        balances[1] - balances[0] - taxAmount,
+                        adapter.token,
+                        IAdapter(adapter.addr).router()
+                    );
+                } else {
+                    amountOut += _removeLiquidity(
+                        adapter.addr,
+                        balances[1] - balances[0] - taxAmount,
+                        adapter.token,
+                        routerAddr
+                    );
+                }
 
                 if (IAdapter(adapter.addr).rewardToken() != address(0)) {
                     // Convert rewards to BNB
@@ -785,11 +788,22 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         amountOut = IBEP20(_lpToken).balanceOf(address(this));
 
         IBEP20(_inToken).approve(_router, _amountIn);
-        IPancakeRouter(_router).add_liquidity(uamounts, 0);
+        IBeltRouter(_router).add_liquidity(uamounts, 0);
 
         unchecked {
             amountOut = IBEP20(_lpToken).balanceOf(address(this)) - amountOut;
         }
+    }
+
+    function _removeLiquidity(
+        address _adapter,
+        uint256 _amountIn,
+        address _pairToken,
+        address _router
+    ) internal returns(uint256 amountOut) {
+        uint256[4] memory uamounts = new uint256[](4);
+
+        IBeltRouter(_router).remove_liquidity(_amountIn, uamounts);
     }
 
     /**
