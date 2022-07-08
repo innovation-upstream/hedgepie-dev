@@ -240,13 +240,32 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
                     }
                 }
             } else {
-                // get lp
-                amountOut = _getLPBNB(
-                    adapter.addr,
-                    amountIn,
-                    adapter.token,
-                    routerAddr
-                );
+                address wrapToken = IAdapter(adapter.addr).wrapToken();
+                if(wrapToken == address(0)) {
+                    // get lp
+                    amountOut = _getLPBNB(
+                        adapter.addr,
+                        amountIn,
+                        adapter.token,
+                        routerAddr
+                    );
+                } else {
+                    // get wrapToken(stablecoin) first
+                    amountOut = _swapOnRouterBNB(
+                        adapter.addr,
+                        amountIn,
+                        wrapToken,
+                        swapRouter
+                    );
+
+                    amountOut = _addLiquidity(
+                        adapter.addr,
+                        amountOut,
+                        wrapToken,
+                        adapter.token,
+                        routerAddr
+                    );
+                }
             }
 
             // deposit to adapter
@@ -421,12 +440,22 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
                     userAdapter.userShares = 0;
                 }
 
-                amountOut += _withdrawLPBNB(
-                    adapter.addr,
-                    balances[1] - balances[0] - taxAmount,
-                    adapter.token,
-                    IAdapter(adapter.addr).router()
-                );
+                // address wrapToken = IAdapter(adapter.addr).wrapToken();
+                // if(wrapToken == address(0)) {
+                    amountOut += _withdrawLPBNB(
+                        adapter.addr,
+                        balances[1] - balances[0] - taxAmount,
+                        adapter.token,
+                        IAdapter(adapter.addr).router()
+                    );
+                // } else {
+                    // amountOut += _removeLiquidity(
+                    //     adapter.addr,
+                    //     balances[1] - balances[0] - taxAmount,
+                    //     adapter.token,
+                    //     routerAddr
+                    // );
+                // }
 
                 if (IAdapter(adapter.addr).rewardToken() != address(0)) {
                     // Convert rewards to BNB
@@ -740,6 +769,43 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
     }
 
     /**
+     * @notice GET LP by add_liquidity
+     * @param _adapter  address of adapter
+     * @param _amountIn  amount of inToken
+     * @param _inToken  address of inToken
+     * @param _lpToken  address of lpToken
+     * @param _router  address of router
+     */
+    function _addLiquidity(
+        address _adapter,
+        uint256 _amountIn,
+        address _inToken,
+        address _lpToken,
+        address _router
+    ) internal returns(uint256 amountOut) {
+        uint256[4] memory uamounts = IAdapter(_adapter).getAmounts(_amountIn);
+        amountOut = IBEP20(_lpToken).balanceOf(address(this));
+
+        IBEP20(_inToken).approve(_router, _amountIn);
+        IBeltRouter(_router).add_liquidity(uamounts, 0);
+
+        unchecked {
+            amountOut = IBEP20(_lpToken).balanceOf(address(this)) - amountOut;
+        }
+    }
+
+    // function _removeLiquidity(
+    //     address _adapter,
+    //     uint256 _amountIn,
+    //     address _pairToken,
+    //     address _router
+    // ) internal returns(uint256 amountOut) {
+    //     uint256[4] memory uamounts = new uint256[](4);
+
+    //     IBeltRouter(_router).remove_liquidity(_amountIn, uamounts);
+    // }
+
+    /**
      * @notice GET pair LP from router
      * @param _adapter  address of adapter
      * @param _amountIn  amount of inToken
@@ -959,7 +1025,7 @@ contract HedgepieInvestor is Ownable, ReentrancyGuard {
         uint256 _tokenId,
         address _account,
         address _adapterAddr
-    ) internal returns (uint256) {
+    ) internal view returns (uint256) {
         AdapterInfo memory adapter = adapterInfos[_tokenId][_adapterAddr];
         UserAdapterInfo memory userAdapterInfo = userAdapterInfos[_account][
             _tokenId

@@ -87,3 +87,15 @@ interface IPancakeRouter {
         view
         returns (uint256[] memory amounts);
 }
+
+interface IBeltRouter {
+    function add_liquidity(
+        uint256[4] memory uamounts,
+        uint256 min_mint_amount
+    ) external;
+
+    function remove_liquidity(
+        uint256 _amount,
+        uint256[4] memory min_uamounts
+    ) external;
+}
