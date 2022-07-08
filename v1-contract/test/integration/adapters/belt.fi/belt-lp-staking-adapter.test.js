@@ -3,7 +3,7 @@ const { ethers } = require("hardhat");
 
 const BigNumber = ethers.BigNumber;
 
-describe("BeltLPStakingAdapter Integration Test", function () {
+describe.only("BeltLPStakingAdapter Integration Test", function () {
   before("Deploy contract", async function () {
     const [owner, alice, bob, tom] = await ethers.getSigners();
 
@@ -13,7 +13,8 @@ describe("BeltLPStakingAdapter Integration Test", function () {
     const stakingToken = "0x9cb73F20164e399958261c289Eb5F9846f4D1404" // Belt Token
     const swapRouter = "0x10ED43C718714eb63d5aA57B78B54704E256024E"; // pks rounter address
     const rewardToken = "0xE0e514c71282b6f4e823703a39374Cf58dc3eA4f" // Belt Token
-    const wrapToken = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"; // BUSD
+    const wrapToken = "0x55d398326f99059fF775485246999027B3197955"; // USDT
+    const busdToken = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56"; // BUSD
     const pairRouter = "0xF6e65B33370Ee6A49eB0dbCaA9f43839C1AC04d5"; // DepositB contract
 
     this.owner = owner;
@@ -57,8 +58,8 @@ describe("BeltLPStakingAdapter Integration Test", function () {
     // set investor
     await this.aAdapter.setInvestor(this.investor.address);
 
-    await this.aAdapter.setPath(wbnb, wrapToken, [wbnb, wrapToken]);
-    await this.aAdapter.setPath(wrapToken, wbnb, [wrapToken, wbnb]);
+    await this.aAdapter.setPath(wbnb, wrapToken, [wbnb, busdToken, wrapToken]);
+    await this.aAdapter.setPath(wrapToken, wbnb, [wrapToken, busdToken, wbnb]);
 
     // Mint NFTs
     // tokenID: 1
@@ -171,7 +172,7 @@ describe("BeltLPStakingAdapter Integration Test", function () {
 
         const aliceWithdrable = await this.aAdapter.getWithdrawalAmount(this.aliceAddr, 1);
         expect(BigNumber.from(aliceWithdrable)).to.eq(BigNumber.from(aliceAdapterInfos.amount));
-    }).timeout(100000000);
+    }).timeout(200000000);
 
     // it("(5) deposit should success for Bob", async function () {
     //   const aliceAdapterInfos = await this.investor.userAdapterInfos(this.aliceAddr, 1, this.aAdapter.address);
