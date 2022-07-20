@@ -67,7 +67,7 @@
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.2",
-    "hardhat": "^2.8.0",
+    "hardhat": "^2.10.1",
     "typechain": "^6.1.0"
   }
 }

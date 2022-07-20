@@ -106,6 +106,64 @@ contract HedgepieAdapterManager is Ownable {
         return IAdapter(_adapter).getDevestCallData(_amount);
     }
 
+    /**
+     * @notice Get EnterMarket call data of adapter contract
+     * @param _adapter  adapter address
+     */
+    function getEnterMarketCallData(address _adapter)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        return IAdapter(_adapter).getEnterMarketCallData();
+    }
+
+    /**
+     * @notice Get Loan call data of adapter contract
+     * @param _adapter  adapter address
+     * @param _amount  loan amount
+     */
+    function getLoanCallData(address _adapter, uint256 _amount)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        require(_amount > 0, "Amount can not be 0");
+        return IAdapter(_adapter).getLoanCallData(_amount);
+    }
+
+    /**
+     * @notice Get DeLoan call data of adapter contract
+     * @param _adapter  adapter address
+     * @param _amount  loan amount
+     */
+    function getDeLoanCallData(address _adapter, uint256 _amount)
+        external
+        view
+        onlyActiveAdapter(_adapter)
+        onlyInvestor
+        returns (
+            address to,
+            uint256 value,
+            bytes memory data
+        )
+    {
+        require(_amount > 0, "Amount can not be 0");
+        return IAdapter(_adapter).getDeLoanCallData(_amount);
+    }
+
     // ===== Owner functions =====
     /**
      * @notice Add adapter
